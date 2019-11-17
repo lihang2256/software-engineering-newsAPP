@@ -56,4 +56,12 @@ public class CategoryDataUtils {
 
         return beans;
     }
+
+    public static List<ProjectChannelBean> getComCategoryBeans(){
+        List<ProjectChannelBean> beans = new ArrayList<>();
+        beans.add(new ProjectChannelBean("所有","",""));
+        beans.add(new ProjectChannelBean("好友","",""));
+        beans.add(new ProjectChannelBean("我的","",""));
+        return beans;
+    }
 }
