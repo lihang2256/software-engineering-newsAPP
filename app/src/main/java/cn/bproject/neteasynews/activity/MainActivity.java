@@ -17,6 +17,7 @@ import cn.bproject.neteasynews.R;
 import cn.bproject.neteasynews.Utils.LogUtils;
 import cn.bproject.neteasynews.bean.BottomTab;
 import cn.bproject.neteasynews.fragment.AboutFragment;
+import cn.bproject.neteasynews.fragment.CommentFragment;
 import cn.bproject.neteasynews.fragment.NewsFragment;
 import cn.bproject.neteasynews.fragment.PhotoFragment;
 import cn.bproject.neteasynews.fragment.VideoFragment;
@@ -44,16 +45,19 @@ public class MainActivity extends AppCompatActivity {
         // 新闻标签
         BottomTab bottomTab_news = new BottomTab(NewsFragment.class,R.string.news_fragment,R.drawable.select_icon_news);
         // 图片标签
-        BottomTab bottomTab_photo = new BottomTab(PhotoFragment.class,R.string.photo_fragment,R.drawable.select_icon_photo);
+        //BottomTab bottomTab_photo = new BottomTab(PhotoFragment.class,R.string.photo_fragment,R.drawable.select_icon_photo);
         // 视频标签
         BottomTab bottomTab_video = new BottomTab(VideoFragment.class,R.string.video_fragment,R.drawable.select_icon_video);
+        // 评论标签
+        BottomTab bottomTab_comment = new BottomTab(CommentFragment.class,R.string.comment_fragment,R.drawable.select_icon_photo);
         // 我 标签
         BottomTab bottomTab_about = new BottomTab(AboutFragment.class,R.string.about_fragment,R.drawable.select_icon_about);
 
 
         mBottomTabs.add(bottomTab_news);
-        mBottomTabs.add(bottomTab_photo);
+        //mBottomTabs.add(bottomTab_photo);
         mBottomTabs.add(bottomTab_video);
+        mBottomTabs.add(bottomTab_comment);
         mBottomTabs.add(bottomTab_about);
 
 

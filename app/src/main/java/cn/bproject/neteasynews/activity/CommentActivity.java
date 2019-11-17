@@ -1,4 +1,4 @@
 package cn.bproject.neteasynews.activity;
 
-public class Comment {
+public class CommentActivity {
 }
