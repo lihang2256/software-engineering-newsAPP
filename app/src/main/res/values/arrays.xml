@@ -2,8 +2,8 @@
 <resources>
 
     <string-array name="array_about_type">
-        <item>项目主页</item>
-        <item>问题反馈</item>
+        <item>我的信息</item>
+        <item>好友</item>
         <item>设置</item>
         <item>关于App</item>
     </string-array>

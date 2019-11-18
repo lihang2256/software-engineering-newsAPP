@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.example.newsAPP">
+    package="com.example.newsAPP">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,33 +15,33 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
-        android:name="cn.example.newsAPP.MyApplication"
+        android:name="com.example.newsAPP.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/second_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="cn.example.newsAPP.activity.SplashActivity">
+        <activity android:name="com.example.newsAPP.activity.SplashActivity">
 
         </activity>
-        <activity android:name="cn.example.newsAPP.activity.MainActivity">
+        <activity android:name="com.example.newsAPP.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="cn.example.newsAPP.activity.NewsDetailActivity" />
+        <activity android:name="com.example.newsAPP.activity.NewsDetailActivity" />
         <activity
-            android:name="cn.example.newsAPP.activity.PicDetailActivity"
+            android:name="com.example.newsAPP.activity.PicDetailActivity"
             android:process=":vitamio" />
-        <activity android:name="cn.example.newsAPP.activity.VideoDetailActivity" />
-        <activity android:name="cn.example.newsAPP.activity.AboutActivity" />
-        <activity android:name="cn.example.newsAPP.activity.FeedbackActivity" />
-        <activity android:name="cn.example.newsAPP.webview.WebViewActivity" />
-        <activity android:name="cn.example.newsAPP.activity.PhotoActivity" />
-        <activity android:name="cn.example.newsAPP.activity.ChannelManagerActivity" />
-        <activity android:name="cn.example.newsAPP.activity.SettingActivity" />
+        <activity android:name="com.example.newsAPP.activity.VideoDetailActivity" />
+        <activity android:name="com.example.newsAPP.activity.AboutActivity" />
+        <activity android:name="com.example.newsAPP.activity.FeedbackActivity" />
+        <activity android:name="com.example.newsAPP.webview.WebViewActivity" />
+        <activity android:name="com.example.newsAPP.activity.PhotoActivity" />
+        <activity android:name="com.example.newsAPP.activity.ChannelManagerActivity" />
+        <activity android:name="com.example.newsAPP.activity.SettingActivity" />
 
     </application>
 

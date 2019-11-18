@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="cn.example.newsAPP.activity.MainActivity">
+    tools:context="com.example.newsAPP.activity.MainActivity">
 
 
     <FrameLayout
@@ -17,7 +17,7 @@
         android:background="@color/bg_color"
         />
 
-    <cn.example.newsAPP.widget.FragmentTabHost
+    <com.example.newsAPP.widget.FragmentTabHost
         android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -28,5 +28,5 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="0" />
-    </cn.example.newsAPP.widget.FragmentTabHost>
+    </com.example.newsAPP.widget.FragmentTabHost>
 </LinearLayout>

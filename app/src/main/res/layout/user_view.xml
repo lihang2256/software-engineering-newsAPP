@@ -10,7 +10,7 @@
         android:id="@+id/user_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/second_logo"/>
+        android:src="@mipmap/wink_icon"/>
     <TextView
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
