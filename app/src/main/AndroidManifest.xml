@@ -42,7 +42,7 @@
         <activity android:name="com.example.newsAPP.activity.PhotoActivity" />
         <activity android:name="com.example.newsAPP.activity.ChannelManagerActivity" />
         <activity android:name="com.example.newsAPP.activity.SettingActivity" />
-
+        <activity android:name="com.example.newsAPP.activity.FriendListActivity" />
     </application>
 
 </manifest>

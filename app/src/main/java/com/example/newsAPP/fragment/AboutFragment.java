@@ -18,7 +18,9 @@ import android.widget.Toast;
 import com.example.newsAPP.R;
 import com.example.newsAPP.activity.AboutActivity;
 import com.example.newsAPP.activity.FeedbackActivity;
+import com.example.newsAPP.activity.FriendListActivity;
 import com.example.newsAPP.activity.SettingActivity;
+
 
 /**
  * Created by Administrator on 2016/12/24.
@@ -37,9 +39,9 @@ public class AboutFragment extends BaseFragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_about, null);
         Toolbar myToolbar = initToolbar(mView, R.id.my_toolbar, R.id.toolbar_title, R.string.user_home);
-        //initView();
-        //bindData();
-        //initListener();
+        initView();
+        bindData();
+        initListener();
         return mView;
     }
 
@@ -79,18 +81,23 @@ public class AboutFragment extends BaseFragment{
                         Toast.makeText(getActivity(), "未实现登陆功能", Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
-                        // 进入项目主页
-//                String url = "https://github.com/liaozhoubei/NetEasyNews";
-//                WebViewActivity.loadUrl(getActivity(), url, "加载中...");
-                        uri = Uri.parse(getActivity().getResources().getString(R.string.project_url));
-                        intent = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(intent);
-                        break;
+ // 进入项目主页
+ //            String url = "https://github.com/liaozhoubei/NetEasyNews";
+//                       WebViewActivity.loadUrl(getActivity(), url, "加载中...");
+//                        uri = Uri.parse(getActivity().getResources().getString(R.string.project_url));
+//                        intent = new Intent(Intent.ACTION_VIEW, uri);
+//                        startActivity(intent);
+//                        break;
+
                     case 2:
-                        // 进入问题反馈
-                        intent = new Intent(getActivity(), FeedbackActivity.class);
-                        startActivity(intent);
-                        break;
+//                        // 进入问题反馈
+//                        intent = new Intent(getActivity(), FeedbackActivity.class);
+//                        startActivity(intent);
+//                        break;
+                    //进入好友列表
+                    intent = new Intent(getActivity(), FriendListActivity.class);
+                    startActivity(intent);
+                    break;
                     case 3:
                         // 设置
                         intent = new Intent(getActivity(), SettingActivity.class);

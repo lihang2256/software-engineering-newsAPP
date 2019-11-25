@@ -35,6 +35,7 @@ dependencies {
 //    compile 'com.wuxiaolong.pullloadmorerecyclerview:library:1.1.2'
     // 图片浏览缩放控件
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
+
     compile project(':library:InitActivity')
     compile project(':library:irecyclerview')
 
