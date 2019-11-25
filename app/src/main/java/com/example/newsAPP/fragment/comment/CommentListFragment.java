@@ -5,6 +5,9 @@ import android.view.View;
 
 import com.example.newsAPP.fragment.BaseFragment;
 
+/**
+ * Created by LiHang on 2019/11/17
+ */
 public class CommentListFragment extends BaseFragment {
 
     private String tid; // 图片频道id，用于打开新闻详情页

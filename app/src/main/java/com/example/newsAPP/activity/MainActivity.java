@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private void initTab() {
         // 新闻标签
         BottomTab bottomTab_news = new BottomTab(NewsFragment.class,R.string.news_fragment,R.drawable.select_icon_news);
-        // 图片标签
-        //BottomTab bottomTab_photo = new BottomTab(PhotoFragment.class,R.string.photo_fragment,R.drawable.select_icon_photo);
         // 视频标签
         BottomTab bottomTab_video = new BottomTab(VideoFragment.class,R.string.video_fragment,R.drawable.select_icon_video);
         // 评论标签
@@ -53,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         mBottomTabs.add(bottomTab_news);
-        //mBottomTabs.add(bottomTab_photo);
         mBottomTabs.add(bottomTab_video);
         mBottomTabs.add(bottomTab_comment);
         mBottomTabs.add(bottomTab_about);

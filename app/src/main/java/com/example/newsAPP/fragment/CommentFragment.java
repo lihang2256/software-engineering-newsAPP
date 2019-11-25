@@ -22,6 +22,9 @@ import com.example.newsAPP.fragment.comment.CommentListFragment;
 
 import static com.example.newsAPP.R.id.tab_layout;
 
+/**
+ * Created by LiHang on 2019/11/17
+ */
 public class CommentFragment extends BaseFragment {
 
     private final String TAG = CommentFragment.class.getSimpleName();

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextPaint;
@@ -17,6 +18,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +48,7 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
     private TextView details_title, details_name, details_time;
     private Context mContext;
     private WebView mWebView;
+    private Button comment;
     private ThreadManager.ThreadPool mThreadPool;   // 线程池
 
     private WebSettings mWebSettings;
@@ -76,6 +79,16 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
         initView();
         initValidata();
         initListener();
+        comment = (Button)findViewById(R.id.comment_button);
+        comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(NewsDetailActivity.this,CommentDialogActivity.class);
+                intent.putExtra("DOCID",mDocid);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -375,5 +388,4 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
             return super.shouldOverrideUrlLoading(view, url);
         }
     }
-
 }
