@@ -21,5 +21,24 @@
         <item>2</item>
         <item>3</item>
     </string-array>
-
+    <string-array name="my_contents">
+        <item>苏洵</item>
+        <item>苏辙</item>
+        <item>欧阳修</item>
+        <item>李白</item>
+        <item>杜甫</item>
+        <item>白居易</item>
+        <item>王松林</item>
+        <item>刘禹锡</item>
+        <item>苏轼</item>
+        <item>李清照</item>
+        <item>唐伯虎</item>
+        <item>柳宗元</item>
+        <item>李商隐</item>
+        <item>王勃</item>
+        <item>孟浩然</item>
+        <item>王之涣</item>
+        <item>王维</item>
+        <item>韩愈</item>
+    </string-array>
 </resources>
