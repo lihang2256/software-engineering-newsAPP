@@ -3,13 +3,46 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
+        <!--动态列表的头部信息-->
+
+        <TextView
+            android:id="@+id/item_comment_public_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:text="评论者"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+
+        <!--发布时间-->
+        <TextView
+            android:id="@+id/item_comment_publish_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:text="10分钟前"
+            android:textColor="@color/darkgray"
+            android:textSize="12sp"
+            />
+    </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_news_height"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:visibility="visible">
         <!--评论内容-->
@@ -19,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:textSize="15sp"
             android:maxLines="3"
             android:text="efgsdgadsfewgaresgeager"
             android:textColor="@color/black">

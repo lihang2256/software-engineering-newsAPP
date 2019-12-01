@@ -6,7 +6,7 @@
         android:id="@+id/comment_list_author"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:text="sadfsdafasdfas"
         android:textColor="@color/colorPrimary">
     </TextView>
@@ -14,7 +14,7 @@
         android:id="@+id/comment_list_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:text="sadfsdfsafsa">
     </TextView>
 </LinearLayout>

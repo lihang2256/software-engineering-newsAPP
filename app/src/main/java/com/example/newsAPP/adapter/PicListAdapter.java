@@ -29,7 +29,6 @@ public class PicListAdapter extends RecyclerView.Adapter<PicListAdapter.ViewHold
     public PicListAdapter(Context context, ArrayList<PicListBean> picListBeens) {
         mContext = context;
         mPicListBeens = picListBeens;
-
     }
 
     @Override

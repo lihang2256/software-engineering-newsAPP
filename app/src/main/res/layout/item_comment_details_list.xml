@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:text="作者">
     </TextView>
     <TextView
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:text="你好垃圾"
         >
     </TextView>
