@@ -13,7 +13,6 @@ import com.example.newsAPP.R;
 public class CommentDialogActivity extends AppCompatActivity {
 
     private EditText editText;
-    private ImageView icon;
     private Button commit;
     private static String TAG = "CommentDialogActivity";
 
@@ -21,22 +20,17 @@ public class CommentDialogActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_comment);
-        icon = (ImageView) findViewById(R.id.comment_commit_close_button);
         commit = (Button)findViewById(R.id.comment_commit_button);
         editText = (EditText)findViewById(R.id.comment_editText);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         String mDocid = intent.getStringExtra("DOCID");
         editText.setText(mDocid);
-        icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent1 = new Intent();
+                intent1.setClass(CommentDialogActivity.this,NewsDetailActivity.class);
+                startActivity(intent1);
             }
         });
     }

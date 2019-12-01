@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_news_height"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:visibility="visible">
+        <!--评论内容-->
+        <TextView
+            android:id="@+id/comment_show_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:maxLines="3"
+            android:text="efgsdgadsfewgaresgeager"
+            android:textColor="@color/black">
+        </TextView>
+        <!--新闻来源-->
+        <TextView
+            android:id="@+id/comment_news_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="hhah"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:visibility="visible">
+        </TextView>
+    </RelativeLayout>
+</LinearLayout>

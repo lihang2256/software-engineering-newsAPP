@@ -13,6 +13,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextPaint;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -48,7 +50,6 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
     private TextView details_title, details_name, details_time;
     private Context mContext;
     private WebView mWebView;
-    private Button comment;
     private ThreadManager.ThreadPool mThreadPool;   // 线程池
 
     private WebSettings mWebSettings;
@@ -79,19 +80,29 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
         initView();
         initValidata();
         initListener();
-        comment = (Button)findViewById(R.id.comment_button);
-        comment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.comment_pop_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_1:
                 Intent intent = new Intent();
                 intent.setClass(NewsDetailActivity.this,CommentDialogActivity.class);
                 intent.putExtra("DOCID",mDocid);
                 startActivity(intent);
-            }
-        });
+                break;
+            case R.id.menu_2:
+                Toast.makeText(this, "我是第二个", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
     }
-
-
 
     @Override
     public void initView() {

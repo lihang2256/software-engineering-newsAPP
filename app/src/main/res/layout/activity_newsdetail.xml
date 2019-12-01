@@ -11,7 +11,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--标题与作者信息-->
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -35,16 +34,6 @@
                 app:layout_anchorGravity="center"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-                <Button
-                    android:id="@+id/comment_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="right"
-                    android:background="@color/colorPrimary"
-                    android:text="评论"
-                    android:textSize="20dp" />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CoordinatorLayout>
 
@@ -100,6 +89,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:scrollbars="none"/>
+            <!--文章评论-->
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/news_comment_list">
+            </ListView>
         </LinearLayout>
 
         <com.example.newsAPP.widget.LoadingPage
