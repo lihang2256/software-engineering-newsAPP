@@ -92,7 +92,6 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.tv_about_star:
-
                 uri = Uri.parse("https://github.com/liaozhoubei/NetEasyNews");
                 intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);

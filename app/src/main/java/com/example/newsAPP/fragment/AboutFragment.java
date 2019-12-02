@@ -19,6 +19,7 @@ import com.example.newsAPP.R;
 import com.example.newsAPP.activity.AboutActivity;
 import com.example.newsAPP.activity.FeedbackActivity;
 import com.example.newsAPP.activity.FriendListActivity;
+import com.example.newsAPP.activity.LoginActivity;
 import com.example.newsAPP.activity.SettingActivity;
 
 
@@ -70,41 +71,38 @@ public class AboutFragment extends BaseFragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = null;
                 Uri uri;
-//                1.项目主页
-//                2.问题反馈
-//                3.设置
-//                4.关于App
+//                1.个人信息
+//                2.关注
+//                3.粉丝
+//                4.设置
+//                5.关于App
 
                 switch (position) {
                     case 0:
-                        // 用户界面
-                        Toast.makeText(getActivity(), "未实现登陆功能", Toast.LENGTH_SHORT).show();
+                        //用户界面
+                        intent = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(intent);
                         break;
                     case 1:
- // 进入项目主页
- //            String url = "https://github.com/liaozhoubei/NetEasyNews";
-//                       WebViewActivity.loadUrl(getActivity(), url, "加载中...");
-//                        uri = Uri.parse(getActivity().getResources().getString(R.string.project_url));
-//                        intent = new Intent(Intent.ACTION_VIEW, uri);
-//                        startActivity(intent);
-//                        break;
-
+                        //进入个人信息
+                        break;
                     case 2:
-//                        // 进入问题反馈
-//                        intent = new Intent(getActivity(), FeedbackActivity.class);
-//                        startActivity(intent);
-//                        break;
-                    //进入好友列表
-                    intent = new Intent(getActivity(), FriendListActivity.class);
-                    startActivity(intent);
-                    break;
+                        //进入关注
+                        intent = new Intent(getActivity(), FriendListActivity.class);
+                        startActivity(intent);
+                        break;
                     case 3:
-                        // 设置
-                        intent = new Intent(getActivity(), SettingActivity.class);
+                        //进入粉丝
+                        intent = new Intent(getActivity(), FriendListActivity.class);
                         startActivity(intent);
                         break;
                     case 4:
-                        // 进入关于App
+                        //设置
+                        intent = new Intent(getActivity(), SettingActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 5:
+                        //进入关于App
                         intent = new Intent(getActivity(), AboutActivity.class);
                         startActivity(intent);
                         break;
