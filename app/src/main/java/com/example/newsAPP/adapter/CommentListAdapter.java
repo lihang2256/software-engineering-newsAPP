@@ -1,7 +1,7 @@
 package com.example.newsAPP.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -9,8 +9,6 @@ import android.widget.TextView;
 import com.aspsine.irecyclerview.IViewHolder;
 import com.example.newsAPP.R;
 import com.example.newsAPP.bean.CommentBean;
-
-import org.w3c.dom.Comment;
 
 import java.util.ArrayList;
 

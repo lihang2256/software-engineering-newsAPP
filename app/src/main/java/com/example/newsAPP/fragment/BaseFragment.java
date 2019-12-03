@@ -1,8 +1,8 @@
 package com.example.newsAPP.fragment;
 
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -40,7 +40,7 @@ public abstract class BaseFragment extends Fragment implements DefineView {
         textView.setText(titleString);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
-        android.support.v7.app.ActionBar actionBar = activity.getSupportActionBar();
+        androidx.appcompat.app.ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setDisplayShowTitleEnabled(false);

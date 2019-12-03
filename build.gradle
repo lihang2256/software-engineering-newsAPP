@@ -3,9 +3,10 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:3.5.2'
         classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -18,6 +19,7 @@ allprojects {
         maven { url "https://jitpack.io" }
         maven { url 'https://maven.google.com' }
         maven { url 'http://plugins.gradle.org/m2/' }
+        google()
     }
     // gradle跳过测试任务，这会导致unitTest以及AndroidTest报错，如果要使用测试工具，则请注释此任务
 //    gradle.taskGraph.whenReady {
