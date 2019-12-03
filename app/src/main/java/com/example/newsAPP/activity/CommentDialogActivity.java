@@ -23,12 +23,13 @@ public class CommentDialogActivity extends AppCompatActivity {
         commit = (Button)findViewById(R.id.comment_commit_button);
         editText = (EditText)findViewById(R.id.comment_editText);
         final Intent intent = getIntent();
-        String mDocid = intent.getStringExtra("DOCID");
-        editText.setText(mDocid);
+        final String mDocid = intent.getStringExtra("DOCID");
         commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //add something
                 Intent intent1 = new Intent();
+                intent1.putExtra("DOCID",mDocid);
                 intent1.setClass(CommentDialogActivity.this,NewsDetailActivity.class);
                 startActivity(intent1);
             }

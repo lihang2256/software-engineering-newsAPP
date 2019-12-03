@@ -60,9 +60,9 @@ public class CategoryDataUtils {
 
     public static List<ProjectChannelBean> getComCategoryBeans(){
         List<ProjectChannelBean> beans = new ArrayList<>();
-        beans.add(new ProjectChannelBean("所有","",""));
-        beans.add(new ProjectChannelBean("好友","",""));
-        beans.add(new ProjectChannelBean("我的","",""));
+        beans.add(new ProjectChannelBean("所有","all","0"));
+        beans.add(new ProjectChannelBean("好友","friends","1"));
+        beans.add(new ProjectChannelBean("我的","mine","2"));
         return beans;
     }
 }
