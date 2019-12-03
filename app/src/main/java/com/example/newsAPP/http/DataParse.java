@@ -1,5 +1,7 @@
 package com.example.newsAPP.http;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -25,28 +27,35 @@ import static android.content.ContentValues.TAG;
 public class DataParse {
 
     // 新闻列表解析
-    public static ArrayList<NewsListNormalBean> NewsList(String json, String id) {
+    public static ArrayList<NewsListNormalBean.DataBean> NewsList(String json) {
         // Gson, JsonObject
         // 使用JsonObject解析方式: 如果遇到{},就是JsonObject;如果遇到[], 就是JsonArray
-        if (json != null) {
-            JSONObject jsonObject = null;
-            ArrayList<NewsListNormalBean> newsListNormalBeans = new ArrayList<>();
-            try {
-                jsonObject = new JSONObject(json);
-                JSONArray array = jsonObject.getJSONArray(id);
-                Gson gson = new Gson();
-                for (int i = 0; i < array.length(); i++) {
-                    String js = array.get(i).toString();
-                    NewsListNormalBean newsListNormalBean = gson.fromJson(js, NewsListNormalBean.class);
-                    newsListNormalBeans.add(newsListNormalBean);
-                }
-                return newsListNormalBeans;
-            } catch (JSONException e) {
-                e.printStackTrace();
-                LogUtils.d(TAG, "parseJson: 数据解析错误");
-            }
-        } else {
-            LogUtils.d(TAG, "parseData: 没有数据");
+//        if (json != null) {
+//            JSONObject jsonObject = null;
+//            ArrayList<NewsListNormalBean> newsListNormalBeans = new ArrayList<>();
+//            try {
+//                jsonObject = new JSONObject(json);
+//                JSONArray array = jsonObject.getJSONArray(id);
+//                Gson gson = new Gson();
+//                for (int i = 0; i < array.length(); i++) {
+//                    String js = array.get(i).toString();
+//                    NewsListNormalBean newsListNormalBean = gson.fromJson(js, NewsListNormalBean.class);
+//                    newsListNormalBeans.add(newsListNormalBean);
+//                }
+//                return newsListNormalBeans;
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//                LogUtils.d(TAG, "parseJson: 数据解析错误");
+//            }
+//        } else {
+//            LogUtils.d(TAG, "parseData: 没有数据");
+//        }
+        Gson gson = new Gson();
+        NewsListNormalBean newsListNormalBean = gson.fromJson(json, NewsListNormalBean.class);
+        if(newsListNormalBean.getStatus().equals("success")){
+            return (ArrayList<NewsListNormalBean.DataBean>) newsListNormalBean.getData();
+        }else{
+            Log.e(TAG, "NewsList: Request error");
         }
         return null;
     }
