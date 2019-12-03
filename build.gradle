@@ -19,6 +19,7 @@ allprojects {
         maven { url "https://jitpack.io" }
         maven { url 'https://maven.google.com' }
         maven { url 'http://plugins.gradle.org/m2/' }
+        google()
     }
     // gradle跳过测试任务，这会导致unitTest以及AndroidTest报错，如果要使用测试工具，则请注释此任务
 //    gradle.taskGraph.whenReady {
