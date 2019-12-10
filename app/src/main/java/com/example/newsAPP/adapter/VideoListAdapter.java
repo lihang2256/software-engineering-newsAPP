@@ -65,7 +65,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
         Glide.with(mContext)
                 .load(imageSrc)
                 .placeholder(R.drawable.defaultbg_h)
-                .crossFade()
+                //.crossFade()
                 .into(holder.iv_video);
 
     }

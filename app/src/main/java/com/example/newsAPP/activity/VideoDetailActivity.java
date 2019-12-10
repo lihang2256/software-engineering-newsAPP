@@ -17,16 +17,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.newsAPP.R;
-import com.example.newsAPP.Utils.LogUtils;
 import com.example.newsAPP.Utils.NetWorkUtil;
-import com.example.newsAPP.Utils.ThreadManager;
 import com.example.newsAPP.bean.VideoBean;
 import com.example.newsAPP.common.Api;
 import com.example.newsAPP.common.DefineView;
 import com.example.newsAPP.fragment.VideoFragment;
 import com.example.newsAPP.http.DataParse;
 import com.example.newsAPP.http.HttpCallbackListener;
-import com.example.newsAPP.http.HttpHelper;
 import com.example.newsAPP.widget.LoadingPage;
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
@@ -50,8 +47,6 @@ public class VideoDetailActivity extends BaseActivity implements DefineView {
     private TextView percentTv;
     private TextView netSpeedTv;
     private VideoView mVideoView;
-
-    private ThreadManager.ThreadPool mThreadPool;   // 线程池
     private VideoBean mVideoBean;
     private String mMp4_url;
     private RelativeLayout mRl_video;
@@ -111,15 +106,15 @@ public class VideoDetailActivity extends BaseActivity implements DefineView {
     @Override
     public void initValidata() {
         // 创建线程池
-        mThreadPool = ThreadManager.getThreadPool();
-        if (NetWorkUtil.isWifiConnected(this)) {
-            isShowVideo = true;
-            showLoadingPage();
-//            requestData();
-            showVideoPage();
-        } else {
-            showVideoDialog();
-        }
+//        mThreadPool = ThreadManager.getThreadPool();
+//        if (NetWorkUtil.isWifiConnected(this)) {
+//            isShowVideo = true;
+//            showLoadingPage();
+////            requestData();
+//            showVideoPage();
+//        } else {
+//            showVideoDialog();
+//        }
     }
 
     /**
@@ -150,36 +145,35 @@ public class VideoDetailActivity extends BaseActivity implements DefineView {
     }
 
     public void requestData() {
-        mThreadPool.execute(new Runnable() {
-            @Override
-            public void run() {
-////                http://c.m.163.com/nc/video/detail/VC8TVUN5N.html
-                String url = Api.videoDetailUrl + vid + Api.EndUrlVideoDetailUrl;
-                Log.i(TAG, "run: video url = " + url);
-                HttpHelper.get(url, new HttpCallbackListener() {
-                    @Override
-                    public void onSuccess(String result) {
-                        mVideoBean = DataParse.VideoDetail(result);
-                        String cover_url = mVideoBean.getCover();
-                        mMp4_url = mVideoBean.getMp4_url();
-                        LogUtils.d(TAG, "requestData: 视频地址为：" + mMp4_url);
-                        showVideoPage();
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                showErroPage();
-                            }
-                        });
-                    }
-                });
-
-
-            }
-        });
+//        mThreadPool.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//////                http://c.m.163.com/nc/video/detail/VC8TVUN5N.html
+//                String url = Api.videoDetailUrl + vid + Api.EndUrlVideoDetailUrl;
+//                Log.i(TAG, "run: video url = " + url);
+//                HttpHelper.get(url, new HttpCallbackListener() {
+//                    @Override
+//                    public void onSuccess(String result) {
+//                        mVideoBean = DataParse.VideoDetail(result);
+//                        String cover_url = mVideoBean.getCover();
+//                        mMp4_url = mVideoBean.getMp4_url();
+//                        LogUtils.d(TAG, "requestData: 视频地址为：" + mMp4_url);
+//                        showVideoPage();
+//                    }
+//
+//                    @Override
+//                    public void onError(Exception e) {
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                showErroPage();
+//                            }
+//                        });
+//                    }
+//                });
+//
+//            }
+//        });
     }
 
     /**

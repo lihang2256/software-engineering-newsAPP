@@ -46,7 +46,7 @@ public class CommentFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toolbar myToolbar = initToolbar(mView, R.id.my_toolbar, R.id.toolbar_title, R.string.comment_name);
+        Toolbar myToolbar = initToolbar(mView, R.id.my_toolbar, R.id.toolbar_title, R.string.comment_home);
         initView();
     }
 
@@ -65,8 +65,9 @@ public class CommentFragment extends BaseFragment {
 
         fragments = new ArrayList<BaseFragment>();
         for (int i = 0;i<channelBeanList.size();i++){
+            String str = "";
             ProjectChannelBean channelBean = channelBeanList.get(i);
-            BaseFragment fragment = CommentListFragment.newInstance(channelBean.getTid(), channelBean.getColumn());
+            BaseFragment fragment = CommentListFragment.newInstance(channelBean.getTname(), str);
             fragments.add(fragment);
             fixedPagerAdapter.setChannelBean(channelBeanList);
             fixedPagerAdapter.setFragments(fragments);

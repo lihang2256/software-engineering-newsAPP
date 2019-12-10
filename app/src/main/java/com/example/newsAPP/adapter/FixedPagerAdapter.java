@@ -41,7 +41,6 @@ public class FixedPagerAdapter extends FragmentStatePagerAdapter {
         return fragments.get(position);
     }
 
-
     @Override
     public int getCount() {
         return fragments.size();
@@ -102,6 +101,4 @@ public class FixedPagerAdapter extends FragmentStatePagerAdapter {
     public int getItemPosition(Object object) {
         return POSITION_NONE;
     }
-
-
 }

@@ -10,9 +10,4 @@ public interface DefineView {
    public void initListener();  //初始化监听器
    public void bindData();       //绑定数据
    
-//   public void getPageData();// show page
-//   public void getDataOk();  // data ok
-//   public void getDataError();// data error
-//   public void getDataRefresh();// data refresh
-   
 }

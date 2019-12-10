@@ -28,7 +28,7 @@
 
     <string name="news_home">新闻中心</string>
     <string name="video_home">推荐视频</string>
-    <string name="comment_name">动态</string>
+    <string name="comment_home">动态</string>
     <string name="user_home">用户中心</string>
 
     <string name="feedback_hint">描述您意见或者遭遇的问题，如在哪个界面遇到了什么情况（崩溃/闪退等）</string>

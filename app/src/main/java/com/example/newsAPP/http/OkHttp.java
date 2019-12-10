@@ -1,6 +1,7 @@
 package com.example.newsAPP.http;
 import java.io.IOException;
 
+import com.example.newsAPP.common.DatabaseApi;
 import com.google.gson.Gson;
 
 import okhttp3.MediaType;
@@ -13,21 +14,18 @@ public class OkHttp {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private String responseData;
     OkHttpClient client = new OkHttpClient();
+
     public String sendPost(final Object object, final String route){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    Gson gson = new Gson();
-                    String json = gson.toJson(object);
-                    responseData = post("http://47.100.79.111:8080/" + route,json);
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        try{
+            Gson gson = new Gson();
+            String json = gson.toJson(object);
+            responseData = post(DatabaseApi.host + route,json);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
         return responseData;
     }
+
     String post(String url, String json) throws IOException {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()

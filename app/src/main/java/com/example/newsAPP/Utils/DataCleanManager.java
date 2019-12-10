@@ -111,7 +111,7 @@ public class DataCleanManager {
             for (File item : directory.listFiles()) {
                 boolean isdelete = item.delete();
                 if (!isdelete){
-                    LogUtils.d("DataCleanManager", "删除失败");
+
                 }
             }
         }

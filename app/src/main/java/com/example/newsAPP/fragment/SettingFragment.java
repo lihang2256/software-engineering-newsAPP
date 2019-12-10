@@ -11,9 +11,6 @@ import java.io.File;
 
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.DataCleanManager;
-import com.example.newsAPP.Utils.LogUtils;
-import com.example.newsAPP.Utils.ThreadManager;
-import com.example.newsAPP.Utils.UIUtils;
 import com.example.newsAPP.common.DefineView;
 import com.example.newsAPP.widget.MyDialogPreference;
 
@@ -27,7 +24,6 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
     private ListPreference listPreference;
     private SharedPreferences sharedPreferences;
     private Context context;
-    private ThreadManager.ThreadPool threadpool;
     private String[] text_size_title;
 
     @Override
@@ -37,11 +33,7 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         // Load the preferences from an XML resource
 //        addPreferencesFromResource(R.xml.preferences);
         addPreferencesFromResource(R.xml.preference_setting);
-
         context = getActivity();
-        threadpool = ThreadManager.getThreadPool();
-
-
         initView();
         initValidata();
         initListener();
@@ -76,18 +68,18 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         int text_size_value = Integer.valueOf(sharedPreferences.getString("text_size", "2"));
         text_size_title = getActivity().getResources().getStringArray(R.array.array_text_size_title);
         listPreference.setSummary(text_size_title[text_size_value]);
-        threadpool.execute(new Runnable() {
-            @Override
-            public void run() {
-                final String chche = getAllCacheSize();
-                UIUtils.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        myDialogPreference.setSummary("缓存大小为:" + chche);
-                    }
-                });
-            }
-        });
+//        threadpool.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                final String chche = getAllCacheSize();
+//                UIUtils.runOnUIThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        myDialogPreference.setSummary("缓存大小为:" + chche);
+//                    }
+//                });
+//            }
+//        });
     }
 
     @Override
@@ -95,19 +87,18 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         myDialogPreference.setOnDialogClick(new MyDialogPreference.OnDialogClick() {
             @Override
             public void PositiveButton() {
-                threadpool.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        DataCleanManager.cleanExternalCache(context);
-                        DataCleanManager.cleanInternalCache(context);
-                    }
-                });
-                myDialogPreference.setSummary("缓存大小为:0" );
+//                threadpool.execute(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        DataCleanManager.cleanExternalCache(context);
+//                        DataCleanManager.cleanInternalCache(context);
+//                    }
+//                });
+//                myDialogPreference.setSummary("缓存大小为:0" );
             }
 
             @Override
             public void NegativeButton() {
-                LogUtils.d(TAG, "取消清除缓存");
             }
         });
     }
@@ -136,7 +127,6 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
                 cache = DataCleanManager.getFolderSize(file);
             } catch (Exception e) {
                 e.printStackTrace();
-                LogUtils.e("SettingActivity", "无法获取缓存目录");
             }
         }
         return cache;

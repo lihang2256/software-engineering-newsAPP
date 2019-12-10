@@ -62,9 +62,7 @@ public class CommonUtils {
     }
 
     public static Resources getResoure() {
-        Resources resources = UIUtils.getContext().getResources();
-
-        return resources;
+        return null;
     }
 
     public static String[] getStringArray(int resid) {

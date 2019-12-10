@@ -11,8 +11,6 @@ import android.widget.LinearLayout;
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.DensityUtils;
-import com.example.newsAPP.Utils.LogUtils;
-import com.example.newsAPP.Utils.ThreadManager;
 import com.example.newsAPP.adapter.CommentListAdapter;
 import com.example.newsAPP.bean.NewsListNormalBean;
 import com.example.newsAPP.fragment.BaseFragment;
@@ -41,7 +39,6 @@ public class CommentListFragment extends BaseFragment {
     private List<NewsListNormalBean> newlist;   // 上拉刷新后获得的数据
 
     private int mStartIndex = 0;    // 请求数据的起始参数
-    public ThreadManager.ThreadPool mThreadPool; // 线程池
     private boolean isPullRefresh;  // 判断当前是下拉刷新还是上拉刷新
     private boolean isShowCache = false; // 是否有缓存数据被展示
     private boolean isConnectState = false;  // 判断当前是否在联网刷新, false表示当前没有联网刷新
@@ -55,7 +52,6 @@ public class CommentListFragment extends BaseFragment {
         initView();
         initValidata();
         initListener();
-        LogUtils.d(TAG, "调用了onCreateView" + tid);
         return mView;
     }
 

@@ -20,11 +20,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.example.newsAPP.R;
-import com.example.newsAPP.Utils.ListDataSave;
-
-/**
- * Created by Administrator on 2017/2/7.
- */
+import com.example.newsAPP.Utils.CategoryDataUtils;
+//import com.example.newsAPP.Utils.ListDataSave;
 
 public class ChannelManagerActivity extends BaseActivity implements ChannelAdapter.ChannelItemClickListener{
 
@@ -34,7 +31,7 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
     private List<ProjectChannelBean> mRecChannelList;
     private Context context;
     private int tabposition;
-    private ListDataSave listDataSave;
+    //private ListDataSave listDataSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +40,7 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
         getIntentData();
         context = this;
         initToolbar();
-        listDataSave = new ListDataSave(this, "channel");
+        //listDataSave = new ListDataSave(this, "channel");
         mRecyclerView = (RecyclerView) findViewById(com.example.channelmanager.R.id.id_tab_recycler_view);
         GridLayoutManager gridLayout = new GridLayoutManager(context, 4);
         gridLayout.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -87,7 +84,8 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
     private void initData() {
         mMyChannelList = new ArrayList<>();
 
-        List<ProjectChannelBean> list = listDataSave.getDataList("myChannel", ProjectChannelBean.class);
+        List<ProjectChannelBean> list = CategoryDataUtils.getChannelCategoryBeans();
+                //listDataSave.getDataList("myChannel", ProjectChannelBean.class);
         for (int i = 0; i < list.size(); i ++){
             ProjectChannelBean projectChannelBean = list.get(i);
             if (i == tabposition){
@@ -107,7 +105,8 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
         }
 
         mRecChannelList = new ArrayList<>();
-        List<ProjectChannelBean> moreChannelList = listDataSave.getDataList("moreChannel", ProjectChannelBean.class);
+        List<ProjectChannelBean> moreChannelList = getMoreChannelFromAsset();
+                //listDataSave.getDataList("moreChannel", ProjectChannelBean.class);
         for (ProjectChannelBean projectChannelBean : moreChannelList) {
             mRecChannelList.add(projectChannelBean);
         }
@@ -122,8 +121,8 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
             // 将当前模式设置为不可编辑状态
             projectChannelBean.setEditStatus(0);
         }
-        listDataSave.setDataList("myChannel", mMyChannelList);
-        listDataSave.setDataList("moreChannel", mRecChannelList);
+        //listDataSave.setDataList("myChannel", mMyChannelList);
+        //listDataSave.setDataList("moreChannel", mRecChannelList);
 
         super.onPause();
     }
@@ -141,14 +140,26 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
         Intent intent = new Intent();
         intent.putExtra("NewTabPostion", tabposition);
         setResult(789, intent);
-
         super.finish();
     }
-
-
 
     @Override
     public void onChannelItemClick(List<ProjectChannelBean> list, int position) {
 
+    }
+
+    public List<ProjectChannelBean> getMoreChannelFromAsset() {
+        List<ProjectChannelBean> projectChannelBeanList = new ArrayList<>();
+        ProjectChannelBean projectChannelBean1 = new ProjectChannelBean("hello");
+        ProjectChannelBean projectChannelBean2 = new ProjectChannelBean("world");
+        projectChannelBeanList.add(projectChannelBean1);
+        projectChannelBeanList.add(projectChannelBean2);
+//        String moreChannel = "";
+//                //IOUtils.readFromFile("route.txt");
+//        JsonArray array = new JsonParser().parse(moreChannel).getAsJsonArray();
+//        for (final JsonElement elem : array) {
+//            projectChannelBeanList.add(new Gson().fromJson(elem, ProjectChannelBean.class));
+//        }
+        return projectChannelBeanList;
     }
 }

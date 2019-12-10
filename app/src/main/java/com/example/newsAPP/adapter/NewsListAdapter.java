@@ -20,82 +20,39 @@ import com.example.newsAPP.bean.NewsListNormalBean;
  * Created by liaozhoubei on 2017/1/9.
  */
 
-public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.BaseViewHolder> {
+public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHolder> {
     private final String TAG = NewsListAdapter.class.getSimpleName();
 
-    private static final int BIG_IMG = 0;
-    private static final int SMALL_IMG = 1;
-    private static final int THREE_IMG = 2;
-
-
     private Context mContext;
-
-    private ArrayList<NewsListNormalBean> mNewsListNormalBeanList;
+    private ArrayList<NewsListNormalBean.DataBean> mNewsListNormalBeanList;
     private OnItemClickListener mOnItemClickListener;
 
 
-    public NewsListAdapter(Context context, ArrayList<NewsListNormalBean> newsListNormalBeanList) {
+    public NewsListAdapter(Context context, ArrayList<NewsListNormalBean.DataBean> newsListNormalBeanList) {
         mContext = context;
         mNewsListNormalBeanList = newsListNormalBeanList;
     }
 
 
     @Override
-    public NewsListAdapter.BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // 根据viewType返回不同的view，此viewtype从getItemViewType方法中获得
+    public NewsListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        if (viewType == BIG_IMG) {
-            view = View.inflate(mContext, R.layout.item_news_big_pic, null);
-            return new BigImgViewHolder(view);
-        } else if (viewType == THREE_IMG) {
-            view = View.inflate(mContext, R.layout.item_news_three_pic, null);
-            return new ThreeImgViewHolder(view);
-        } else {
-            view = View.inflate(mContext, R.layout.item_news_normal, null);
-            return new SmallImgViewHolder(view);
-        }
+        view = View.inflate(mContext, R.layout.item_news_normal, null);
+        return new ViewHolder(view);
     }
 
 
     //
     @Override
-    public void onBindViewHolder(final NewsListAdapter.BaseViewHolder holder, int position) {
-        NewsListNormalBean newsListNormalBean = mNewsListNormalBeanList.get(position);
-        // 如果有额外图片存在
-        List<NewsListNormalBean.ImgextraBean> imgextraBeenlist = newsListNormalBean.getImgextra();
-        String imageSrc = newsListNormalBean.getImgsrc();
+    public void onBindViewHolder(final NewsListAdapter.ViewHolder holder, int position) {
+        NewsListNormalBean.DataBean newsListNormalBean = mNewsListNormalBeanList.get(position);
+        String imageSrc = newsListNormalBean.getPicture();
         String title = newsListNormalBean.getTitle();
-        String source = newsListNormalBean.getSource();
-        String postTime = newsListNormalBean.getPtime();
-        // 文章的id号
-        String docid = newsListNormalBean.getDocid();
-
-        if (getItemViewType(position) == BIG_IMG) {
-            // 一张大图的情况
-            BigImgViewHolder bigImgViewHolder = (BigImgViewHolder) holder;
-            Glide.with(mContext)
-                    .load(imageSrc)
-                    .placeholder(R.drawable.defaultbg_h)
-                    .crossFade()
-                    .into(bigImgViewHolder.big_Image);
-        } else if (getItemViewType(position) == THREE_IMG) {
-
-            ThreeImgViewHolder threeImgViewHolder = (ThreeImgViewHolder) holder;
-            // 三张图片的情况
-            setNetPicture(imageSrc, threeImgViewHolder.one_image);
-            for (int j = 0; j < imgextraBeenlist.size(); j++) {
-                if (j == 0) {
-                    setNetPicture(imgextraBeenlist.get(j).getImgsrc(), threeImgViewHolder.two_image);
-                } else if (j == 1) {
-                    setNetPicture(imgextraBeenlist.get(j).getImgsrc(), threeImgViewHolder.three_image);
-                }
-            }
-        } else if (getItemViewType(position) == SMALL_IMG) {
-            // 标准视图的情况
-            SmallImgViewHolder smallImgViewHolder = (SmallImgViewHolder) holder;
-            // 设置图片
-            setNetPicture(imageSrc, smallImgViewHolder.item_news_tv_img);
-        }
+        String source = newsListNormalBean.getAuthor();
+        String postTime = newsListNormalBean.getTime();
+        ViewHolder viewHolder = holder;
+        // 设置图片
+        setNetPicture(imageSrc, holder.item_news_tv_img);
         holder.item_news_tv_title.setText(title);
         holder.item_news_tv_time.setText(postTime);
         holder.item_news_tv_source.setText(source);
@@ -108,24 +65,8 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.BaseVi
                 if (mOnItemClickListener != null) {
                     mOnItemClickListener.onItemClick(holder.itemView, pos);
                 }
-
             }
         });
-    }
-
-
-    @Override
-    public int getItemViewType(int position) {
-        int viewType = SMALL_IMG;
-        NewsListNormalBean newsListNormalBean = mNewsListNormalBeanList.get(position);
-        int hasAd = newsListNormalBean.getHasAD();
-        List<NewsListNormalBean.ImgextraBean> imgextraBeenlist = newsListNormalBean.getImgextra();
-        if (hasAd == 1) {
-            viewType = BIG_IMG;
-        } else if (imgextraBeenlist != null && imgextraBeenlist.size() > 1) {
-            viewType = THREE_IMG;
-        }
-        return viewType;
     }
 
     @Override
@@ -135,6 +76,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.BaseVi
 
     @Override
     public int getItemCount() {
+        System.out.println(mNewsListNormalBeanList.size());
         return mNewsListNormalBeanList.size();
     }
 
@@ -142,7 +84,6 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.BaseVi
         Glide.with(mContext)
                 .load(url)
                 .placeholder(R.drawable.defaultbg)
-                .crossFade()
                 .into(img);
     }
 
@@ -160,57 +101,19 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.BaseVi
         void onItemClick(View v, int position);
     }
 
-    // 基类BaseViewHolder，拥有三种视图都有的标题及底部标签
-    class BaseViewHolder extends IViewHolder {
+    class ViewHolder extends IViewHolder {
         public TextView item_news_tv_title;
-        // 底部布局视图
         public TextView item_news_tv_time;
         public TextView item_news_tv_arrow;
         public TextView item_news_tv_source;
+        public ImageView item_news_tv_img;
 
-
-        public BaseViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             item_news_tv_title = (TextView) itemView.findViewById(R.id.item_news_tv_title);
             item_news_tv_time = (TextView) itemView.findViewById(R.id.item_news_tv_time);
             item_news_tv_arrow = (TextView) itemView.findViewById(R.id.item_news_tv_arrow);
             item_news_tv_source = (TextView) itemView.findViewById(R.id.item_news_tv_source);
-        }
-
-    }
-
-
-    class BigImgViewHolder extends BaseViewHolder {
-
-        public ImageView big_Image;
-
-        public BigImgViewHolder(View itemView) {
-            super(itemView);
-            big_Image = (ImageView) itemView.findViewById(R.id.big_Image);
-        }
-    }
-
-    class ThreeImgViewHolder extends BaseViewHolder {
-
-        // 拥有三张图片的布局
-        public ImageView one_image;
-        public ImageView two_image;
-        public ImageView three_image;
-
-        public ThreeImgViewHolder(View itemView) {
-            super(itemView);
-            one_image = (ImageView) itemView.findViewById(R.id.one_image);
-            two_image = (ImageView) itemView.findViewById(R.id.two_image);
-            three_image = (ImageView) itemView.findViewById(R.id.three_image);
-        }
-    }
-
-    class SmallImgViewHolder extends BaseViewHolder {
-
-        public ImageView item_news_tv_img;
-
-        public SmallImgViewHolder(View itemView) {
-            super(itemView);
             item_news_tv_img = (ImageView) itemView.findViewById(R.id.item_news_tv_img);
         }
     }
