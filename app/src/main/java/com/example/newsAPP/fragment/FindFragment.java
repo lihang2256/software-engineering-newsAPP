@@ -1,38 +1,22 @@
 package com.example.newsAPP.fragment;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bigkoo.pickerview.builder.TimePickerBuilder;
-import com.bigkoo.pickerview.listener.OnTimeSelectChangeListener;
-import com.bigkoo.pickerview.listener.OnTimeSelectListener;
-import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.channelmanager.ProjectChannelBean;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.CategoryDataUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import com.example.newsAPP.activity.FindActivity;
 import com.example.newsAPP.adapter.FixedPagerAdapter;
-import com.example.newsAPP.bean.CardBean;
 import com.example.newsAPP.fragment.Find.FindListFragment;
 
 import static com.example.newsAPP.R.id.tab_layout;
