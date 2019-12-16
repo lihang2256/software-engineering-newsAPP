@@ -18,6 +18,7 @@ import com.example.newsAPP.R;
 import com.example.newsAPP.bean.BottomTab;
 import com.example.newsAPP.fragment.AboutFragment;
 import com.example.newsAPP.fragment.CommentFragment;
+import com.example.newsAPP.fragment.FindFragment;
 import com.example.newsAPP.fragment.NewsFragment;
 import com.example.newsAPP.fragment.VideoFragment;
 
@@ -39,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private void initTab() {
         // 新闻标签
         BottomTab bottomTab_news = new BottomTab(NewsFragment.class,R.string.news_fragment,R.drawable.select_icon_news);
-        // 视频标签
-        BottomTab bottomTab_video = new BottomTab(VideoFragment.class,R.string.video_fragment,R.drawable.select_icon_video);
+        // 搜索标签
+        BottomTab bottomTab_video = new BottomTab(FindFragment.class,R.string.find_fragment,R.drawable.select_icon_video);
         // 评论标签
         BottomTab bottomTab_comment = new BottomTab(CommentFragment.class,R.string.comment_fragment,R.drawable.select_icon_photo);
         // 我的标签

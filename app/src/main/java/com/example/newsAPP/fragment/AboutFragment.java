@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.newsAPP.R;
+
 import com.example.newsAPP.activity.AboutActivity;
 import com.example.newsAPP.activity.CollectionListActivity;
 import com.example.newsAPP.activity.FansListActivity;

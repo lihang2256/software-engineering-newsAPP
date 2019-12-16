@@ -27,7 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.newsAPP.activity.NewsDetailActivity" />
-        <activity android:name="com.example.newsAPP.activity.VideoDetailActivity" />
+        <activity android:name="com.example.newsAPP.activity.FindActivity" />
+        <activity android:name="com.example.newsAPP.fragment.FindFragment" />
         <activity android:name="com.example.newsAPP.activity.AboutActivity" />
         <activity android:name="com.example.newsAPP.webview.WebViewActivity" />
         <activity android:name="com.example.newsAPP.activity.ChannelManagerActivity" />
