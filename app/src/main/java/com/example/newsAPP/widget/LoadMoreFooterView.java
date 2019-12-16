@@ -8,7 +8,6 @@ import android.widget.FrameLayout;
 
 import com.example.newsAPP.R;
 
-
 /**
  * Created by aspsine on 16/3/14.
  */

@@ -17,14 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.newsAPP.R;
-import com.example.newsAPP.Utils.NetWorkUtil;
 import com.example.newsAPP.bean.VideoBean;
-import com.example.newsAPP.common.Api;
 import com.example.newsAPP.common.DefineView;
 import com.example.newsAPP.fragment.VideoFragment;
-import com.example.newsAPP.http.DataParse;
-import com.example.newsAPP.http.HttpCallbackListener;
-import com.example.newsAPP.widget.LoadingPage;
+
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.MediaController;
@@ -50,7 +46,6 @@ public class VideoDetailActivity extends BaseActivity implements DefineView {
     private VideoBean mVideoBean;
     private String mMp4_url;
     private RelativeLayout mRl_video;
-    private LoadingPage mLoadingPage;
     private ImageView video_cover;
 
     private boolean isShowVideo = true; // 判断是否播放视频
@@ -89,11 +84,7 @@ public class VideoDetailActivity extends BaseActivity implements DefineView {
         //显示下载网速的TextView
         netSpeedTv = (TextView) findViewById(R.id.net_speed);
         mVideoView = (VideoView) findViewById(R.id.vitamio);
-
         video_cover = (ImageView) findViewById(R.id.video_cover);
-
-        mLoadingPage = (LoadingPage) findViewById(R.id.loading_page);
-
         video_cover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,8 +118,6 @@ public class VideoDetailActivity extends BaseActivity implements DefineView {
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         isShowVideo = true;
-
-                        showLoadingPage();
 //                        requestData();
                         showVideoPage();
                     }
@@ -180,24 +169,7 @@ public class VideoDetailActivity extends BaseActivity implements DefineView {
      * 判断是否要加载视频内容
      */
     public void showVideoPage(){
-        if (isShowVideo) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    video_cover.setVisibility(View.INVISIBLE);
-                    mVideoView.setVisibility(View.VISIBLE);
-                    if (!TextUtils.isEmpty(mMp4_url)) {
-                        showNewsPage();
-                        bindData();
-                    } else {
-                        showEmptyPage();
-                    }
-                }
-            });
-        } else {
-            video_cover.setVisibility(View.VISIBLE);
-            mVideoView.setVisibility(View.INVISIBLE);
-        }
+
     }
 
     @Override
@@ -258,41 +230,5 @@ public class VideoDetailActivity extends BaseActivity implements DefineView {
                 break;
         }
         return true;
-    }
-
-    /**
-     * 如果有新闻就展示新闻页面
-     */
-    private void showNewsPage() {
-        mRl_video.setVisibility(View.VISIBLE);
-        mLoadingPage.setSuccessView();
-    }
-
-    /**
-     * 展示加载页面
-     */
-    private void showLoadingPage() {
-        mRl_video.setVisibility(View.INVISIBLE);
-        mLoadingPage.setLoadingView();
-        //
-    }
-
-    /**
-     * 如果没有网络就展示空消息页面
-     */
-    private void showEmptyPage() {
-        mRl_video.setVisibility(View.INVISIBLE);
-        mLoadingPage.setEmptyView();
-    }
-
-    private void showErroPage() {
-        mRl_video.setVisibility(View.INVISIBLE);
-        mLoadingPage.setErrorView();
-        mLoadingPage.setLoadingClickListener(new LoadingPage.LoadingClickListener() {
-            @Override
-            public void clickListener() {
-                requestData();
-            }
-        });
     }
 }

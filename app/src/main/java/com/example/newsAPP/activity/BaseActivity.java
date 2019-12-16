@@ -3,10 +3,6 @@ package com.example.newsAPP.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-/**
- * Created by Administrator on 2017/2/17.
- */
-
 public class BaseActivity extends AppCompatActivity{
 
     @Override

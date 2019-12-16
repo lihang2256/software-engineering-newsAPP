@@ -7,14 +7,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.newsAPP.R;
-
-/**
- * Created by liaozhoubei on 2017/1/5.
- */
 
 public class AboutActivity extends BaseActivity implements View.OnClickListener{
 
@@ -78,7 +75,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        Uri uri = Uri.parse("https://fir.im/cloudreader");
+        Uri uri;
         Intent intent;
         switch (v.getId()){
             case R.id.tv_new_version:
@@ -97,5 +94,15 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
     }
 }

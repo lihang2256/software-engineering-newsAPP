@@ -23,6 +23,7 @@ import java.util.List;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.CategoryDataUtils;
 //import com.example.newsAPP.Utils.ListDataSave;
+import com.example.newsAPP.Utils.ListDataSave;
 import com.example.newsAPP.activity.ChannelManagerActivity;
 import com.example.newsAPP.adapter.FixedPagerAdapter;
 import com.example.newsAPP.fragment.news.NewsListFragment;
@@ -43,9 +44,9 @@ public class NewsFragment extends BaseFragment {
     private ImageButton mChange_channel;
     // 当前新闻频道的位置
     private int tabPosition;
-    //private SharedPreferences sharedPreferences;
-    //private ListDataSave listDataSave;
-    //private boolean isFirst;
+    private SharedPreferences sharedPreferences;
+    private ListDataSave listDataSave;
+    private boolean isFirst;
     private BaseFragment baseFragment;
 
 

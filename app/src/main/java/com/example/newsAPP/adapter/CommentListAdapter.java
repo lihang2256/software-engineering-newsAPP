@@ -10,8 +10,6 @@ import com.aspsine.irecyclerview.IViewHolder;
 import com.example.newsAPP.R;
 import com.example.newsAPP.bean.CommentBean;
 
-import org.w3c.dom.Comment;
-
 import java.util.ArrayList;
 
 public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.ViewHolder> {
@@ -28,7 +26,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
     @Override
     public CommentListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        view = View.inflate(mContext,R.layout.item_comment_list,null);
+        view = View.inflate(mContext,R.layout.item_news_comment_list,null);
         return new ViewHolder(view);
     }
 

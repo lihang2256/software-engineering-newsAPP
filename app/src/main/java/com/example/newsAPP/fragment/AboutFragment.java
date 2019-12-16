@@ -13,14 +13,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.newsAPP.R;
 import com.example.newsAPP.activity.AboutActivity;
-import com.example.newsAPP.activity.FeedbackActivity;
-import com.example.newsAPP.activity.FriendListActivity;
+import com.example.newsAPP.activity.CollectionListActivity;
+import com.example.newsAPP.activity.FansListActivity;
 import com.example.newsAPP.activity.LoginActivity;
-import com.example.newsAPP.activity.SettingActivity;
 
 
 /**
@@ -88,17 +86,17 @@ public class AboutFragment extends BaseFragment{
                         break;
                     case 2:
                         //进入关注
-                        intent = new Intent(getActivity(), FriendListActivity.class);
+                        intent = new Intent(getActivity(), FansListActivity.class);
                         startActivity(intent);
                         break;
                     case 3:
                         //进入粉丝
-                        intent = new Intent(getActivity(), FriendListActivity.class);
+                        intent = new Intent(getActivity(), FansListActivity.class);
                         startActivity(intent);
                         break;
                     case 4:
-                        //设置
-                        intent = new Intent(getActivity(), SettingActivity.class);
+                        //收藏
+                        intent = new Intent(getActivity(), CollectionListActivity.class);
                         startActivity(intent);
                         break;
                     case 5:

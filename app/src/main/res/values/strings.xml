@@ -14,13 +14,12 @@
 
 
 
-    <string name="default_text">会武术谁都挡不住——感受进化的力量，哇哈哈哈啊哈</string>
-    <string name="source_news_text">网易</string>
+    <string name="default_text">我是一条新闻</string>
+    <string name="source_news_text">热点</string>
 
     <string name="string_about_tv_top_name">简单新闻</string>
-    <string name="string_about_tv_content">第二新闻安卓客户端-是一个资讯类新闻客户端
-包括首页新闻、详情、图片浏览、视频观看等，实时数据抓取新闻等相关功能客户端。</string>
-    <string name="string_about_tv_bottom_right">《来自 宝塔山上的猫》</string>
+    <string name="string_about_tv_content">Wink专注于新闻浏览与动态发表，快来和你的好友共谈天下。</string>
+    <string name="string_about_tv_bottom_right">《Hello World》</string>
     <string name="string_about_tv_botton_copyright">Copyright ©2015-2017</string>
     <string name="version_name">当前版本 V</string>
 

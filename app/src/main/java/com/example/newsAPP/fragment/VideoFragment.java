@@ -1,41 +1,5 @@
 package com.example.newsAPP.fragment;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
-import com.aspsine.irecyclerview.IRecyclerView;
-import com.aspsine.irecyclerview.OnLoadMoreListener;
-import com.aspsine.irecyclerview.OnRefreshListener;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import com.example.newsAPP.R;
-import com.example.newsAPP.Utils.DensityUtils;
-import com.example.newsAPP.activity.VideoDetailActivity;
-import com.example.newsAPP.adapter.VideoListAdapter;
-import com.example.newsAPP.bean.VideoBean;
-import com.example.newsAPP.common.Api;
-import com.example.newsAPP.http.DataParse;
-import com.example.newsAPP.http.HttpCallbackListener;
-import com.example.newsAPP.widget.ClassicRefreshHeaderView;
-import com.example.newsAPP.widget.DividerGridItemDecoration;
-import com.example.newsAPP.widget.LoadMoreFooterView;
-import com.example.newsAPP.widget.LoadingPage;
-
-import static com.example.newsAPP.R.id.iRecyclerView;
-
 /**
  * Created by Administrator on 2016/12/24.
  * 视频模块

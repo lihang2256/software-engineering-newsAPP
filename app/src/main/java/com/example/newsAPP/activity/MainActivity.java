@@ -20,8 +20,6 @@ import com.example.newsAPP.fragment.AboutFragment;
 import com.example.newsAPP.fragment.CommentFragment;
 import com.example.newsAPP.fragment.NewsFragment;
 import com.example.newsAPP.fragment.VideoFragment;
-import com.squareup.leakcanary.LeakCanary;
-
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = MainActivity.class.getSimpleName();

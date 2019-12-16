@@ -10,7 +10,6 @@
 
     <include layout="@layout/toolbar_page" />
 
-
     <LinearLayout
         android:id="@+id/ll_content"
         android:layout_width="match_parent"
@@ -25,7 +24,7 @@
             android:layout_height="66dp"
             android:layout_gravity="center_horizontal"
             android:scaleType="centerCrop"
-            android:src="@mipmap/second_logo" />
+            android:src="@mipmap/wink_icon" />
 
         <TextView
             android:id="@+id/text_version"
@@ -67,7 +66,7 @@
             android:id="@+id/tv_about_star"
             style="@style/menuItem"
             android:clickable="true"
-            android:text="给个Star吧" />
+            android:text="...没想好" />
 
 
         <LinearLayout
@@ -85,7 +84,7 @@
                 android:lineSpacingExtra="2dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:text="很高兴您能使用，如感到满意请Star一下吧，我们将继续迭代，增加更多功能，O(∩_∩)O ~"
+                android:text="很高兴您能使用，我们将继续迭代，增加更多功能"
                 android:textColor="@color/colorSubtitle"
                 android:textSize="14sp" />
 

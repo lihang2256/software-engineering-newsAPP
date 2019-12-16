@@ -15,10 +15,6 @@ import java.util.ArrayList;
 import com.example.newsAPP.R;
 import com.example.newsAPP.bean.VideoBean;
 
-/**
- * Created by liaozhoubei on 2017/1/7.
- */
-
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.ViewHolder> {
 
     private Context mContext;

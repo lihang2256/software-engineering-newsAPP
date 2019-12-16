@@ -17,7 +17,7 @@ import com.example.newsAPP.R;
 import com.example.newsAPP.adapter.FriendListAdapter.ContentsDeleteListener;
 import com.example.newsAPP.adapter.FriendListAdapter;
 
-public class FriendListActivity extends Activity implements ContentsDeleteListener,OnClickListener{
+public class FansListActivity extends Activity implements ContentsDeleteListener,OnClickListener{
     private  ListView myLv;
     private Button myDeleteBtn;
     private FriendListAdapter myAdapter;
@@ -108,5 +108,6 @@ public class FriendListActivity extends Activity implements ContentsDeleteListen
     }
 
 }
+
 
 

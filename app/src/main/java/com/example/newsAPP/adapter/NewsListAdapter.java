@@ -11,24 +11,19 @@ import com.aspsine.irecyclerview.IViewHolder;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.example.newsAPP.R;
-import com.example.newsAPP.bean.NewsListNormalBean;
-
-/**
- * Created by liaozhoubei on 2017/1/9.
- */
+import com.example.newsAPP.bean.NewsBean;
 
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHolder> {
     private final String TAG = NewsListAdapter.class.getSimpleName();
 
     private Context mContext;
-    private ArrayList<NewsListNormalBean.DataBean> mNewsListNormalBeanList;
+    private ArrayList<NewsBean.DataBean> mNewsListNormalBeanList;
     private OnItemClickListener mOnItemClickListener;
 
 
-    public NewsListAdapter(Context context, ArrayList<NewsListNormalBean.DataBean> newsListNormalBeanList) {
+    public NewsListAdapter(Context context, ArrayList<NewsBean.DataBean> newsListNormalBeanList) {
         mContext = context;
         mNewsListNormalBeanList = newsListNormalBeanList;
     }
@@ -37,7 +32,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     @Override
     public NewsListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        view = View.inflate(mContext, R.layout.item_news_normal, null);
+        view = View.inflate(mContext, R.layout.item_news, null);
         return new ViewHolder(view);
     }
 
@@ -45,7 +40,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     //
     @Override
     public void onBindViewHolder(final NewsListAdapter.ViewHolder holder, int position) {
-        NewsListNormalBean.DataBean newsListNormalBean = mNewsListNormalBeanList.get(position);
+        NewsBean.DataBean newsListNormalBean = mNewsListNormalBeanList.get(position);
         String imageSrc = newsListNormalBean.getPicture();
         String title = newsListNormalBean.getTitle();
         String source = newsListNormalBean.getAuthor();

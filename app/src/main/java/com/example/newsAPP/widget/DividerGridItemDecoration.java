@@ -12,11 +12,6 @@ import android.support.v7.widget.RecyclerView.State;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
-
-/**
- * Created by liaozhoubei on 2017/1/16.
- */
-
 public class DividerGridItemDecoration  extends RecyclerView.ItemDecoration
 {
 

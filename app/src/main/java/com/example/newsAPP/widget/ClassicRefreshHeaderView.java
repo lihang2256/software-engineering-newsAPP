@@ -13,7 +13,6 @@ import com.aspsine.irecyclerview.RefreshTrigger;
 
 import com.example.newsAPP.R;
 
-
 /**
  * Created by aspsine on 16/3/14.
  */

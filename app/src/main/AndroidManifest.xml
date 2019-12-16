@@ -29,12 +29,10 @@
         <activity android:name="com.example.newsAPP.activity.NewsDetailActivity" />
         <activity android:name="com.example.newsAPP.activity.VideoDetailActivity" />
         <activity android:name="com.example.newsAPP.activity.AboutActivity" />
-        <activity android:name="com.example.newsAPP.activity.FeedbackActivity" />
         <activity android:name="com.example.newsAPP.webview.WebViewActivity" />
         <activity android:name="com.example.newsAPP.activity.ChannelManagerActivity" />
-        <activity android:name="com.example.newsAPP.activity.SettingActivity" />
-        <activity android:name="com.example.newsAPP.activity.CommentDialogActivity"></activity>
-        <activity android:name="com.example.newsAPP.activity.FriendListActivity" />
+        <activity android:name="com.example.newsAPP.activity.CollectionListActivity" />
+        <activity android:name="com.example.newsAPP.activity.FansListActivity" />
         <activity android:name="com.example.newsAPP.activity.LoginActivity"></activity>
     </application>
 

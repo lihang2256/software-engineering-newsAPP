@@ -2,19 +2,10 @@ package com.example.newsAPP.http;
 
 import android.util.Log;
 
+import com.example.newsAPP.bean.NewsBean;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-
-import com.example.newsAPP.bean.ImageDetailBean;
-import com.example.newsAPP.bean.NewsDetailBean;
-import com.example.newsAPP.bean.NewsListNormalBean;
-import com.example.newsAPP.bean.PicListBean;
-import com.example.newsAPP.bean.VideoBean;
 
 import static android.content.ContentValues.TAG;
 
@@ -26,20 +17,20 @@ import static android.content.ContentValues.TAG;
 public class DataParse {
 
     // 新闻列表解析
-    public static ArrayList<NewsListNormalBean.DataBean> NewsList(String json) {
+    public static ArrayList<NewsBean.DataBean> NewsList(String json) {
         // Gson, JsonObject
         // 使用JsonObject解析方式: 如果遇到{},就是JsonObject;如果遇到[], 就是JsonArray
 //        if (json != null) {
 //            JSONObject jsonObject = null;
-//            ArrayList<NewsListNormalBean> newsListNormalBeans = new ArrayList<>();
+//            ArrayList<NewsBean> newsListNormalBeans = new ArrayList<>();
 //            try {
 //                jsonObject = new JSONObject(json);
 //                JSONArray array = jsonObject.getJSONArray(id);
 //                Gson gson = new Gson();
 //                for (int i = 0; i < array.length(); i++) {
 //                    String js = array.get(i).toString();
-//                    NewsListNormalBean newsListNormalBean = gson.fromJson(js, NewsListNormalBean.class);
-//                    newsListNormalBeans.add(newsListNormalBean);
+//                    NewsBean newsBean = gson.fromJson(js, NewsBean.class);
+//                    newsListNormalBeans.add(newsBean);
 //                }
 //                return newsListNormalBeans;
 //            } catch (JSONException e) {
@@ -50,9 +41,9 @@ public class DataParse {
 //            LogUtils.d(TAG, "parseData: 没有数据");
 //        }
         Gson gson = new Gson();
-        NewsListNormalBean newsListNormalBean = gson.fromJson(json, NewsListNormalBean.class);
-        if(newsListNormalBean.getStatus().equals("success")){
-            return (ArrayList<NewsListNormalBean.DataBean>) newsListNormalBean.getData();
+        NewsBean newsBean = gson.fromJson(json, NewsBean.class);
+        if(newsBean.getStatus().equals("success")){
+            return (ArrayList<NewsBean.DataBean>) newsBean.getData();
         }else{
             Log.e(TAG, "NewsList: Request error");
         }

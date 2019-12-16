@@ -29,12 +29,13 @@ public class CommentFragment extends BaseFragment {
 
     private final String TAG = CommentFragment.class.getSimpleName();
 
-    private TabLayout mtableLayout;
+    private TabLayout mTabLayout;
     private ViewPager mCommentViewpager;
     private View mView;
     private FixedPagerAdapter fixedPagerAdapter;
     private List<BaseFragment> fragments;
     private static  List<ProjectChannelBean> channelBeanList;
+    private BaseFragment baseFragment;
 
     @Nullable
     @Override
@@ -46,33 +47,30 @@ public class CommentFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toolbar myToolbar = initToolbar(mView, R.id.my_toolbar, R.id.toolbar_title, R.string.comment_home);
         initView();
     }
 
     public void initView() {
-        mtableLayout = (TabLayout) mView.findViewById(tab_layout);
+        mTabLayout = (TabLayout) mView.findViewById(tab_layout);
         mCommentViewpager = (ViewPager) mView.findViewById(R.id.news_viewpager);
         mView.findViewById(R.id.change_channel).setVisibility(View.GONE);
         channelBeanList = CategoryDataUtils.getComCategoryBeans();
+        Toolbar myToolbar = initToolbar(mView, R.id.my_toolbar, R.id.toolbar_title, R.string.comment_home);
         initValidata();
         initListener();
     }
 
     @Override
     public void initValidata() {
+        fragments = new ArrayList<>();
         fixedPagerAdapter = new FixedPagerAdapter(getChildFragmentManager());
-
-        fragments = new ArrayList<BaseFragment>();
         for (int i = 0;i<channelBeanList.size();i++){
-            String str = "";
             ProjectChannelBean channelBean = channelBeanList.get(i);
-            BaseFragment fragment = CommentListFragment.newInstance(channelBean.getTname(), str);
+            BaseFragment fragment = CommentListFragment.newInstance(channelBean.getTname());
             fragments.add(fragment);
             fixedPagerAdapter.setChannelBean(channelBeanList);
             fixedPagerAdapter.setFragments(fragments);
-
-            mtableLayout.setupWithViewPager(mCommentViewpager);
+            mTabLayout.setupWithViewPager(mCommentViewpager);
             mCommentViewpager.setAdapter(fixedPagerAdapter);
         }
     }

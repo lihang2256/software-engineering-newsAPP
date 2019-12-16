@@ -14,10 +14,6 @@ import java.util.List;
 
 import com.example.newsAPP.fragment.BaseFragment;
 
-/**
- * Created by Bei on 2016/12/25.
- */
-
 public class FixedPagerAdapter extends FragmentStatePagerAdapter {
     private List<ProjectChannelBean> channelBeanList;
     private FragmentManager fm;
