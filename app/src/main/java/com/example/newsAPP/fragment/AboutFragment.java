@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.newsAPP.R;
+
 import com.example.newsAPP.activity.AboutActivity;
 import com.example.newsAPP.activity.FeedbackActivity;
 import com.example.newsAPP.activity.FriendListActivity;

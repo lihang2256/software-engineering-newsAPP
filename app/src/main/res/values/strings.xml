@@ -4,7 +4,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="news_fragment">新闻</string>
-    <string name="video_fragment">视频</string>
+    <string name="find_fragment">搜索</string>
     <string name="comment_fragment">动态</string>
     <string name="about_fragment">我</string>
 
@@ -24,10 +24,19 @@
     <string name="string_about_tv_botton_copyright">Copyright ©2015-2017</string>
     <string name="version_name">当前版本 V</string>
 
+    <string name="keyword">请输入关键词</string>
+    <string name="picker_custom_lunar">农历时间选择器</string>
+    <string name="picker_time">时间</string>
+    <string name="picker_kind">类型</string>
+    <string name="picker_find">搜索</string>
+    <string name="picker_find_another">搜索</string>
+    <string name="picker_friend">好友</string>
+
+
     <string name="project_url">https://github.com/liaozhoubei/NetEasyNews</string>
 
     <string name="news_home">新闻中心</string>
-    <string name="video_home">推荐视频</string>
+    <string name="find_home">搜索</string>
     <string name="comment_home">动态</string>
     <string name="user_home">用户中心</string>
 

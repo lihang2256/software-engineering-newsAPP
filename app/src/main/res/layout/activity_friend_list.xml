@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+    <include layout="@layout/toolbar_page" />
     <Button
         android:id="@+id/my_delete_btn"
         android:layout_width="match_parent"
@@ -10,7 +11,7 @@
         android:layout_alignParentBottom="true"
         android:text="@string/delete"
         />
-    <include layout="@layout/toolbar_page" />
+
     <ListView
         android:id="@+id/my_lv"
         android:layout_width="match_parent"

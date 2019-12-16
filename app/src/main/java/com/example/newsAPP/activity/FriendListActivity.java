@@ -16,7 +16,9 @@ import android.widget.ListView;
 import com.example.newsAPP.R;
 import com.example.newsAPP.adapter.FriendListAdapter.ContentsDeleteListener;
 import com.example.newsAPP.adapter.FriendListAdapter;
-
+/**
+ * Created by Xv on 2019
+ */
 public class FriendListActivity extends Activity implements ContentsDeleteListener,OnClickListener{
     private  ListView myLv;
     private Button myDeleteBtn;

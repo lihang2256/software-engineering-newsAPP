@@ -33,4 +33,10 @@ public class CategoryDataUtils {
         beans.add(new ProjectChannelBean("我的"));
         return beans;
     }
+    public static List<ProjectChannelBean> getFindCategoryBeans(){
+        List<ProjectChannelBean> beans = new ArrayList<>();
+        beans.add(new ProjectChannelBean("新闻搜索"));
+        beans.add(new ProjectChannelBean("动态搜索"));
+        return beans;
+    }
 }
