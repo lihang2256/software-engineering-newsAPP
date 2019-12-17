@@ -1,4 +1,4 @@
-package com.example.newsAPP.fragment.Find;
+package com.example.newsAPP.fragment.find;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.aspsine.irecyclerview.IRecyclerView;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
@@ -25,19 +24,15 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.newsAPP.R;
-import com.example.newsAPP.adapter.FindListAdapter;
-import com.example.newsAPP.bean.FindBean;
 import com.example.newsAPP.bean.FriendBean;
 import com.example.newsAPP.bean.TypeBean;
 import com.example.newsAPP.common.DefineView;
 import com.example.newsAPP.fragment.BaseFragment;
-import com.example.newsAPP.widget.LoadMoreFooterView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class FindListFragment extends BaseFragment implements DefineView {
 

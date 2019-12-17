@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.aspsine.irecyclerview.IViewHolder;
 import com.bumptech.glide.Glide;
 import com.example.newsAPP.R;
-import com.example.newsAPP.Utils.DiskLruCache;
 import com.example.newsAPP.bean.FindBean;
 
 import java.util.ArrayList;
