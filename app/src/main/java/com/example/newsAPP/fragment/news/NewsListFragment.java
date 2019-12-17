@@ -68,10 +68,12 @@ public class NewsListFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
     }
+
     @Override
     public void initView() {
         mIRecyclerView = mView.findViewById(R.id.iRecyclerView);

@@ -26,11 +26,12 @@ import com.example.newsAPP.Utils.CategoryDataUtils;
 import com.example.newsAPP.Utils.ListDataSave;
 import com.example.newsAPP.activity.ChannelManagerActivity;
 import com.example.newsAPP.adapter.FixedPagerAdapter;
+import com.example.newsAPP.common.DefineView;
 import com.example.newsAPP.fragment.news.NewsListFragment;
 
 import static com.example.newsAPP.R.id.tab_layout;
 
-public class NewsFragment extends BaseFragment {
+public class NewsFragment extends BaseFragment implements DefineView {
 
     private final String TAG = NewsFragment.class.getSimpleName();
 

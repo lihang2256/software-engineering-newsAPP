@@ -33,7 +33,7 @@ public class FindListAdapter extends RecyclerView.Adapter<FindListAdapter.ViewHo
     @Override
     public FindListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        view = View.inflate(mContext, R.layout.item_news_normal, null);
+        view = View.inflate(mContext, R.layout.item_news, null);
         return new ViewHolder(view);
     }
 

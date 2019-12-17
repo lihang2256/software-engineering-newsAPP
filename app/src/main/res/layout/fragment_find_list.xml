@@ -7,49 +7,61 @@
     android:orientation="vertical">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/input_key_word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/keyword"
-                android:layout_margin="5dp" />
-
-            <Button
-                android:id="@+id/btn_Time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="@string/picker_time" />
-
-            <Button
-                android:id="@+id/btn_Kind"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="@string/picker_kind" />
-
-            <Button
-                android:id="@+id/btn_Find"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="@string/picker_find" />
-
-
-        </LinearLayout>
-    <com.aspsine.irecyclerview.IRecyclerView
-        android:id="@+id/iRecyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:loadMoreEnabled="true"
-        app:loadMoreFooterLayout="@layout/layout_irecyclerview_load_more_footer"
-        app:refreshEnabled="true"
-        app:refreshHeaderLayout="@layout/layout_irecyclerview_refresh_header"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/input_key_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/keyword"
+            android:layout_margin="5dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/buttonshape"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
 
+            <Button
+                android:id="@+id/btn_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/buttonshape"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_alignParentRight="true"
+                android:text="@string/picker_find"
+                android:background="@drawable/buttonshape"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </ListView>
+    </LinearLayout>
 </FrameLayout>

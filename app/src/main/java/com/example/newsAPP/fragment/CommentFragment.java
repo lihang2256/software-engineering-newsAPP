@@ -18,6 +18,7 @@ import java.util.List;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.CategoryDataUtils;
 import com.example.newsAPP.adapter.FixedPagerAdapter;
+import com.example.newsAPP.common.DefineView;
 import com.example.newsAPP.fragment.comment.CommentListFragment;
 
 import static com.example.newsAPP.R.id.tab_layout;
@@ -25,7 +26,7 @@ import static com.example.newsAPP.R.id.tab_layout;
 /**
  * Created by LiHang on 2019/11/17
  */
-public class CommentFragment extends BaseFragment {
+public class CommentFragment extends BaseFragment implements DefineView {
 
     private final String TAG = CommentFragment.class.getSimpleName();
 
