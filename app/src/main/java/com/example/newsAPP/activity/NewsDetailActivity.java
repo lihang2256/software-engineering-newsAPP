@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -158,10 +159,10 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
     @Override
     public void bindData() {
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.setWebViewClient(new WebViewClient(){
+        mWebView.setWebChromeClient(new WebChromeClient(){
             @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
                 view.loadUrl("javascript:function mFunc(){" +
                         "var array = document.querySelectorAll('.top-wrap');" +
                         "for(var i=0;i<array.length;i+=1){" +
@@ -184,6 +185,31 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
                         "}" +
                         "mFunc();");
             }
+//            @Override
+//            public void onProgressChanged(WebView view, String url) {
+//                super.onProgressChanged(view, url);
+//                view.loadUrl("javascript:function mFunc(){" +
+//                        "var array = document.querySelectorAll('.top-wrap');" +
+//                        "for(var i=0;i<array.length;i+=1){" +
+//                        "array[i].style.display='none';" +
+//                        "}" +
+//                        "}" +
+//                        "mFunc();");
+//                view.loadUrl("javascript:function mFunc(){" +
+//                        "var array = document.querySelectorAll('.articledown-wrap');" +
+//                        "for(var i=0;i<array.length;i+=1){" +
+//                        "array[i].style.display='none';" +
+//                        "}" +
+//                        "}" +
+//                        "mFunc();");
+//                view.loadUrl("javascript:function mFunc(){" +
+//                        "var array = document.querySelectorAll('#news_check');" +
+//                        "for(var i=0;i<array.length;i+=1){" +
+//                        "array[i].style.display='none';" +
+//                        "}" +
+//                        "}" +
+//                        "mFunc();");
+//            }
         });
         mWebView.loadUrl(mUrl);
     }
