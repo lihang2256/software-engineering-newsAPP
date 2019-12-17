@@ -12,26 +12,26 @@ import com.example.newsAPP.bean.CommentBean;
 
 import java.util.ArrayList;
 
-public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.ViewHolder> {
-    private final String TAG = CommentListAdapter.class.getSimpleName();
+public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.ViewHolder> {
+    private final String TAG = TrendListAdapter.class.getSimpleName();
     private Context mContext;
     private ArrayList<CommentBean> mCommentBeans;
-    private CommentListAdapter.OnItemClickListener mOnItemClickListener;
+    private TrendListAdapter.OnItemClickListener mOnItemClickListener;
 
-    public CommentListAdapter(Context context, ArrayList<CommentBean> commentBeans){
+    public TrendListAdapter(Context context, ArrayList<CommentBean> commentBeans){
         mContext = context;
         mCommentBeans = commentBeans;
     }
 
     @Override
-    public CommentListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TrendListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         view = View.inflate(mContext,R.layout.item_news_comment_list,null);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(CommentListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(TrendListAdapter.ViewHolder holder, int position) {
         CommentBean commentBean = mCommentBeans.get(position);
         //add something
     }
@@ -58,7 +58,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
 
     }
 
-    public void setOnItemClickListener(CommentListAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(TrendListAdapter.OnItemClickListener listener) {
         this.mOnItemClickListener = listener;
     }
 

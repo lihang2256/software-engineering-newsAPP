@@ -12,12 +12,12 @@ import com.example.newsAPP.bean.CommentBean;
 
 import java.util.ArrayList;
 
-public class CCListAdapter extends BaseAdapter{
+public class TCListAdapter extends BaseAdapter{
 
     private Context mContext;
     private ArrayList<CommentBean> commentBeans;
     private LayoutInflater inflater;
-    public CCListAdapter(Context context, ArrayList<CommentBean> list){
+    public TCListAdapter(Context context, ArrayList<CommentBean> list){
         mContext = context;
         commentBeans = list;
     }
@@ -42,15 +42,15 @@ public class CCListAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CCListAdapter.ViewHolder viewHolder = new CCListAdapter.ViewHolder();
+        TCListAdapter.ViewHolder viewHolder = new TCListAdapter.ViewHolder();
         if (convertView == null){
-            convertView = inflater.inflate(R.layout.item_comment_comment_list,null);
+            convertView = inflater.inflate(R.layout.item_trend_comment_list,null);
             viewHolder.author = convertView.findViewById(R.id.comment_comment_author);
             viewHolder.content = convertView.findViewById(R.id.comment_comment_content);
             convertView.setTag(viewHolder);
         }
         else {
-            viewHolder = (CCListAdapter.ViewHolder) convertView.getTag();
+            viewHolder = (TCListAdapter.ViewHolder) convertView.getTag();
         }
 //            viewHolder.author.setText(commentBeans.get(position).getAuthor());
 //            viewHolder.content.setText(commentBeans.get(position).getContent());

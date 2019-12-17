@@ -17,7 +17,7 @@ import com.example.newsAPP.adapter.FriendListAdapter.ContentsDeleteListener;
 import com.example.newsAPP.adapter.FriendListAdapter;
 import com.example.newsAPP.common.DefineView;
 
-public class FocusListActivity extends BaseActivity implements ContentsDeleteListener,OnClickListener, DefineView {
+public class FollowListActivity extends BaseActivity implements ContentsDeleteListener,OnClickListener, DefineView {
     private  ListView myLv;
     private Button myDeleteBtn;
     private FriendListAdapter myAdapter;

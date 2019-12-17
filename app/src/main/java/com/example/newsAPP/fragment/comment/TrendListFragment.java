@@ -16,8 +16,8 @@ import com.aspsine.irecyclerview.OnRefreshListener;
 import com.example.newsAPP.MyApplication;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.DensityUtils;
-import com.example.newsAPP.activity.CommentDetailActivity;
-import com.example.newsAPP.adapter.CommentListAdapter;
+import com.example.newsAPP.activity.TrendDetailActivity;
+import com.example.newsAPP.adapter.TrendListAdapter;
 import com.example.newsAPP.bean.CommentBean;
 import com.example.newsAPP.common.DatabaseApi;
 import com.example.newsAPP.common.GetnewsApi;
@@ -32,26 +32,21 @@ import java.util.ArrayList;
 /**
  * Created by LiHang on 2019/11/17
  */
-public class CommentListFragment extends BaseFragment {
+public class TrendListFragment extends BaseFragment {
 
     private String tname;
     private View mView;
-    private final String TAG = CommentListFragment.class.getSimpleName();
+    private final String TAG = TrendListFragment.class.getSimpleName();
     private static final String KEY_TNAME = "TNAME";
     private IRecyclerView mIRecyclerView;
     private LoadMoreFooterView mLoadMoreFooterView;
-    private CommentListAdapter mCommentListAdapter;
-    private ArrayList<CommentBean> mCommentBeanList;   // 启动时获得的数据
-    private ArrayList<CommentBean> upList;   // 上拉刷新后获得的数据
-
-    private int mStartIndex = 0;    // 请求数据的起始参数
-    private boolean isPullRefresh;  // 判断当前是下拉刷新还是上拉刷新
-
+    private TrendListAdapter mTrendListAdapter;
+    private ArrayList<CommentBean> mTrendBeanList;   // 启动时获得的数据
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_comment_list, container, false);
+        mView = inflater.inflate(R.layout.fragment_trend_list, container, false);
         initView();
         initValidata();
         initListener();
@@ -87,7 +82,7 @@ public class CommentListFragment extends BaseFragment {
         mIRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                if (mLoadMoreFooterView.canLoadMore() && mCommentListAdapter.getItemCount() > 0) {
+                if (mLoadMoreFooterView.canLoadMore() && mTrendListAdapter.getItemCount() > 0) {
                 }
             }
         });
@@ -114,22 +109,22 @@ public class CommentListFragment extends BaseFragment {
         @Override
         protected void onPostExecute(ArrayList<CommentBean> list) {
             super.onPostExecute(list);
-            mCommentBeanList = list;
+            mTrendBeanList = list;
             bindData();
         }
     }
 
     @Override
     public void bindData() {
-        mCommentListAdapter = new CommentListAdapter(MyApplication.getContext(), mCommentBeanList);
-        mIRecyclerView.setIAdapter(mCommentListAdapter);
+        mTrendListAdapter = new TrendListAdapter(MyApplication.getContext(), mTrendBeanList);
+        mIRecyclerView.setIAdapter(mTrendListAdapter);
         // 设置Item点击跳转事件
-        mCommentListAdapter.setOnItemClickListener(new CommentListAdapter.OnItemClickListener() {
+        mTrendListAdapter.setOnItemClickListener(new TrendListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                CommentBean commentBean = mCommentBeanList.get(position);
+                CommentBean commentBean = mTrendBeanList.get(position);
                 Intent intent;
-                intent = new Intent(getActivity(), CommentDetailActivity.class);
+                intent = new Intent(getActivity(), TrendDetailActivity.class);
                 intent.putExtra("CID", 1);
                         //commentBean.getID());
                 getActivity().startActivity(intent);
@@ -137,10 +132,10 @@ public class CommentListFragment extends BaseFragment {
         });
     }
 
-    public static CommentListFragment newInstance(String tname){
+    public static TrendListFragment newInstance(String tname){
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY_TNAME, tname);
-        CommentListFragment fragment = new CommentListFragment();
+        TrendListFragment fragment = new TrendListFragment();
         fragment.setArguments(bundle);
         return fragment;
     }

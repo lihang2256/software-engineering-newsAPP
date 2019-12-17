@@ -49,7 +49,7 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.comment_pop_menu,menu);
+        getMenuInflater().inflate(R.menu.news_pop_menu,menu);
         return true;
     }
 
