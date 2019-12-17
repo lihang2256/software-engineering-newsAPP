@@ -9,11 +9,6 @@ import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
 
-/**
- * Created by Bei on 2017/1/6.
- * 解析Json数据的工具类
- */
-
 public class DataParse {
 
     // 新闻列表解析

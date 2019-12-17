@@ -1,6 +1,5 @@
 package com.example.newsAPP.activity;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,8 +15,9 @@ import android.widget.ListView;
 import com.example.newsAPP.R;
 import com.example.newsAPP.adapter.FriendListAdapter.ContentsDeleteListener;
 import com.example.newsAPP.adapter.FriendListAdapter;
+import com.example.newsAPP.common.DefineView;
 
-public class FocusListActivity extends Activity implements ContentsDeleteListener,OnClickListener{
+public class FocusListActivity extends BaseActivity implements ContentsDeleteListener,OnClickListener, DefineView {
     private  ListView myLv;
     private Button myDeleteBtn;
     private FriendListAdapter myAdapter;
@@ -28,28 +28,43 @@ public class FocusListActivity extends Activity implements ContentsDeleteListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_list);
-        findById();
+        initView();
+        initValidata();
+        initListener();
+    }
 
+    @Override
+    public void initView() {
+        myLv = (ListView) this.findViewById(R.id.my_lv);
+        myDeleteBtn = (Button) this.findViewById(R.id.my_delete_btn);
+        myDeleteBtn.setOnClickListener(this);
+    }
+
+    @Override
+    public void initValidata() {
+        bindData();
+    }
+
+    @Override
+    public void initListener() {
+
+    }
+
+    @Override
+    public void bindData() {
         myContentsArray = this.getResources().getStringArray(R.array.my_contents);
         if(myContentsArray != null){
             Collections.addAll(myContentsList, myContentsArray);
         }
-
         myAdapter = new FriendListAdapter(this,myContentsList,this);
         myLv.setAdapter(myAdapter);
-    }
-
-    private void findById(){
-        myLv = (ListView) this.findViewById(R.id.my_lv);
-        myDeleteBtn = (Button) this.findViewById(R.id.my_delete_btn);
-
-        myDeleteBtn.setOnClickListener(this);
     }
 
     @Override
     public void onResume(){
         super.onResume();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 

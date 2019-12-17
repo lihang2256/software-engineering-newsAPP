@@ -5,11 +5,6 @@ import com.example.channelmanager.ProjectChannelBean;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Administrator on 2016/12/26.
- * 上方目录
- */
-
 public class CategoryDataUtils {
     public static List<ProjectChannelBean> getChannelCategoryBeans(){
         List<ProjectChannelBean>  beans=new ArrayList<>();
