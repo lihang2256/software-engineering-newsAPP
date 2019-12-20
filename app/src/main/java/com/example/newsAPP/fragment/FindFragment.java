@@ -38,10 +38,7 @@ public class FindFragment extends BaseFragment implements DefineView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         mView = inflater.inflate(R.layout.tablayout_pager, container, false);
-//        btn_Time = (Button)mView.findViewById(R.id.btn_Time);
-//        btn_Kind = (Button)mView.findViewById(R.id.btn_Kind);
-//        btn_Find = (Button)mView.findViewById(R.id.btn_Find);
-//        input_key_word = (TextView) mView.findViewById(R.id.input_key_word);
+        initView();
 
         return mView;
     }

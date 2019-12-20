@@ -4,30 +4,33 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.example.newsAPP.R;
-import com.example.newsAPP.adapter.FriendListAdapter.ContentsDeleteListener;
-import com.example.newsAPP.adapter.FriendListAdapter;
+import com.example.newsAPP.adapter.FansListAdapter.ContentsDeleteListener;
+import com.example.newsAPP.adapter.FansListAdapter;
 import com.example.newsAPP.common.DefineView;
 
-public class FansListActivity extends Activity implements ContentsDeleteListener,OnClickListener, DefineView {
+public class FansListActivity extends BaseActivity implements ContentsDeleteListener,OnClickListener, DefineView {
     private  ListView myLv;
     private Button myDeleteBtn;
-    private FriendListAdapter myAdapter;
+    private FansListAdapter myAdapter;
     private String[] myContentsArray;
     private List<String> myContentsList = new ArrayList<String>();
     private List<String> mySelectedList = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friend_list);
+        setContentView(R.layout.activity_fans_list);
         initView();
         initValidata();
         initListener();
@@ -35,9 +38,10 @@ public class FansListActivity extends Activity implements ContentsDeleteListener
 
     @Override
     public void initView() {
-        myLv = (ListView) this.findViewById(R.id.my_lv);
-        myDeleteBtn = (Button) this.findViewById(R.id.my_delete_btn);
+        myLv = (ListView) this.findViewById(R.id.my_lv2);
+        myDeleteBtn = (Button) this.findViewById(R.id.my_delete_btn2);
         myDeleteBtn.setOnClickListener(this);
+        initToolbar();
     }
 
     @Override
@@ -52,11 +56,11 @@ public class FansListActivity extends Activity implements ContentsDeleteListener
 
     @Override
     public void bindData() {
-        myContentsArray = this.getResources().getStringArray(R.array.my_contents);
+        myContentsArray = this.getResources().getStringArray(R.array.my_fans);
         if(myContentsArray != null){
             Collections.addAll(myContentsList, myContentsArray);
         }
-        myAdapter = new FriendListAdapter(this,myContentsList,this);
+        myAdapter = new FansListAdapter(this,myContentsList,this);
         myLv.setAdapter(myAdapter);
     }
 
@@ -115,10 +119,22 @@ public class FansListActivity extends Activity implements ContentsDeleteListener
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch(v.getId()){
-            case R.id.my_delete_btn:
+            case R.id.my_delete_btn2:
                 myContentsList.removeAll(mySelectedList);
                 myAdapter.updateView(myContentsList);
                 break;
+        }
+    }
+    private void initToolbar(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        TextView textView = findViewById(R.id.toolbar_title);
+        textView.setText("粉丝");
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.icon_back);
         }
     }
 }

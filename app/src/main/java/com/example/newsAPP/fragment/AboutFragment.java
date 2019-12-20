@@ -19,7 +19,9 @@ import com.example.newsAPP.R;
 import com.example.newsAPP.activity.AboutActivity;
 import com.example.newsAPP.activity.CollectionListActivity;
 import com.example.newsAPP.activity.FansListActivity;
+import com.example.newsAPP.activity.FollowListActivity;
 import com.example.newsAPP.activity.LoginActivity;
+import com.example.newsAPP.activity.ShakeActivity;
 
 
 /**
@@ -73,8 +75,9 @@ public class AboutFragment extends BaseFragment{
 //                1.个人信息
 //                2.关注
 //                3.粉丝
-//                4.设置
-//                5.关于App
+//                4.收藏
+//                5.摇一摇
+//                6.关于App
 
                 switch (position) {
                     case 0:
@@ -96,11 +99,16 @@ public class AboutFragment extends BaseFragment{
                         startActivity(intent);
                         break;
                     case 4:
-                        //收藏
+                        //进入收藏
                         intent = new Intent(getActivity(), CollectionListActivity.class);
                         startActivity(intent);
                         break;
                     case 5:
+                        //进入摇一摇
+                        intent = new Intent(getActivity(), ShakeActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 6:
                         //进入关于App
                         intent = new Intent(getActivity(), AboutActivity.class);
                         startActivity(intent);

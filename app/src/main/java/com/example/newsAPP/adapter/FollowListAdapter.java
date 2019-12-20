@@ -23,7 +23,7 @@ import android.widget.TextView;
 import com.example.newsAPP.R;
 
 @SuppressLint("UseSparseArrays")
-public class FriendListAdapter extends BaseAdapter {
+public class FollowListAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
     private List<String> mContentsList;
@@ -37,7 +37,7 @@ public class FriendListAdapter extends BaseAdapter {
     private int mLastX = 0;
 //	private int mLastY = 0;
 
-    public FriendListAdapter(Context mContext, List<String> mContentsList, ContentsDeleteListener mContentsDeleteListener) {
+    public FollowListAdapter(Context mContext, List<String> mContentsList, ContentsDeleteListener mContentsDeleteListener) {
         this.mContext = mContext;
         this.mContentsList = mContentsList;
         this.mContentsDeleteListener = mContentsDeleteListener;
@@ -75,44 +75,40 @@ public class FriendListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View mnView, ViewGroup parent) {
         final HolderView holderView;
-        if (convertView == null) {
+        if (mnView == null) {
             holderView = new HolderView();
-            convertView = mInflater.inflate(R.layout.activity_friend_list_view,
+            mnView = mInflater.inflate(R.layout.activity_follow_list_view,
                     null);
-            holderView.listSelectCb = (CheckBox) convertView
-                    .findViewById(R.id.my_select_cb);
-            holderView.listContentTv = (TextView) convertView
-                    .findViewById(R.id.my_content_tv);
-            holderView.listDeleteTv = (TextView) convertView
-                    .findViewById(R.id.my_delete_tv);
-            holderView.listRl = (RelativeLayout) convertView
-                    .findViewById(R.id.my_rl);
+            holderView.listSelectCb2 = (CheckBox) mnView.findViewById(R.id.my_select_cb1);
+            holderView.listContentTv2 = (TextView) mnView.findViewById(R.id.my_content_tv1);
+            holderView.listDeleteTv2 = (TextView) mnView.findViewById(R.id.my_delete_tv2);
+            holderView.listRl2 = (RelativeLayout) mnView.findViewById(R.id.my_rl1);
 
-            convertView.setTag(holderView);
+            mnView.setTag(holderView);
         } else {
-            holderView = (HolderView) convertView.getTag();
-            if (holderView.listSelectCb.isChecked()) {
-                holderView.listSelectCb.setChecked(false);
+            holderView = (HolderView) mnView.getTag();
+            if (holderView.listSelectCb2.isChecked()) {
+                holderView.listSelectCb2.setChecked(false);
             }
 
         }
         // 显示内容
-        holderView.listContentTv.setText(mContentsList.get(position));
+        holderView.listContentTv2.setText(mContentsList.get(position));
 
         if (visibleDeleteTv != null) {
-            holderView.listDeleteTv
+            holderView.listDeleteTv2
                     .setVisibility(visibleDeleteTv.get(position));
         }
         if (selectCb != null) {
-            holderView.listSelectCb.setChecked(selectCb.get(position));
+            holderView.listSelectCb2.setChecked(selectCb.get(position));
             mContentsDeleteListener.contentsDeleteSelect(position,
                     selectCb.get(position));
         }
 
         // 处理选择事件
-        holderView.listRl.setOnClickListener(new OnClickListener() {
+        holderView.listRl2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (visibleDeleteTv.containsValue(View.VISIBLE)) {//可见时，再次单击设置不可见，未选中
@@ -123,15 +119,15 @@ public class FriendListAdapter extends BaseAdapter {
                     }
                     notifyDataSetChanged();
                 } else {
-                    boolean isChecked = holderView.listSelectCb.isChecked() ? false : true;
-                    holderView.listSelectCb.setChecked(isChecked);
+                    boolean isChecked = holderView.listSelectCb2.isChecked() ? false : true;
+                    holderView.listSelectCb2.setChecked(isChecked);
 
                     mContentsDeleteListener.contentsDeleteSelect(position, isChecked);
                 }
             }
         });
 
-        holderView.listSelectCb
+        holderView.listSelectCb2
                 .setOnCheckedChangeListener(new OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView,
@@ -141,7 +137,7 @@ public class FriendListAdapter extends BaseAdapter {
                     }
                 });
 
-        holderView.listSelectCb.setOnClickListener(new OnClickListener() {
+        holderView.listSelectCb2.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -157,7 +153,7 @@ public class FriendListAdapter extends BaseAdapter {
             }
         });
 
-        convertView.setOnTouchListener(new OnTouchListener() {
+        mnView.setOnTouchListener(new OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -184,7 +180,7 @@ public class FriendListAdapter extends BaseAdapter {
                                 selectCb.put(i, true);
                                 mContentsDeleteListener.contentsDeleteSelect(i, true);
                                 if (visibleDeleteTv.get(position) == View.VISIBLE) {
-                                    holderView.listDeleteTv
+                                    holderView.listDeleteTv2
                                             .startAnimation(alpha);
                                 }
                             }
@@ -201,7 +197,7 @@ public class FriendListAdapter extends BaseAdapter {
                 return false;
             }
         });
-        holderView.listDeleteTv.setOnClickListener(new OnClickListener() {
+        holderView.listDeleteTv2.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -216,13 +212,13 @@ public class FriendListAdapter extends BaseAdapter {
                 notifyDataSetChanged();
             }
         });
-        return convertView;
+        return mnView;
     }
 
     public class HolderView {
-        public TextView listContentTv, listDeleteTv;
-        public CheckBox listSelectCb;
-        public RelativeLayout listRl;
+        public TextView listContentTv2, listDeleteTv2;
+        public CheckBox listSelectCb2;
+        public RelativeLayout listRl2;
     }
 
     public void setContentsDeleteListener(
@@ -233,7 +229,7 @@ public class FriendListAdapter extends BaseAdapter {
     /**
      * 用于删除内容的接口
      *
-     * @author liangming.deng
+     *
      *
      */
     public interface ContentsDeleteListener {
@@ -255,6 +251,7 @@ public class FriendListAdapter extends BaseAdapter {
     }
 
     public void setSelectCb(Map<Integer, Boolean> selectCb) {
+
         this.selectCb = selectCb;
     }
 }

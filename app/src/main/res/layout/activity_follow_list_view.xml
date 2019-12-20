@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/my_rl1"
+    android:layout_width="match_parent"
+    android:layout_height="200dp" >
+
+    <CheckBox
+        android:id="@+id/my_select_cb1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/list_checkbox_selector"
+        android:button="@null" />
+
+    <TextView
+        android:id="@+id/my_content_tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/my_select_cb1"
+        android:gravity="center"
+        android:text="@string/follow_delete" />
+
+    <TextView
+        android:id="@+id/my_delete_tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="5dp"
+        android:clickable="true"
+        android:drawableLeft="@drawable/del_icon_normal"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/follow_delete"
+        android:visibility="gone" />
+
+</RelativeLayout>

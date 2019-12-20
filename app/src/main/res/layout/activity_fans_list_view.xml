@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/my_rl"
+    android:id="@+id/my_rl2"
     android:layout_width="match_parent"
     android:layout_height="200dp" >
 
     <CheckBox
-        android:id="@+id/my_select_cb"
+        android:id="@+id/my_select_cb2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -15,18 +15,18 @@
         android:button="@null" />
 
     <TextView
-        android:id="@+id/my_content_tv"
+        android:id="@+id/my_content_tv2"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_centerInParent="true"
         android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@id/my_select_cb"
+        android:layout_toRightOf="@id/my_select_cb2"
         android:gravity="center"
-        android:text="@string/delete" />
+        android:text="@string/fans_delete" />
 
     <TextView
-        android:id="@+id/my_delete_tv"
-        android:layout_width="80dp"
+        android:id="@+id/my_delete_tv2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
@@ -36,7 +36,7 @@
         android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="@string/delete"
+        android:text="@string/fans_delete"
         android:visibility="gone" />
 
 </RelativeLayout>

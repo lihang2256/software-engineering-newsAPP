@@ -40,14 +40,14 @@ public class MainActivity extends AppCompatActivity {
         // 新闻标签
         BottomTab bottomTab_news = new BottomTab(NewsFragment.class,R.string.news_fragment,R.drawable.select_icon_news);
         // 搜索标签
-        BottomTab bottomTab_video = new BottomTab(FindFragment.class,R.string.find_fragment,R.drawable.select_icon_video);
+        BottomTab bottomTab_find = new BottomTab(FindFragment.class,R.string.find_fragment,R.drawable.select_icon_video);
         // 评论标签
         BottomTab bottomTab_comment = new BottomTab(TrendFragment.class,R.string.comment_fragment,R.drawable.select_icon_photo);
         // 我的标签
         BottomTab bottomTab_about = new BottomTab(AboutFragment.class,R.string.about_fragment,R.drawable.select_icon_about);
 
         mBottomTabs.add(bottomTab_news);
-        mBottomTabs.add(bottomTab_video);
+        mBottomTabs.add(bottomTab_find);
         mBottomTabs.add(bottomTab_comment);
         mBottomTabs.add(bottomTab_about);
 
