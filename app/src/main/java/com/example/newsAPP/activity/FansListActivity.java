@@ -18,15 +18,17 @@ import android.widget.TextView;
 import com.example.newsAPP.R;
 import com.example.newsAPP.adapter.FansListAdapter.ContentsDeleteListener;
 import com.example.newsAPP.adapter.FansListAdapter;
+import com.example.newsAPP.bean.FansBean;
 import com.example.newsAPP.common.DefineView;
 
 public class FansListActivity extends BaseActivity implements ContentsDeleteListener,OnClickListener, DefineView {
     private  ListView myLv;
     private Button myDeleteBtn;
     private FansListAdapter myAdapter;
+    private List<FansBean> myContentsList = new ArrayList<>();
     private String[] myContentsArray;
-    private List<String> myContentsList = new ArrayList<String>();
-    private List<String> mySelectedList = new ArrayList<String>();
+  //  private List<String> myContentsList = new ArrayList<String>();
+    private List<FansBean> mySelectedList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +59,9 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
     @Override
     public void bindData() {
         myContentsArray = this.getResources().getStringArray(R.array.my_fans);
-        if(myContentsArray != null){
-            Collections.addAll(myContentsList, myContentsArray);
-        }
+//        if(myContentsArray != null){
+//            Collections.addAll(myContentsList, myContentsArray);
+//        }
         myAdapter = new FansListAdapter(this,myContentsList,this);
         myLv.setAdapter(myAdapter);
     }

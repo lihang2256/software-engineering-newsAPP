@@ -130,7 +130,7 @@ public class ShakeActivity extends BaseActivity implements DefineView ,SensorEve
     private void showDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(ShakeActivity.this);
         builder.setTitle("网络一线牵");
-        
+
         builder.setMessage("lucky");
         builder.setPositiveButton("添加好友", new DialogInterface.OnClickListener()
         {

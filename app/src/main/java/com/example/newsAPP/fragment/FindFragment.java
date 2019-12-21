@@ -19,7 +19,6 @@ import java.util.List;
 import com.example.newsAPP.adapter.FixedPagerAdapter;
 import com.example.newsAPP.common.DefineView;
 import com.example.newsAPP.fragment.find.FindListFragment;
-
 import static com.example.newsAPP.R.id.tab_layout;
 
 public class FindFragment extends BaseFragment implements DefineView {
@@ -55,6 +54,7 @@ public class FindFragment extends BaseFragment implements DefineView {
         mFindViewpager = (ViewPager) mView.findViewById(R.id.news_viewpager);
         mView.findViewById(R.id.change_channel).setVisibility(View.GONE);
         channelBeanList = CategoryDataUtils.getFindCategoryBeans();
+
         initValidata();
         initListener();
 

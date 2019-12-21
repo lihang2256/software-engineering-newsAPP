@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,7 +26,7 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.newsAPP.R;
-import com.example.newsAPP.bean.FriendBean;
+import com.example.newsAPP.bean.FollowBean;
 import com.example.newsAPP.bean.TypeBean;
 import com.example.newsAPP.common.DefineView;
 import com.example.newsAPP.fragment.BaseFragment;
@@ -40,7 +42,7 @@ public class FindListFragment extends BaseFragment implements DefineView {
     private View mView;
     private final String TAG = FindListFragment.class.getSimpleName();
     private static final String FINDTNAME = "FINDTNAME";
-
+    private static final String KEY = "TNAME";
     private Button first;
     private Button second;
     private Button search;
@@ -48,7 +50,10 @@ public class FindListFragment extends BaseFragment implements DefineView {
     private TimePickerView pvTime;
     private OptionsPickerView pv;
     private ArrayList<TypeBean> options1Items = new ArrayList<>();
-    private ArrayList<FriendBean> beans = new ArrayList<>();
+    private ArrayList<FollowBean> followbeans = new ArrayList<>();
+
+
+
 
     @Nullable
     @Override
@@ -87,10 +92,16 @@ public class FindListFragment extends BaseFragment implements DefineView {
         if (tname == "新闻搜索") {
             first.setText("时间");
             second.setText("类型");
+            Fragment news = new SearchNewsFragment();
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.add(R.id.search_fragment, news,"").commit();
         }
         else {
             first.setText("时间");
             second.setText("关注");
+            Fragment trend = new SearchTrendFragment();
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.add(R.id.search_fragment, trend,"").commit();
         }
     }
 
@@ -158,8 +169,9 @@ public class FindListFragment extends BaseFragment implements DefineView {
         pvTime = new TimePickerBuilder(getActivity(), new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
-                Toast.makeText(getActivity() ,getTime(date), Toast.LENGTH_SHORT).show();
+       //         Toast.makeText(getActivity() ,getTime(date), Toast.LENGTH_SHORT).show();
                 Log.i("pvTime", "onTimeSelect");
+                first.setText(getTime(date));
 
             }
         })
@@ -276,18 +288,18 @@ public class FindListFragment extends BaseFragment implements DefineView {
         /*pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器*/
     }
 
-    private void initFocusPicker(){  //选择器  选择搜索的类型
+    private void initFocusPicker(){  //选择器  选择关注的人
         pv = new OptionsPickerBuilder(getActivity(), new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
-                String tx = beans.get(options1).getPickerViewText()
+                String tx = followbeans.get(options1).getPickerViewText()
                         // + options2Items.get(options1).get(options2)
                         /* + options3Items.get(options1).get(options2).get(options3).getPickerViewText()*/;
                 second.setText(tx);
             }
         })
-                .setTitleText("类型选择")
+                .setTitleText("好友选择")
                 .setContentTextSize(20)//设置滚轮文字大小
                 .setDividerColor(Color.LTGRAY)//设置分割线的颜色
                 .setSelectOptions(0, 1)//默认选中项
@@ -304,14 +316,14 @@ public class FindListFragment extends BaseFragment implements DefineView {
                 .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
                     @Override
                     public void onOptionsSelectChanged(int options1, int options2, int options3) {
-                        String str = "类型： " + options1 ;
+                        String str = "好友： " + options1 ;
                         Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .build();
 
         //        pvOptions.setSelectOptions(1,1);
-        pv.setPicker(beans);//一级选择器*/
+        pv.setPicker(followbeans);//一级选择器*/
         //  pvOptions.setPicker(options1Items, options2Items);//二级选择器
         /*pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器*/
     }
@@ -323,14 +335,14 @@ public class FindListFragment extends BaseFragment implements DefineView {
          */
 
         //选项1
-        beans.add(new FriendBean(0, "韩愈", "描述部分", "其他数据"));
-        beans.add(new FriendBean(1, "柳宗元", "描述部分", "其他数据"));
-        beans.add(new FriendBean(2, "欧阳修", "描述部分", "其他数据"));
-        beans.add(new FriendBean(3, "苏洵", "描述部分", "其他数据"));
-        beans.add(new FriendBean(4, "苏轼", "描述部分", "其他数据"));
-        beans.add(new FriendBean(5, "苏辙", "描述部分", "其他数据"));
-        beans.add(new FriendBean(6, "王安石", "描述部分", "其他数据"));
-        beans.add(new FriendBean(7, "曾巩", "描述部分", "其他数据"));
+        followbeans.add(new FollowBean(0, "韩愈", "描述部分", "其他数据"));
+        followbeans.add(new FollowBean(1, "柳宗元", "描述部分", "其他数据"));
+        followbeans.add(new FollowBean(2, "欧阳修", "描述部分", "其他数据"));
+        followbeans.add(new FollowBean(3, "苏洵", "描述部分", "其他数据"));
+        followbeans.add(new FollowBean(4, "苏轼", "描述部分", "其他数据"));
+        followbeans.add(new FollowBean(5, "苏辙", "描述部分", "其他数据"));
+        followbeans.add(new FollowBean(6, "王安石", "描述部分", "其他数据"));
+        followbeans.add(new FollowBean(7, "曾巩", "描述部分", "其他数据"));
 
         /*--------数据源添加完毕---------*/
     }

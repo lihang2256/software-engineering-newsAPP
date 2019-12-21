@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.newsAPP.R;
-
+import com.example.newsAPP.bean.FansBean;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +22,7 @@ import java.util.Map;
 public class FansListAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
-    private List<String> mContentsList;
+    private List<FansBean> mContentsList ;
     private Context mContext;
     private FansListAdapter.ContentsDeleteListener mContentsDeleteListener;
     //设置滑动删除按钮是否显示
@@ -33,7 +33,7 @@ public class FansListAdapter extends BaseAdapter {
     private int mLastX = 0;
 //	private int mLastY = 0;
 
-    public FansListAdapter(Context mContext, List<String> mContentsList, FansListAdapter.ContentsDeleteListener mContentsDeleteListener) {
+    public FansListAdapter(Context mContext,List<FansBean> mContentsList, FansListAdapter.ContentsDeleteListener mContentsDeleteListener) {
         this.mContext = mContext;
         this.mContentsList = mContentsList;
         this.mContentsDeleteListener = mContentsDeleteListener;
@@ -50,7 +50,7 @@ public class FansListAdapter extends BaseAdapter {
         }
     }
 
-    public void updateView(List<String> mContentsList) {
+    public void updateView(List<FansBean> mContentsList) {
         this.mContentsList = mContentsList;
         this.notifyDataSetChanged();
     }
@@ -95,7 +95,7 @@ public class FansListAdapter extends BaseAdapter {
 
         }
         // 显示内容
-        holderView.listContentTv.setText(mContentsList.get(position));
+        holderView.listContentTv.setText(mContentsList.get(position).toString());
 
         if (visibleDeleteTv != null) {
             holderView.listDeleteTv

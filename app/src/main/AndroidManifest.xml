@@ -28,7 +28,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.newsAPP.activity.NewsDetailActivity" />
-        <activity android:name="com.example.newsAPP.activity.FindActivity" />
         <activity android:name="com.example.newsAPP.activity.AboutActivity" />
         <activity android:name="com.example.newsAPP.activity.ShakeActivity" />
         <activity android:name="com.example.newsAPP.activity.ChannelManagerActivity" />

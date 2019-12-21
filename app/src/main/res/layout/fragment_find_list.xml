@@ -58,10 +58,10 @@
                 android:textSize="15sp"
                 android:textStyle="bold"/>
         </RelativeLayout>
-        <ListView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </ListView>
+            android:layout_height="wrap_content"
+            android:id="@+id/search_fragment">
+        </FrameLayout>
     </LinearLayout>
 </FrameLayout>
