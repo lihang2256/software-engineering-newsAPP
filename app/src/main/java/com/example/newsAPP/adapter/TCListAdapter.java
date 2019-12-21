@@ -45,8 +45,9 @@ public class TCListAdapter extends BaseAdapter{
         TCListAdapter.ViewHolder viewHolder = new TCListAdapter.ViewHolder();
         if (convertView == null){
             convertView = inflater.inflate(R.layout.item_trend_comment_list,null);
-            viewHolder.author = convertView.findViewById(R.id.comment_comment_author);
-            viewHolder.content = convertView.findViewById(R.id.comment_comment_content);
+            viewHolder.author = convertView.findViewById(R.id.trend_comment_author);
+            viewHolder.content = convertView.findViewById(R.id.trend_comment_content);
+            viewHolder.time = convertView.findViewById(R.id.news_trend_time);
             convertView.setTag(viewHolder);
         }
         else {
@@ -59,5 +60,6 @@ public class TCListAdapter extends BaseAdapter{
     private class ViewHolder {
         public TextView author;
         public TextView content;
+        public TextView time;
     }
 }

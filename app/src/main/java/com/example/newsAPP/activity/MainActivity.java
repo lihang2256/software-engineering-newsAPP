@@ -22,8 +22,8 @@ import com.example.newsAPP.fragment.FindFragment;
 import com.example.newsAPP.fragment.NewsFragment;
 
 public class MainActivity extends AppCompatActivity {
-    private final String TAG = MainActivity.class.getSimpleName();
 
+    private final String TAG = MainActivity.class.getSimpleName();
     private FragmentTabHost mTabHost;
     private LayoutInflater mInflater;
     private List<BottomTab> mBottomTabs = new ArrayList<>(5);

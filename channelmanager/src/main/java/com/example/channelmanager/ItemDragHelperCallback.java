@@ -8,10 +8,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import com.example.channelmanager.base.ItemDragListener;
 import com.example.channelmanager.base.ItemDragVHListener;
 
-
-/**
- * Created by 钟光新 on 2016/9/10 0010.
- */
 public class ItemDragHelperCallback extends ItemTouchHelper.Callback {
     private ItemDragListener mDragMoveListener;
 

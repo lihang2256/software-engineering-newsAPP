@@ -1,6 +1,8 @@
 package com.example.newsAPP.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.newsAPP.R;
 import com.example.newsAPP.common.DefineView;
+import com.example.newsAPP.fragment.CollectionFragment;
 
 public class CollectionListActivity extends BaseActivity implements DefineView {
 
@@ -23,6 +26,11 @@ public class CollectionListActivity extends BaseActivity implements DefineView {
     @Override
     public void initView() {
         initToolbar();
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        //创建fragment但是不绘制UI
+        transaction.add(R.id.collection_fragment, new CollectionFragment(),"");
+        transaction.commit();
     }
 
     @Override

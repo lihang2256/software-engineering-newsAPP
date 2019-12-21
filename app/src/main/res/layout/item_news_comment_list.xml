@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/comment_list_author"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="sadfsdafasdfas"
-        android:textColor="@color/colorPrimary">
-    </TextView>
+        android:layout_height="28dp">
+        <TextView
+            android:id="@+id/news_trend_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="sadfsdafasdfas">
+        </TextView>
+        <TextView
+            android:id="@+id/news_trend_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textSize="15sp"
+            android:text="10s ago"
+            >
+        </TextView>
+    </RelativeLayout>
     <TextView
-        android:id="@+id/comment_list_content"
+        android:id="@+id/news_trend_content"
+        android:layout_marginLeft="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15sp"

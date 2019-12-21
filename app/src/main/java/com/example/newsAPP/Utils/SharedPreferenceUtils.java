@@ -4,18 +4,27 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 
-public final class SharedPreferenceUtil {
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public final class SharedPreferenceUtils {
 
     private static final String FILE_NAME = "wink"; //文件名
-    private static SharedPreferenceUtil mInstance;
+    private static SharedPreferenceUtils mInstance;
 
-    private SharedPreferenceUtil(){}
+    private SharedPreferenceUtils(){}
 
-    public static SharedPreferenceUtil getInstance(){
+    public static SharedPreferenceUtils getInstance(){
         if(mInstance == null){
-            synchronized (SharedPreferenceUtil.class){
+            synchronized (SharedPreferenceUtils.class){
                 if(mInstance == null){
-                    mInstance = new SharedPreferenceUtil();
+                    mInstance = new SharedPreferenceUtils();
                 }
             }
         }
@@ -71,6 +80,42 @@ public final class SharedPreferenceUtil {
             return sharedPreferences.getString(key,(String) defValue);
         }
         return null;
+    }
+
+    /**
+     * 保存List
+     * @param tag
+     * @param datalist
+     */
+    public <T> void setDataList(Context context, String tag, List<T> datalist) {
+        if (null == datalist || datalist.size() <= 0)
+            return;
+        Gson gson = new Gson();
+        //转换成json数据，再保存
+        String strJson = gson.toJson(datalist);
+        put(context,tag,strJson);
+    }
+
+    /**
+     * 获取list
+     * @param tag
+     * @param clazz 传入解析json所需要的Class对象
+     * @return
+     */
+    public <T> List<T> getDataList(Context context, String tag, Class<T> clazz) {
+        List<T> datalist=new ArrayList<>();
+        String strJson = (String) get(context,tag,null);
+        if (null == strJson) {
+            return datalist;
+        }
+        JsonArray array = new JsonParser().parse(strJson).getAsJsonArray();
+        for (final JsonElement elem : array) {
+            datalist.add(new Gson().fromJson(elem, clazz));
+        }
+        Gson gson = new Gson();
+        datalist = gson.fromJson(strJson, new TypeToken<List<T>>() {
+        }.getType());
+        return datalist;
     }
 }
 

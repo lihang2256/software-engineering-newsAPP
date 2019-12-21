@@ -20,7 +20,7 @@ public abstract class BaseFragment extends Fragment implements DefineView {
      */
     public Toolbar initToolbar(View view, int id, int titleId, int titleString) {
         Toolbar toolbar = (Toolbar) view.findViewById(id);
-//        toolbar.setTitle("");
+        toolbar.setTitle("");
         TextView textView = (TextView) view.findViewById(titleId);
         textView.setText(titleString);
         AppCompatActivity activity = (AppCompatActivity) getActivity();

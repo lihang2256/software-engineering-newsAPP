@@ -93,7 +93,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="18dp"
                     android:text="news"
-                    android:visibility="gone"/>
+                    android:visibility="visible"/>
             </LinearLayout>
 
             <ListView

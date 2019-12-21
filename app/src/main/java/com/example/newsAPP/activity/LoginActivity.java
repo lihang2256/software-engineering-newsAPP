@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.newsAPP.R;
+import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.common.DefineView;
 
 public class LoginActivity extends BaseActivity implements DefineView {
@@ -24,6 +25,7 @@ public class LoginActivity extends BaseActivity implements DefineView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        SharedPreferenceUtils.getInstance().put(this,"USERID",20);
         initView();
         initListener();
     }

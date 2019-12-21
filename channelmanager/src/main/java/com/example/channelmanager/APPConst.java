@@ -1,9 +1,5 @@
 package com.example.channelmanager;
 
-/**
- * Created by 钟光新 on 2016/10/16 0016.
- */
-
 public class APPConst {
     private APPConst(){}
 

@@ -55,7 +55,7 @@ public class TrendFragment extends BaseFragment implements DefineView {
         mTabLayout = (TabLayout) mView.findViewById(tab_layout);
         mTrendViewpager = (ViewPager) mView.findViewById(R.id.news_viewpager);
         mView.findViewById(R.id.change_channel).setVisibility(View.GONE);
-        channelBeanList = CategoryDataUtils.getComCategoryBeans();
+        channelBeanList = CategoryDataUtils.getTrendCategoryBeans();
         Toolbar myToolbar = initToolbar(mView, R.id.my_toolbar, R.id.toolbar_title, R.string.comment_home);
         initValidata();
         initListener();

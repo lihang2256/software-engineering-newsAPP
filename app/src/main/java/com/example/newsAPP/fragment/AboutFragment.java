@@ -23,12 +23,6 @@ import com.example.newsAPP.activity.FollowListActivity;
 import com.example.newsAPP.activity.LoginActivity;
 import com.example.newsAPP.activity.ShakeActivity;
 
-
-/**
- * Created by Administrator on 2016/12/24.
- * 我 页面模块
- */
-
 public class AboutFragment extends BaseFragment{
     private final String TAG = AboutFragment.class.getSimpleName();
     private String[] data;

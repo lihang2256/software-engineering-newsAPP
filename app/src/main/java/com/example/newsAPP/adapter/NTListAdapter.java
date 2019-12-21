@@ -12,12 +12,12 @@ import com.example.newsAPP.bean.CommentBean;
 
 import java.util.ArrayList;
 
-public class NCListAdapter extends BaseAdapter {
+public class NTListAdapter extends BaseAdapter {
 
     private Context mContext;
     private ArrayList<CommentBean> commentBeans;
     private LayoutInflater inflater;
-    public NCListAdapter(Context context, ArrayList<CommentBean> list){
+    public NTListAdapter(Context context, ArrayList<CommentBean> list){
         mContext = context;
         commentBeans = list;
     }
@@ -45,8 +45,9 @@ public class NCListAdapter extends BaseAdapter {
         ViewHolder viewHolder = new ViewHolder();
         if (convertView == null){
             convertView = inflater.inflate(R.layout.item_news_comment_list,null);
-            viewHolder.author = convertView.findViewById(R.id.comment_list_author);
-            viewHolder.content = convertView.findViewById(R.id.comment_list_content);
+            viewHolder.author = convertView.findViewById(R.id.news_trend_author);
+            viewHolder.content = convertView.findViewById(R.id.news_trend_content);
+            viewHolder.time = convertView.findViewById(R.id.news_trend_time);
             convertView.setTag(viewHolder);
         }
         else {
@@ -59,5 +60,6 @@ public class NCListAdapter extends BaseAdapter {
     private class ViewHolder {
         public TextView author;
         public TextView content;
+        public TextView time;
     }
 }

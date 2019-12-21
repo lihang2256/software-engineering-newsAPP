@@ -19,13 +19,13 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     private final String TAG = NewsListAdapter.class.getSimpleName();
 
     private Context mContext;
-    private ArrayList<NewsBean.DataBean> mNewsListNormalBeanList;
+    private ArrayList<NewsBean.DataBean> mNewsBeanList;
     private OnItemClickListener mOnItemClickListener;
 
 
-    public NewsListAdapter(Context context, ArrayList<NewsBean.DataBean> newsListNormalBeanList) {
+    public NewsListAdapter(Context context, ArrayList<NewsBean.DataBean> newsBeanList) {
         mContext = context;
-        mNewsListNormalBeanList = newsListNormalBeanList;
+        mNewsBeanList = newsBeanList;
     }
 
 
@@ -40,7 +40,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     //
     @Override
     public void onBindViewHolder(final NewsListAdapter.ViewHolder holder, int position) {
-        NewsBean.DataBean newsListNormalBean = mNewsListNormalBeanList.get(position);
+        NewsBean.DataBean newsListNormalBean = mNewsBeanList.get(position);
         String imageSrc = newsListNormalBean.getPicture();
         String title = newsListNormalBean.getTitle();
         String source = newsListNormalBean.getAuthor();
@@ -71,8 +71,8 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        System.out.println(mNewsListNormalBeanList.size());
-        return mNewsListNormalBeanList.size();
+        System.out.println(mNewsBeanList.size());
+        return mNewsBeanList.size();
     }
 
     private void setNetPicture(String url, ImageView img) {

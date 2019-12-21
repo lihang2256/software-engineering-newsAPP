@@ -16,12 +16,16 @@ public class CategoryDataUtils {
         beans.add(new ProjectChannelBean("体育"));
         beans.add(new ProjectChannelBean("军事"));
         beans.add(new ProjectChannelBean("科技"));
+        return beans;
+    }
+
+    public static List<ProjectChannelBean> getMoreCategoryBeans(){
+        List<ProjectChannelBean>  beans=new ArrayList<>();
         beans.add(new ProjectChannelBean("财经"));
         beans.add(new ProjectChannelBean("时尚"));
         return beans;
     }
-
-    public static List<ProjectChannelBean> getComCategoryBeans(){
+    public static List<ProjectChannelBean> getTrendCategoryBeans(){
         List<ProjectChannelBean> beans = new ArrayList<>();
         beans.add(new ProjectChannelBean("所有"));
         beans.add(new ProjectChannelBean("好友"));

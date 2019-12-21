@@ -1,8 +1,6 @@
 package com.example.newsAPP.fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -22,8 +20,7 @@ import java.util.List;
 
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.CategoryDataUtils;
-//import com.example.newsAPP.Utils.ListDataSave;
-import com.example.newsAPP.Utils.ListDataSave;
+import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.activity.ChannelManagerActivity;
 import com.example.newsAPP.adapter.FixedPagerAdapter;
 import com.example.newsAPP.common.DefineView;
@@ -34,7 +31,6 @@ import static com.example.newsAPP.R.id.tab_layout;
 public class NewsFragment extends BaseFragment implements DefineView {
 
     private final String TAG = NewsFragment.class.getSimpleName();
-
     private TabLayout mTabLayout;
     private ViewPager mNewsViewpager;
     private View mView;
@@ -45,8 +41,6 @@ public class NewsFragment extends BaseFragment implements DefineView {
     private ImageButton mChange_channel;
     // 当前新闻频道的位置
     private int tabPosition;
-    private SharedPreferences sharedPreferences;
-    private ListDataSave listDataSave;
     private boolean isFirst;
     private BaseFragment baseFragment;
 
@@ -86,7 +80,6 @@ public class NewsFragment extends BaseFragment implements DefineView {
 
     @Override
     public void initValidata() {
-        //sharedPreferences = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
         //listDataSave = new ListDataSave(getActivity(), "channel");
         fragments = new ArrayList<>();
         fixedPagerAdapter = new FixedPagerAdapter(getChildFragmentManager());
@@ -134,22 +127,20 @@ public class NewsFragment extends BaseFragment implements DefineView {
      */
     private void getDataFromSharedPreference() {
         myChannelList = CategoryDataUtils.getChannelCategoryBeans();
-        moreChannelList = getMoreChannelFromAsset();
+        moreChannelList = CategoryDataUtils.getMoreCategoryBeans();
         myChannelList = setType(myChannelList);
         moreChannelList = setType(moreChannelList);
-//        isFirst = sharedPreferences.getBoolean("isFirst", true);
+//        isFirst = (boolean)SharedPreferenceUtils.getInstance().get(getActivity(),"isFirst", true);
 //        if (isFirst) {
 //            myChannelList = CategoryDataUtils.getChannelCategoryBeans();
-//            moreChannelList = getMoreChannelFromAsset();
+//            moreChannelList = CategoryDataUtils.getMoreCategoryBeans();
 //            myChannelList = setType(myChannelList);
 //            moreChannelList = setType(moreChannelList);
-//            listDataSave.setDataList("myChannel", myChannelList);
-//            listDataSave.setDataList("moreChannel", moreChannelList);
-//            SharedPreferences.Editor edit = sharedPreferences.edit();
-//            edit.putBoolean("isFirst", false);
-//            edit.commit();
+//            SharedPreferenceUtils.getInstance().setDataList(getContext(),"myChannel", myChannelList);
+//            SharedPreferenceUtils.getInstance().setDataList(getContext(),"moreChannel", myChannelList);
+//            SharedPreferenceUtils.getInstance().put(getActivity(),"isFirst", false);
 //        } else {
-//            myChannelList = listDataSave.getDataList("myChannel", ProjectChannelBean.class);
+//            SharedPreferenceUtils.getInstance().getDataList(getContext(),"moreChannel",ProjectChannelBean.class);
 //        }
         fragments.clear();
         for (int i = 0; i < myChannelList.size(); i++) {
@@ -161,7 +152,6 @@ public class NewsFragment extends BaseFragment implements DefineView {
         } else {
             mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         }
-
     }
 
     /**
@@ -190,25 +180,5 @@ public class NewsFragment extends BaseFragment implements DefineView {
             channelBean.setTabType(APPConst.ITEM_EDIT);
         }
         return list;
-    }
-
-    /**
-     * 从Asset目录中读取更多频道
-     *
-     * @return
-     */
-    public List<ProjectChannelBean> getMoreChannelFromAsset() {
-        List<ProjectChannelBean> projectChannelBeanList = new ArrayList<>();
-        ProjectChannelBean projectChannelBean1 = new ProjectChannelBean("hello");
-        ProjectChannelBean projectChannelBean2 = new ProjectChannelBean("world");
-        projectChannelBeanList.add(projectChannelBean1);
-        projectChannelBeanList.add(projectChannelBean2);
-//        String moreChannel = "";
-//                //IOUtils.readFromFile("route.txt");
-//        JsonArray array = new JsonParser().parse(moreChannel).getAsJsonArray();
-//        for (final JsonElement elem : array) {
-//            projectChannelBeanList.add(new Gson().fromJson(elem, ProjectChannelBean.class));
-//        }
-        return projectChannelBeanList;
     }
 }

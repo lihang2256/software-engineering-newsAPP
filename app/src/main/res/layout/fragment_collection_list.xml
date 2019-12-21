@@ -13,5 +13,4 @@
         app:refreshEnabled="false"
         app:refreshHeaderLayout="@layout/layout_irecyclerview_refresh_header"
         />
-
 </FrameLayout>
