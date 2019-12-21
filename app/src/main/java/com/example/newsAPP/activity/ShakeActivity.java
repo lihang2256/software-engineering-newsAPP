@@ -21,7 +21,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 
 import com.example.newsAPP.R;
@@ -129,19 +129,18 @@ public class ShakeActivity extends BaseActivity implements DefineView ,SensorEve
 
     private void showDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(ShakeActivity.this);
-        builder.setTitle("网络一线牵，珍惜这段缘");
+        builder.setTitle("网络一线牵");
         //    通过LayoutInflater来加载一个xml的布局文件作为一个View对象
         View view = LayoutInflater.from(ShakeActivity.this).inflate(R.layout.dialog, null);
         //    设置布局文件作为弹出框的Content
         builder.setView(view);
-        final TextView friend = (TextView)view.findViewById(R.id.shake_friend);
-
+        builder.setMessage("lucky");
         builder.setPositiveButton("添加好友", new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-
+                Toast.makeText(ShakeActivity.this, "positive: " + which, Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("取消添加", new DialogInterface.OnClickListener()
@@ -149,7 +148,7 @@ public class ShakeActivity extends BaseActivity implements DefineView ,SensorEve
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-
+                Toast.makeText(ShakeActivity.this, "negative: " + which, Toast.LENGTH_SHORT).show();
             }
         });
         builder.show();
