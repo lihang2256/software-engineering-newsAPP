@@ -18,11 +18,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 
 import com.example.newsAPP.R;
@@ -91,6 +90,7 @@ public class ShakeActivity extends BaseActivity implements DefineView ,SensorEve
                                     vibrator.vibrate(300);
                                     topLineIv.setVisibility(View.VISIBLE);
                                     bottomLineIv.setVisibility(View.VISIBLE);
+                                    showDialog();
                                     startAnimation(false);
                                 }
                             });
