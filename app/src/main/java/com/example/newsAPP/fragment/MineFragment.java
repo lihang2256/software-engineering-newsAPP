@@ -16,15 +16,16 @@ import android.widget.TextView;
 
 import com.example.newsAPP.R;
 
+import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.activity.AboutActivity;
 import com.example.newsAPP.activity.CollectionListActivity;
 import com.example.newsAPP.activity.FansListActivity;
-import com.example.newsAPP.activity.FollowListActivity;
 import com.example.newsAPP.activity.LoginActivity;
+import com.example.newsAPP.activity.MainActivity;
 import com.example.newsAPP.activity.ShakeActivity;
 
-public class AboutFragment extends BaseFragment{
-    private final String TAG = AboutFragment.class.getSimpleName();
+public class MineFragment extends BaseFragment{
+    private final String TAG = MineFragment.class.getSimpleName();
     private String[] data;
     private AboutAdapter adapter;
     private ListView mListView;
@@ -49,9 +50,11 @@ public class AboutFragment extends BaseFragment{
         View user_view = LayoutInflater.from(getActivity()).inflate(R.layout.user_view, mListView, false);
         ImageView user_icon = (ImageView) user_view.findViewById(R.id.user_icon);
         TextView user_name = (TextView) user_view.findViewById(R.id.user_name);
-
+        if ((int)SharedPreferenceUtils.getInstance().get(getActivity(),"USERID",-100) > 0){
+            user_icon.setImageDrawable(getResources().getDrawable(R.drawable.photo));
+            user_name.setText("hello");
+        }
         mListView.addHeaderView(user_view);
-
     }
 
     @Override
@@ -72,12 +75,13 @@ public class AboutFragment extends BaseFragment{
 //                4.收藏
 //                5.摇一摇
 //                6.关于App
-
                 switch (position) {
                     case 0:
                         //用户界面
-                        intent = new Intent(getActivity(), LoginActivity.class);
-                        startActivity(intent);
+                        if ((int)SharedPreferenceUtils.getInstance().get(getActivity(),"USERID",-100) < 0) {
+                            intent = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(intent);
+                        }
                         break;
                     case 1:
                         //进入个人信息
@@ -107,6 +111,11 @@ public class AboutFragment extends BaseFragment{
                         intent = new Intent(getActivity(), AboutActivity.class);
                         startActivity(intent);
                         break;
+                    case 7:
+                        //退出登录
+                        SharedPreferenceUtils.getInstance().put(getActivity(),"USERID",-100);
+                        intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
                 }
             }
         });

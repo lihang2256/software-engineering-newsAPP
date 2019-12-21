@@ -6,7 +6,8 @@
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@drawable/bg3"
+        android:alpha="0.8"
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:singleLine="true"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
     </android.support.v7.widget.Toolbar>

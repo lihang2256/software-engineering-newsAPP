@@ -77,7 +77,9 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
-                    { }
+                    {
+                        Toast.makeText(NewsDetailActivity.this, "positive: " + id, Toast.LENGTH_SHORT).show();
+                    }
                 });
                 builder.show();
                 break;

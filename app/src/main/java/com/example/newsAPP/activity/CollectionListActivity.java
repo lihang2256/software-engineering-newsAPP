@@ -28,7 +28,6 @@ public class CollectionListActivity extends BaseActivity implements DefineView {
         initToolbar();
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        //创建fragment但是不绘制UI
         transaction.add(R.id.collection_fragment, new CollectionFragment(),"");
         transaction.commit();
     }

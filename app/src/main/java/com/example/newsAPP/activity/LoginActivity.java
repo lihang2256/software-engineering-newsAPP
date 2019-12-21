@@ -1,5 +1,7 @@
 package com.example.newsAPP.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.SharedPreferenceUtils;
@@ -17,15 +20,17 @@ import com.example.newsAPP.common.DefineView;
 
 public class LoginActivity extends BaseActivity implements DefineView {
 
-    TextView signin,signup,signin_signup_txt,forgot_password;
-    Button button;
-    EditText nickname, password;
+    private TextView signin,signup,signin_signup_txt,forgot_password;
+    private Button button;
+    private EditText nickname, password;
+    private Context mContext;
+    private int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        SharedPreferenceUtils.getInstance().put(this,"USERID",20);
+        mContext = this;
         initView();
         initListener();
     }
@@ -55,6 +60,7 @@ public class LoginActivity extends BaseActivity implements DefineView {
     @Override
     public void initView() {
         initToolbar();
+        flag = 0;
         signin = (TextView) findViewById(R.id.signin);
         signup = (TextView) findViewById(R.id.signup);
         signin_signup_txt = (TextView) findViewById(R.id.signin_signup_txt);
@@ -80,6 +86,7 @@ public class LoginActivity extends BaseActivity implements DefineView {
                 signup.setBackgroundResource(R.drawable.bordershape);
                 signin_signup_txt.setText("登录");
                 button.setText("登录");
+                flag = 0;
                 forgot_password.setVisibility(View.VISIBLE);
                 //add something
             }
@@ -93,8 +100,22 @@ public class LoginActivity extends BaseActivity implements DefineView {
                 signin.setBackgroundResource(R.drawable.bordershape);
                 signin_signup_txt.setText("注册");
                 button.setText("注册");
+                flag = 1;
                 forgot_password.setVisibility(View.INVISIBLE);
                 //add something
+            }
+        });
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (flag == 0) {
+                    SharedPreferenceUtils.getInstance().put(mContext, "USERID", 20);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+                else if (flag == 1) {
+                    Toast.makeText(LoginActivity.this,"注册成功，请登录",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

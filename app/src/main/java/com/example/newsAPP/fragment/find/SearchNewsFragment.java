@@ -23,8 +23,8 @@ import com.example.newsAPP.bean.NewsBean;
 import com.example.newsAPP.bean.TrendBean;
 import com.example.newsAPP.common.DatabaseApi;
 import com.example.newsAPP.common.GetnewsApi;
-import com.example.newsAPP.fragment.AboutFragment;
 import com.example.newsAPP.fragment.BaseFragment;
+import com.example.newsAPP.fragment.MineFragment;
 import com.example.newsAPP.http.DataParse;
 import com.example.newsAPP.http.OkHttp;
 import com.example.newsAPP.widget.ClassicRefreshHeaderView;
@@ -34,7 +34,7 @@ import com.example.newsAPP.widget.LoadMoreFooterView;
 import java.util.ArrayList;
 
 public class SearchNewsFragment extends BaseFragment {
-    private final String TAG = AboutFragment.class.getSimpleName();
+    private final String TAG = MineFragment.class.getSimpleName();
     private static final String KEY = "TNAME";
     private View mView;
     private IRecyclerView mIRecyclerView;

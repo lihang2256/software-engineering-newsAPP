@@ -22,7 +22,7 @@ import com.example.newsAPP.bean.CommentBean;
 import com.example.newsAPP.common.DatabaseApi;
 import com.example.newsAPP.common.GetnewsApi;
 import com.example.newsAPP.fragment.BaseFragment;
-import com.example.newsAPP.fragment.comment.TrendListFragment;
+import com.example.newsAPP.fragment.trend.TrendListFragment;
 import com.example.newsAPP.http.OkHttp;
 import com.example.newsAPP.widget.ClassicRefreshHeaderView;
 import com.example.newsAPP.widget.DividerGridItemDecoration;

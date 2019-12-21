@@ -1,6 +1,7 @@
 package com.example.newsAPP.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,7 @@ import java.util.List;
 
 import com.example.newsAPP.R;
 import com.example.newsAPP.bean.BottomTab;
-import com.example.newsAPP.fragment.AboutFragment;
+import com.example.newsAPP.fragment.MineFragment;
 import com.example.newsAPP.fragment.TrendFragment;
 import com.example.newsAPP.fragment.FindFragment;
 import com.example.newsAPP.fragment.NewsFragment;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         // 评论标签
         BottomTab bottomTab_comment = new BottomTab(TrendFragment.class,R.string.comment_fragment,R.drawable.select_icon_photo);
         // 我的标签
-        BottomTab bottomTab_about = new BottomTab(AboutFragment.class,R.string.about_fragment,R.drawable.select_icon_about);
+        BottomTab bottomTab_about = new BottomTab(MineFragment.class,R.string.about_fragment,R.drawable.select_icon_about);
 
         mBottomTabs.add(bottomTab_news);
         mBottomTabs.add(bottomTab_find);

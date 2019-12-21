@@ -1,4 +1,4 @@
-package com.example.newsAPP.fragment.comment;
+package com.example.newsAPP.fragment.trend;
 
 import android.content.Intent;
 import android.os.AsyncTask;

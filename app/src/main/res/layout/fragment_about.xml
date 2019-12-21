@@ -6,13 +6,23 @@
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_page" />
-
-    <ListView
-        android:id="@+id/list_item"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/gray"
-        android:dividerHeight="1px"/>
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bg4"
+            android:alpha="0.5"
+            android:scaleType="fitXY">
+        </ImageView>
+        <ListView
+            android:id="@+id/list_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/gray"
+            android:dividerHeight="1px" />
+    </RelativeLayout>
 
 </LinearLayout>
 

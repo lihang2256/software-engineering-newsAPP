@@ -8,6 +8,7 @@
         <item>收藏</item>
         <item>摇一摇</item>
         <item>关于App</item>
+        <item>退出登录</item>
     </string-array>
 
     <string-array name="array_text_size_title">

@@ -19,7 +19,7 @@ import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.CategoryDataUtils;
 import com.example.newsAPP.adapter.FixedPagerAdapter;
 import com.example.newsAPP.common.DefineView;
-import com.example.newsAPP.fragment.comment.TrendListFragment;
+import com.example.newsAPP.fragment.trend.TrendListFragment;
 
 import static com.example.newsAPP.R.id.tab_layout;
 

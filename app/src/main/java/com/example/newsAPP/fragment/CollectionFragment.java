@@ -30,7 +30,7 @@ import com.example.newsAPP.widget.LoadMoreFooterView;
 import java.util.ArrayList;
 
 public class CollectionFragment extends BaseFragment {
-    private final String TAG = AboutFragment.class.getSimpleName();
+    private final String TAG = MineFragment.class.getSimpleName();
     private View mView;
     private IRecyclerView mIRecyclerView;
     private LoadMoreFooterView mLoadMoreFooterView;
