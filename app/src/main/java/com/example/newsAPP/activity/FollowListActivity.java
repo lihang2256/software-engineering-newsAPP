@@ -1,7 +1,6 @@
 package com.example.newsAPP.activity;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import android.os.AsyncTask;
@@ -30,7 +29,7 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
     private  ListView myLv;
     private Button myDeleteBtn;
     private FollowListAdapter myAdapter;
-    // String userID = SharedPreferenceUtils.getInstance().getString(this,"USERID",null);
+    private String userID;
      private List<FollowBean.DataBean> myContentsList = new ArrayList<>();
     private String[] myContentsArray;
     private List<FollowBean.DataBean> mySelectedList = new ArrayList<>();
@@ -38,7 +37,7 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follow_list);
-        //   SharedPreferenceUtils.getInstance().setString(this,"USERID","qwrw");
+        userID = SharedPreferenceUtils.getInstance().getString(this,"USERID",null);
         initView();
         initValidata();
         initListener();
@@ -65,7 +64,7 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
         @Override
         protected ArrayList<FollowBean.DataBean> doInBackground(String... strings) {
 
-            ArrayList<FollowBean.DataBean> list = new HttpUtils().getFollow("26");
+            ArrayList<FollowBean.DataBean> list = new HttpUtils().getFollow(userID);
             return list;
         }
 
@@ -117,8 +116,7 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
 
     /*
      * 根据isChecked,给选择的List中添加或删除数据
-     * (non-Javadoc)
-     * @see com.example.slideandselectdeletedemo.MyAdapter.ContentsDeleteListener#contentsDeleteSelect(int, boolean)
+     *
      */
     @Override
     public void contentsDeleteSelect(int position,boolean isChecked) {
@@ -131,8 +129,7 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
 
     /*
      * 删除指定位置的数据
-     * (non-Javadoc)
-     * @see com.example.slideandselectdeletedemo.MyAdapter.ContentsDeleteListener#contentDelete(int)
+     *
      */
     @Override
     public void contentDelete(int position) {

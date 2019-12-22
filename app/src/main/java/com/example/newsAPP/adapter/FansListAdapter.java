@@ -100,7 +100,7 @@ public class FansListAdapter extends BaseAdapter {
 
         }
         // 显示内容
-        holderView.listContentTv.setText(mContentsList.get(position).toString());
+        holderView.listContentTv.setText(mContentsList.get(position).getNick_name());
 
         if (visibleDeleteTv != null) {
             holderView.listDeleteTv

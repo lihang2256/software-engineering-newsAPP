@@ -11,7 +11,7 @@ public class DatabaseApi {
     public static final String getMyTrend = "getMyTrend";
     public static final String getFans = "getFans";
     public static final String follow = "insertInterest";
-    public static final String unfollow = "deleteFriend";
+    public static final String unFollow = "deleteFriend";
     public static final String ban = "cancelInterest";
     public static final String isFollow = "judgeFriend";
     public static final String collect = "collect";

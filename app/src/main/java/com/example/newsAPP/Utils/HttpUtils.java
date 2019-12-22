@@ -109,12 +109,14 @@ public class HttpUtils {
     }
 
 //    取关用户
-    public String unFollow(String user_id,String friend_id){
+    public ArrayList <FollowBean.DataBean> unFollow(String user_id,String friend_id){
         OkHttp okHttp = new OkHttp();
         FollowSomebodyApi sendId = new FollowSomebodyApi();
         sendId.setUser_id(user_id);
         sendId.setFriend_id(friend_id);
-        return okHttp.sendPost(sendId, DatabaseApi.unfollow);
+        String strJson = okHttp.sendPost(sendId, DatabaseApi.unFollow);
+        ArrayList<FollowBean.DataBean> list = DataParse.FollowList(strJson);
+        return list;
     }
 
 //    禁止对方的关注

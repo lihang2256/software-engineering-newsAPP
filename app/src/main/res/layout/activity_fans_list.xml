@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     >
     <include layout="@layout/toolbar_page" />
+
+    <ListView
+        android:id="@+id/my_lv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/my_delete_btn2"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="-52dp"
+        android:contentDescription="@string/member_list" />
     <Button
         android:id="@+id/my_delete_btn2"
         android:layout_width="match_parent"
@@ -12,14 +22,6 @@
         android:text="@string/fans_delete"
         />
 
-    <ListView
-        android:id="@+id/my_lv2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/my_delete_btn2"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="-52dp"
-        android:contentDescription="@string/member_list" />
-
 </RelativeLayout>
+
+

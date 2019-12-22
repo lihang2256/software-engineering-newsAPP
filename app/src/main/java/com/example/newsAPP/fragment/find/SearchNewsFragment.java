@@ -128,7 +128,6 @@ public class SearchNewsFragment extends BaseFragment {
                     SharedPreferenceUtils.getInstance().getString(getActivity(),"NEWSINPUT",""),
                     SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHTIME",null)
 
-           // ArrayList<NewsBean.DataBean> list = new HttpUtils().searchNews("娱乐","",""
             );
 
             return list;
