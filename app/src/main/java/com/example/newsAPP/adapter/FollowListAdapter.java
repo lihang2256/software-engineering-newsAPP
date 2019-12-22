@@ -21,14 +21,15 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.newsAPP.R;
+import com.example.newsAPP.bean.FollowBean;
 
 @SuppressLint("UseSparseArrays")
 public class FollowListAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
-    private List<String> mContentsList;
+    private List<FollowBean.DataBean> mContentsList ;
     private Context mContext;
-    private ContentsDeleteListener mContentsDeleteListener;
+    private FollowListAdapter.ContentsDeleteListener mContentsDeleteListener;
     //设置滑动删除按钮是否显示
     private Map<Integer, Integer> visibleDeleteTv;
     //CheckBox选择和未选择
@@ -37,7 +38,7 @@ public class FollowListAdapter extends BaseAdapter {
     private int mLastX = 0;
 //	private int mLastY = 0;
 
-    public FollowListAdapter(Context mContext, List<String> mContentsList, ContentsDeleteListener mContentsDeleteListener) {
+    public FollowListAdapter(Context mContext,List<FollowBean.DataBean> mContentsList, FollowListAdapter.ContentsDeleteListener mContentsDeleteListener) {
         this.mContext = mContext;
         this.mContentsList = mContentsList;
         this.mContentsDeleteListener = mContentsDeleteListener;
@@ -54,7 +55,7 @@ public class FollowListAdapter extends BaseAdapter {
         }
     }
 
-    public void updateView(List<String> mContentsList) {
+    public void updateView(List<FollowBean.DataBean> mContentsList) {
         this.mContentsList = mContentsList;
         this.notifyDataSetChanged();
     }
@@ -75,40 +76,44 @@ public class FollowListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View mnView, ViewGroup parent) {
-        final HolderView holderView;
-        if (mnView == null) {
-            holderView = new HolderView();
-            mnView = mInflater.inflate(R.layout.activity_follow_list_view,
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final FollowListAdapter.HolderView holderView;
+        if (convertView == null) {
+            holderView = new FollowListAdapter.HolderView();
+            convertView = mInflater.inflate(R.layout.activity_follow_list_view,
                     null);
-            holderView.listSelectCb2 = (CheckBox) mnView.findViewById(R.id.my_select_cb1);
-            holderView.listContentTv2 = (TextView) mnView.findViewById(R.id.my_content_tv1);
-            holderView.listDeleteTv2 = (TextView) mnView.findViewById(R.id.my_delete_tv2);
-            holderView.listRl2 = (RelativeLayout) mnView.findViewById(R.id.my_rl1);
+            holderView.listSelectCb = (CheckBox) convertView
+                    .findViewById(R.id.my_select_cb1);
+            holderView.listContentTv = (TextView) convertView
+                    .findViewById(R.id.my_content_tv1);
+            holderView.listDeleteTv = (TextView) convertView
+                    .findViewById(R.id.my_delete_tv1);
+            holderView.listRl = (RelativeLayout) convertView
+                    .findViewById(R.id.my_rl1);
 
-            mnView.setTag(holderView);
+            convertView.setTag(holderView);
         } else {
-            holderView = (HolderView) mnView.getTag();
-            if (holderView.listSelectCb2.isChecked()) {
-                holderView.listSelectCb2.setChecked(false);
+            holderView = (FollowListAdapter.HolderView) convertView.getTag();
+            if (holderView.listSelectCb.isChecked()) {
+                holderView.listSelectCb.setChecked(false);
             }
 
         }
         // 显示内容
-        holderView.listContentTv2.setText(mContentsList.get(position));
+        holderView.listContentTv.setText(mContentsList.get(position).toString());
 
         if (visibleDeleteTv != null) {
-            holderView.listDeleteTv2
+            holderView.listDeleteTv
                     .setVisibility(visibleDeleteTv.get(position));
         }
         if (selectCb != null) {
-            holderView.listSelectCb2.setChecked(selectCb.get(position));
+            holderView.listSelectCb.setChecked(selectCb.get(position));
             mContentsDeleteListener.contentsDeleteSelect(position,
                     selectCb.get(position));
         }
 
         // 处理选择事件
-        holderView.listRl2.setOnClickListener(new OnClickListener() {
+        holderView.listRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (visibleDeleteTv.containsValue(View.VISIBLE)) {//可见时，再次单击设置不可见，未选中
@@ -119,16 +124,16 @@ public class FollowListAdapter extends BaseAdapter {
                     }
                     notifyDataSetChanged();
                 } else {
-                    boolean isChecked = holderView.listSelectCb2.isChecked() ? false : true;
-                    holderView.listSelectCb2.setChecked(isChecked);
+                    boolean isChecked = holderView.listSelectCb.isChecked() ? false : true;
+                    holderView.listSelectCb.setChecked(isChecked);
 
                     mContentsDeleteListener.contentsDeleteSelect(position, isChecked);
                 }
             }
         });
 
-        holderView.listSelectCb2
-                .setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        holderView.listSelectCb
+                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView,
                                                  boolean isChecked) {
@@ -137,7 +142,7 @@ public class FollowListAdapter extends BaseAdapter {
                     }
                 });
 
-        holderView.listSelectCb2.setOnClickListener(new OnClickListener() {
+        holderView.listSelectCb.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -153,7 +158,7 @@ public class FollowListAdapter extends BaseAdapter {
             }
         });
 
-        mnView.setOnTouchListener(new OnTouchListener() {
+        convertView.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -180,7 +185,7 @@ public class FollowListAdapter extends BaseAdapter {
                                 selectCb.put(i, true);
                                 mContentsDeleteListener.contentsDeleteSelect(i, true);
                                 if (visibleDeleteTv.get(position) == View.VISIBLE) {
-                                    holderView.listDeleteTv2
+                                    holderView.listDeleteTv
                                             .startAnimation(alpha);
                                 }
                             }
@@ -197,7 +202,7 @@ public class FollowListAdapter extends BaseAdapter {
                 return false;
             }
         });
-        holderView.listDeleteTv2.setOnClickListener(new OnClickListener() {
+        holderView.listDeleteTv.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -212,17 +217,17 @@ public class FollowListAdapter extends BaseAdapter {
                 notifyDataSetChanged();
             }
         });
-        return mnView;
+        return convertView;
     }
 
     public class HolderView {
-        public TextView listContentTv2, listDeleteTv2;
-        public CheckBox listSelectCb2;
-        public RelativeLayout listRl2;
+        public TextView listContentTv, listDeleteTv;
+        public CheckBox listSelectCb;
+        public RelativeLayout listRl;
     }
 
     public void setContentsDeleteListener(
-            ContentsDeleteListener mContentsDeleteListener) {
+            FollowListAdapter.ContentsDeleteListener mContentsDeleteListener) {
         this.mContentsDeleteListener = mContentsDeleteListener;
     }
 
@@ -255,4 +260,3 @@ public class FollowListAdapter extends BaseAdapter {
         this.selectCb = selectCb;
     }
 }
-
