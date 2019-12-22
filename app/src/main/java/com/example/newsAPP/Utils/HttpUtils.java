@@ -161,6 +161,7 @@ public class HttpUtils {
         ReleaseTrendApi releaseTrendApi = new ReleaseTrendApi();
         releaseTrendApi.setUser_id(user_id);
         releaseTrendApi.setContent(content);
+        releaseTrendApi.setContent(news_id);
         return okHttp.sendPost(releaseTrendApi, DatabaseApi.releaseTrend);
     }
 

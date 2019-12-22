@@ -1,8 +1,10 @@
 package com.example.newsAPP.fragment;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.newsAPP.R;
 
+import com.example.newsAPP.Utils.HttpUtils;
 import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.activity.AboutActivity;
 import com.example.newsAPP.activity.CollectionListActivity;
@@ -28,6 +31,7 @@ import com.example.newsAPP.activity.FollowListActivity;
 import com.example.newsAPP.activity.LoginActivity;
 import com.example.newsAPP.activity.MainActivity;
 import com.example.newsAPP.activity.ShakeActivity;
+import com.example.newsAPP.activity.TrendDetailActivity;
 
 public class MineFragment extends BaseFragment{
     private final String TAG = MineFragment.class.getSimpleName();
@@ -35,10 +39,14 @@ public class MineFragment extends BaseFragment{
     private AboutAdapter adapter;
     private ListView mListView;
     private View mView;
+    private String userID;
+    private String text;
+    private EditText editText;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        userID = SharedPreferenceUtils.getInstance().getString(getActivity(),"USERID",null);
         mView = inflater.inflate(R.layout.fragment_about, null);
         Toolbar myToolbar = initToolbar(mView, R.id.my_toolbar, R.id.toolbar_title, R.string.user_home);
         initView();
@@ -110,18 +118,22 @@ public class MineFragment extends BaseFragment{
                         break;
                     case 5:
                         //发表动态
+                        if(userID==null){
+                            Toast.makeText( getActivity(), "请先登陆", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setTitle("请输入评动态（不超过100字）");
-                        View mView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog, null);
-                        builder.setView(mView);
-                        final EditText password = (EditText)view.findViewById(R.id.comment_commit_content);
+                        View vview = LayoutInflater.from(getActivity()).inflate(R.layout.dialog, null);
+                        builder.setView(vview);
+                        editText = vview.findViewById(R.id.comment_commit_content);
                         builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which)
                             {
-                                //add something
-
+                                text = editText.getText().toString();
+                                new ReleaseTrendAsyncTask().execute(userID,text,"1");
                             }
                         });
                         builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
@@ -183,6 +195,31 @@ public class MineFragment extends BaseFragment{
             TextView tv_about = (TextView) convertView.findViewById(R.id.tv_about);
             tv_about.setText(data[position]);
             return convertView;
+        }
+    }
+
+    class ReleaseTrendAsyncTask extends AsyncTask<String,Integer,String> {
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = new HttpUtils().releaseTrend(strings[0],strings[1],strings[2]);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if (result=="success") {
+                Toast.makeText( getActivity(), "发表成功", Toast.LENGTH_SHORT).show();
+            } else if(result=="insert trend error"){
+                Toast.makeText(getActivity(), "插入动态表失败", Toast.LENGTH_SHORT).show();
+            } else if(result=="release trend error"){
+                Toast.makeText(getActivity(), "插入发布动态失败", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
