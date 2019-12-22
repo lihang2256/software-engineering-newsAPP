@@ -98,12 +98,14 @@ public class HttpUtils {
     }
 
 //    关注用户
-    public String follow(String user_id,String friend_id){
+    public boolean follow(String user_id,String friend_id){
         OkHttp okHttp = new OkHttp();
         FollowSomebodyApi sendId = new FollowSomebodyApi();
         sendId.setUser_id(user_id);
         sendId.setFriend_id(friend_id);
-        return okHttp.sendPost(sendId, DatabaseApi.follow);
+        String result =  okHttp.sendPost(sendId, DatabaseApi.follow);
+        boolean finished = DataParse.ActionSuccess(result);
+        return finished;
     }
 
 //    取关用户

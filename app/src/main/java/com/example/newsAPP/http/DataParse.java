@@ -81,15 +81,15 @@ public class DataParse {
     }
 
     // 没有任何返回值，只是看功能是否完成了
-    public static void ActionSuccess(String json) {
+    public static boolean ActionSuccess(String json) {
         Gson gson = new Gson();
         NoDataBean noDataBean = gson.fromJson(json, NoDataBean.class);
         if(noDataBean.getStatus().equals("success")){
-            return;
+            return true;
         }else{
             Log.e(TAG, "actionFailed: Request error");
         }
-        return;
+        return false;
     }
 
     // 判断是否为好友，返回bool

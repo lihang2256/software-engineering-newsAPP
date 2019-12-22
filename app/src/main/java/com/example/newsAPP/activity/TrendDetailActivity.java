@@ -99,6 +99,7 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
+//                        TODO::添加关注
                         Toast.makeText(TrendDetailActivity.this, "positive: " + which, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -234,4 +235,51 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
             }
         }
     }
+    class followAsyncTask extends AsyncTask<String,Integer,Boolean> {
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            boolean result = new HttpUtils().follow(strings[0],strings[1]);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            if (!aBoolean) {
+                Toast.makeText(TrendDetailActivity.this, "关注失败", Toast.LENGTH_SHORT).show();
+            } else {
+                isFollowAsyncTask.execute();
+            }
+        }
+    }
+    class isFollowAsyncTask extends AsyncTask<String,Integer,Boolean> {
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            boolean result = new HttpUtils().isFollow(strings[0],strings[1]);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            if (!aBoolean) {
+                //未关注
+
+            } else {
+                //已关注
+                
+            }
+        }
+    }
+
 }
