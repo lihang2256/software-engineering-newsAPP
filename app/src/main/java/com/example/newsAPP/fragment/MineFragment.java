@@ -116,6 +116,7 @@ public class MineFragment extends BaseFragment{
                         intent = new Intent(getActivity(), CollectionListActivity.class);
                         startActivity(intent);
                         break;
+
                     case 5:
                         //发表动态
                         if(userID==null){

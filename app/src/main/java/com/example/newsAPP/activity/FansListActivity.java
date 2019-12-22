@@ -28,7 +28,8 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
     private  Button myDeleteBtn;
     private  FansListAdapter myAdapter;
     private  List<FansBean.DataBean> myContentsList = new ArrayList<>();
-   // String userID = SharedPreferenceUtils.getInstance().getString(this,"USERID",null);
+    private  String userID ;
+
 
     private String[] myContentsArray;
     private List<FansBean.DataBean> mySelectedList = new ArrayList<>();
@@ -37,7 +38,7 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fans_list);
-     //   SharedPreferenceUtils.getInstance().setString(this,"USERID","qwrw");
+        userID = SharedPreferenceUtils.getInstance().getString(this,"USERID",null);
 
         initView();
         initValidata();
@@ -65,12 +66,12 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
         @Override
         protected ArrayList<FansBean.DataBean> doInBackground(String... strings) {
 
-            ArrayList<FansBean.DataBean> list = new HttpUtils().getFans("26");
+            ArrayList<FansBean.DataBean> list = new HttpUtils().getFans(userID);
             return list;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<FansBean.DataBean> list) {
+        protected void onPostExecute(ArrayList<FansBean.DataBean>list) {
             super.onPostExecute(list);
             myContentsList = list;
             bindData();
@@ -83,10 +84,10 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
 
     @Override
     public void bindData() {
-    if(myContentsList!=null) {
-        myAdapter = new FansListAdapter(this, myContentsList, this);
-        myLv.setAdapter(myAdapter);
-    }
+        if(myContentsList!=null) {
+            myAdapter = new FansListAdapter(this, myContentsList, this);
+            myLv.setAdapter(myAdapter);
+        }
     }
 
     @Override
