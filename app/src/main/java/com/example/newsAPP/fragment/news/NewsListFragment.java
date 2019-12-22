@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import com.example.newsAPP.MyApplication;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.DensityUtils;
+import com.example.newsAPP.Utils.HttpUtils;
 import com.example.newsAPP.activity.NewsDetailActivity;
 import com.example.newsAPP.adapter.NewsListAdapter;
 import com.example.newsAPP.bean.NewsBean;
@@ -101,10 +102,8 @@ public class NewsListFragment extends BaseFragment {
 
         @Override
         protected ArrayList<NewsBean.DataBean> doInBackground(String... strings) {
-            OkHttp okHttp = new OkHttp();
-            GetnewsApi getnewsApi = new GetnewsApi();
-            getnewsApi.setType(strings[0]);
-            String result = okHttp.sendPost(getnewsApi, DatabaseApi.newsList);
+            HttpUtils http = new HttpUtils();
+            String result = http.getNews(strings);
             ArrayList<NewsBean.DataBean> list;
             list = DataParse.NewsList(result);
             return list;

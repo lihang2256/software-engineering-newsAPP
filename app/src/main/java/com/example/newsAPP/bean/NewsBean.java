@@ -30,6 +30,7 @@ public class NewsBean {
 
     public static class DataBean {
         /**
+         * id : B151531351531
          * author : 中国新闻网
          * time : 2019-11-26 20:38:00
          * title : 达州市达川区一老人多年无户籍 派出所民警实地走访解难题
@@ -38,6 +39,7 @@ public class NewsBean {
          * picture : http://08imgmini.eastday.com/mobile/20191126/20191126203843_6bf761175986aa2d2728710014cd83cf_1_mwpm_03200403.jpg
          */
 
+        private String id;
         private String author;
         private String time;
         private String title;
@@ -91,6 +93,14 @@ public class NewsBean {
 
         public void setPicture(String picture) {
             this.picture = picture;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
         }
     }
 }

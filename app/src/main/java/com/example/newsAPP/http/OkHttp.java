@@ -26,11 +26,29 @@ public class OkHttp {
         return responseData;
     }
 
+    public String sendGet(final String route){
+        try{
+            responseData = get(DatabaseApi.host + route);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        return responseData;
+    }
+
     String post(String url, String json) throws IOException {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        String responseData = response.body().string();
+        return responseData;
+    }
+
+    String get(String url) throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
                 .build();
         Response response = client.newCall(request).execute();
         String responseData = response.body().string();
