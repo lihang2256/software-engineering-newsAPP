@@ -1,9 +1,9 @@
 package com.example.newsAPP.activity;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.newsAPP.R;
+import com.example.newsAPP.Utils.HttpUtils;
+import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.adapter.FansListAdapter.ContentsDeleteListener;
 import com.example.newsAPP.adapter.FansListAdapter;
 import com.example.newsAPP.bean.FansBean;
@@ -23,16 +25,20 @@ import com.example.newsAPP.common.DefineView;
 
 public class FansListActivity extends BaseActivity implements ContentsDeleteListener,OnClickListener, DefineView {
     private  ListView myLv;
-    private Button myDeleteBtn;
-    private FansListAdapter myAdapter;
-    private List<FansBean.DataBean> myContentsList = new ArrayList<>();
+    private  Button myDeleteBtn;
+    private  FansListAdapter myAdapter;
+    private  List<FansBean.DataBean> myContentsList = new ArrayList<>();
+   // String userID = SharedPreferenceUtils.getInstance().getString(this,"USERID",null);
+
     private String[] myContentsArray;
-  //  private List<String> myContentsList = new ArrayList<String>();
     private List<FansBean.DataBean> mySelectedList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fans_list);
+     //   SharedPreferenceUtils.getInstance().setString(this,"USERID","qwrw");
+
         initView();
         initValidata();
         initListener();
@@ -48,9 +54,28 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
 
     @Override
     public void initValidata() {
-        bindData();
+        new FansAsyncTask().execute();
     }
+    class FansAsyncTask extends AsyncTask<String,Integer,ArrayList<FansBean.DataBean>> {
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
 
+        @Override
+        protected ArrayList<FansBean.DataBean> doInBackground(String... strings) {
+
+            ArrayList<FansBean.DataBean> list = new HttpUtils().getFans("26");
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<FansBean.DataBean> list) {
+            super.onPostExecute(list);
+            myContentsList = list;
+            bindData();
+        }
+    }
     @Override
     public void initListener() {
 
@@ -58,11 +83,10 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
 
     @Override
     public void bindData() {
-        myContentsArray = this.getResources().getStringArray(R.array.my_fans);
-     if(myContentsList != null) {
-         myAdapter = new FansListAdapter(this, myContentsList, this);
-         myLv.setAdapter(myAdapter);
-     }
+    if(myContentsList!=null) {
+        myAdapter = new FansListAdapter(this, myContentsList, this);
+        myLv.setAdapter(myAdapter);
+    }
     }
 
     @Override

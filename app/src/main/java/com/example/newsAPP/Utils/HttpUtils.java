@@ -1,5 +1,7 @@
 package com.example.newsAPP.Utils;
 
+import com.example.newsAPP.bean.FansBean;
+import com.example.newsAPP.bean.FollowBean;
 import com.example.newsAPP.bean.NewsBean;
 import com.example.newsAPP.bean.CommentBean;
 import com.example.newsAPP.bean.TrendBean;
@@ -47,19 +49,23 @@ public class HttpUtils {
     }
 
 //    获取所有关注的人列表
-    public String getFollow(String string){
+    public ArrayList<FollowBean.DataBean> getFollow(String string){
         OkHttp okHttp = new OkHttp();
         SendIdApi sendId = new SendIdApi();
         sendId.setID(string);
-        return okHttp.sendPost(sendId, DatabaseApi.getFollow);
+        String strJson = okHttp.sendPost(sendId, DatabaseApi.getFollow);
+        ArrayList<FollowBean.DataBean> beans = DataParse.FollowList(strJson);
+        return beans;
     }
 
 //    获取粉丝列表
-    public String getFans(String string){
+    public ArrayList<FansBean.DataBean> getFans(String string){
         OkHttp okHttp = new OkHttp();
         SendIdApi sendId = new SendIdApi();
         sendId.setID(string);
-        return okHttp.sendPost(sendId, DatabaseApi.getFans);
+        String strJson = okHttp.sendPost(sendId, DatabaseApi.getFans);
+        ArrayList<FansBean.DataBean> beans = DataParse.FansList(strJson);
+        return beans;
     }
 
 //    获取所有用户动态
@@ -181,12 +187,14 @@ public class HttpUtils {
         return DataParse.login(strJson);
     }
 //    搜索新闻
-    public String searchNews(String type, String keyword, String time){
+    public ArrayList<NewsBean.DataBean> searchNews(String type, String keyword, String time){
         OkHttp okHttp = new OkHttp();
         SearchNewsApi searchNewsApi = new SearchNewsApi();
         searchNewsApi.setType(type);
         searchNewsApi.setKeyword(keyword);
         searchNewsApi.setTime(time);
-        return okHttp.sendPost(searchNewsApi, DatabaseApi.searchNews);
+        String strJson = okHttp.sendPost(searchNewsApi, DatabaseApi.searchNews);
+        ArrayList<NewsBean.DataBean> beans = DataParse.NewsList(strJson);
+        return beans;
     }
 }

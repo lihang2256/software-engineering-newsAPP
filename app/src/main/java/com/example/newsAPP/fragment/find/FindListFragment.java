@@ -26,6 +26,7 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.newsAPP.R;
+import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.bean.FollowBean;
 import com.example.newsAPP.bean.TypeBean;
 import com.example.newsAPP.common.DefineView;
@@ -64,6 +65,7 @@ public class FindListFragment extends BaseFragment implements DefineView {
         search = (Button)mView.findViewById(R.id.btn_search);
         editText = (EditText) mView.findViewById(R.id.input_key_word);
 
+
         if (getArguments() != null) {
             tname = getArguments().getString("FINDTNAME");
         }
@@ -87,21 +89,22 @@ public class FindListFragment extends BaseFragment implements DefineView {
         return mView;
     }
 
-    @Override
+
+        @Override
     public void initView() {
         if (tname == "新闻搜索") {
             first.setText("时间");
             second.setText("类型");
-            Fragment news = new SearchNewsFragment();
-            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-            transaction.add(R.id.search_fragment, news,"").commit();
+
+
+
         }
         else {
             first.setText("时间");
             second.setText("关注");
-            Fragment trend = new SearchTrendFragment();
-            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-            transaction.add(R.id.search_fragment, trend,"").commit();
+
+
+
         }
     }
 
@@ -109,6 +112,8 @@ public class FindListFragment extends BaseFragment implements DefineView {
     public void initValidata() {
 
     }
+
+
 
     @Override
     public void initListener() {
@@ -125,6 +130,17 @@ public class FindListFragment extends BaseFragment implements DefineView {
                     pv.show(v);
                 }
             });
+            search.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v) {
+                    //to search news fragment
+                    SharedPreferenceUtils.getInstance().setString(getActivity(),"NEWSINPUT",editText.getText().toString());
+
+                    Fragment news = new SearchNewsFragment();
+                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                    transaction.add(R.id.search_fragment, news,"").commit();
+
+                }
+            });
         }
         else {
             first.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +154,19 @@ public class FindListFragment extends BaseFragment implements DefineView {
                 @Override
                 public void onClick(View v) {
                     pv.show(v);
+                }
+            });
+            search.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v) {
+                    //to search trend fragment
+                    SharedPreferenceUtils.getInstance().setString(getActivity(),"TRENDINPUT",editText.getText().toString());
+
+
+                    Fragment trend = new SearchTrendFragment();
+                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                    transaction.add(R.id.search_fragment, trend,"").commit();
+
+
                 }
             });
         }
@@ -172,6 +201,7 @@ public class FindListFragment extends BaseFragment implements DefineView {
        //         Toast.makeText(getActivity() ,getTime(date), Toast.LENGTH_SHORT).show();
                 Log.i("pvTime", "onTimeSelect");
                 first.setText(getTime(date));
+                SharedPreferenceUtils.getInstance().setString(getActivity(),"SEARCHTIME",getTime(date));
 
             }
         })
@@ -257,6 +287,7 @@ public class FindListFragment extends BaseFragment implements DefineView {
                         // + options2Items.get(options1).get(options2)
                         /* + options3Items.get(options1).get(options2).get(options3).getPickerViewText()*/;
                 second.setText(tx);
+                 SharedPreferenceUtils.getInstance().setString(getActivity(),"SEARCHTYPE",tx);
             }
         })
                 .setTitleText("类型选择")
@@ -297,6 +328,7 @@ public class FindListFragment extends BaseFragment implements DefineView {
                         // + options2Items.get(options1).get(options2)
                         /* + options3Items.get(options1).get(options2).get(options3).getPickerViewText()*/ ;
                 second.setText(tx);
+                String friend = SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHFRIEND",tx);
             }
         })
                 .setTitleText("好友选择")

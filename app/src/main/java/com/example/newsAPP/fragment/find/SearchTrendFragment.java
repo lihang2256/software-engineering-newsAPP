@@ -16,6 +16,7 @@ import com.aspsine.irecyclerview.OnRefreshListener;
 import com.example.newsAPP.MyApplication;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.DensityUtils;
+import com.example.newsAPP.Utils.HttpUtils;
 import com.example.newsAPP.activity.TrendDetailActivity;
 import com.example.newsAPP.adapter.TrendListAdapter;
 import com.example.newsAPP.bean.CommentBean;
@@ -68,8 +69,27 @@ public class SearchTrendFragment extends BaseFragment {
         if (getArguments() != null) {
             tname = getArguments().getString("TNAME");
         }
-        //new CommentAsyncTask().execute(tname);
+     //   new CommentAsyncTask().execute(tname);
     }
+//    class TrendAsyncTask extends AsyncTask<String,Integer,ArrayList<TrendBean.DataBean>>{
+//        @Override
+//        protected void onPreExecute(){
+//            super.onPreExecute();
+//        }
+//
+//        @Override
+//        protected ArrayList<TrendBean.DataBean> doInBackground(String... strings) {
+//            ArrayList<TrendBean.DataBean> list = new HttpUtils().searchTrend(strings[0]);
+//            return list;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(ArrayList<TrendBean.DataBean> list) {
+//            super.onPostExecute(list);
+//            mTrendBeanList = list;
+//            bindData();
+//        }
+//    }
 
     @Override
     public void initListener() {
@@ -115,20 +135,22 @@ public class SearchTrendFragment extends BaseFragment {
 
     @Override
     public void bindData() {
-        mTrendListAdapter = new TrendListAdapter(getActivity(), mTrendBeanList);
-        mIRecyclerView.setIAdapter(mTrendListAdapter);
-        // 设置Item点击跳转事件
-        mTrendListAdapter.setOnItemClickListener(new TrendListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                TrendBean.DataBean bean = mTrendBeanList.get(position);
-                Intent intent;
-                intent = new Intent(getActivity(), TrendDetailActivity.class);
-                intent.putExtra("CID", 1);
-                //commentBean.getID());
-                getActivity().startActivity(intent);
-            }
-        });
+        if( mIRecyclerView!=null) {
+            mTrendListAdapter = new TrendListAdapter(getActivity(), mTrendBeanList);
+            mIRecyclerView.setIAdapter(mTrendListAdapter);
+            // 设置Item点击跳转事件
+            mTrendListAdapter.setOnItemClickListener(new TrendListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position) {
+                    TrendBean.DataBean bean = mTrendBeanList.get(position);
+                    Intent intent;
+                    intent = new Intent(getActivity(), TrendDetailActivity.class);
+                    intent.putExtra("CID", 1);
+                    //commentBean.getID());
+                    getActivity().startActivity(intent);
+                }
+            });
+        }
     }
 
     public static TrendListFragment newInstance(String tname){

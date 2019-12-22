@@ -71,8 +71,11 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        System.out.println(mNewsBeanList.size());
-        return mNewsBeanList.size();
+        if(mNewsBeanList!=null) {
+            System.out.println(mNewsBeanList.size());
+            return mNewsBeanList.size();
+        }
+        return -1;
     }
 
     private void setNetPicture(String url, ImageView img) {

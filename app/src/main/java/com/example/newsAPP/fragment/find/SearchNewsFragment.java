@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.aspsine.irecyclerview.OnRefreshListener;
 import com.example.newsAPP.MyApplication;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.DensityUtils;
+import com.example.newsAPP.Utils.HttpUtils;
+import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.activity.NewsDetailActivity;
 import com.example.newsAPP.adapter.NewsListAdapter;
 import com.example.newsAPP.adapter.TrendListAdapter;
@@ -70,8 +73,8 @@ public class SearchNewsFragment extends BaseFragment {
 
     @Override
     public void initValidata() {
-        new SearchNewsFragment.SearchListAsyncTask().execute("头条");
 
+        new SearchListAsyncTask().execute();
         }
 
 
@@ -93,21 +96,23 @@ public class SearchNewsFragment extends BaseFragment {
 
     @Override
     public void bindData() {
-        mNewsListAdapter = new NewsListAdapter(MyApplication.getContext(), mNewsBeanList);
-        mIRecyclerView.setIAdapter(mNewsListAdapter);
-        // 设置Item点击跳转事件
-        mNewsListAdapter.setOnItemClickListener(new NewsListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                NewsBean.DataBean bean = mNewsBeanList.get(position);
-                //int newsID = bean.getID();
-                Intent intent;
-                intent = new Intent(getActivity(), NewsDetailActivity.class);
-                intent.putExtra("URL", bean.getUrl());
-                //intent.putExtra("ID",bean.getID());
-                getActivity().startActivity(intent);
-            }
-        });
+        if ( mIRecyclerView!=null) {
+            mNewsListAdapter = new NewsListAdapter(MyApplication.getContext(), mNewsBeanList);
+            mIRecyclerView.setIAdapter(mNewsListAdapter);
+            // 设置Item点击跳转事件
+            mNewsListAdapter.setOnItemClickListener(new NewsListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position) {
+                    NewsBean.DataBean bean = mNewsBeanList.get(position);
+                    //int newsID = bean.getID();
+                    Intent intent;
+                    intent = new Intent(getActivity(), NewsDetailActivity.class);
+                    intent.putExtra("URL", bean.getUrl());
+                    //intent.putExtra("ID",bean.getID());
+                    getActivity().startActivity(intent);
+                }
+            });
+        }
     }
 
     class SearchListAsyncTask extends AsyncTask<String,Integer,ArrayList<NewsBean.DataBean>> {
@@ -118,12 +123,14 @@ public class SearchNewsFragment extends BaseFragment {
 
         @Override
         protected ArrayList<NewsBean.DataBean> doInBackground(String... strings) {
-            OkHttp okHttp = new OkHttp();
-            GetnewsApi getnewsApi = new GetnewsApi();
-            getnewsApi.setType(strings[0]);
-            String result = okHttp.sendPost(getnewsApi, DatabaseApi.newsList);
-            ArrayList<NewsBean.DataBean> list;
-            list = DataParse.NewsList(result);
+            ArrayList<NewsBean.DataBean> list = new HttpUtils().searchNews(
+                    SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHTYPE",null),
+                    SharedPreferenceUtils.getInstance().getString(getActivity(),"NEWSINPUT","我"),
+                    SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHTIME",null)
+
+           // ArrayList<NewsBean.DataBean> list = new HttpUtils().searchNews("娱乐","",""
+            );
+
             return list;
         }
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 
 import com.example.newsAPP.R;
 
+import com.example.newsAPP.Utils.HttpUtils;
+import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.adapter.FollowListAdapter.ContentsDeleteListener;
 import com.example.newsAPP.adapter.FollowListAdapter;
 
@@ -27,14 +30,15 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
     private  ListView myLv;
     private Button myDeleteBtn;
     private FollowListAdapter myAdapter;
-    private List<FollowBean.DataBean> myContentsList = new ArrayList<>();
+    // String userID = SharedPreferenceUtils.getInstance().getString(this,"USERID",null);
+     private List<FollowBean.DataBean> myContentsList = new ArrayList<>();
     private String[] myContentsArray;
-    //  private List<String> myContentsList = new ArrayList<String>();
     private List<FollowBean.DataBean> mySelectedList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follow_list);
+        //   SharedPreferenceUtils.getInstance().setString(this,"USERID","qwrw");
         initView();
         initValidata();
         initListener();
@@ -50,9 +54,28 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
 
     @Override
     public void initValidata() {
-        bindData();
+        new FollowAsyncTask().execute();
     }
+    class FollowAsyncTask extends AsyncTask<String,Integer,ArrayList<FollowBean.DataBean>> {
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
 
+        @Override
+        protected ArrayList<FollowBean.DataBean> doInBackground(String... strings) {
+
+            ArrayList<FollowBean.DataBean> list = new HttpUtils().getFollow("26");
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<FollowBean.DataBean> list) {
+            super.onPostExecute(list);
+            myContentsList = list;
+            bindData();
+        }
+    }
     @Override
     public void initListener() {
 

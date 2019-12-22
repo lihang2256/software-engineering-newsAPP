@@ -47,11 +47,12 @@ public class FollowListAdapter extends BaseAdapter {
 
         visibleDeleteTv = new HashMap<Integer, Integer>();
         selectCb = new HashMap<Integer, Boolean>();
-
-        // 更新界面时,记录为 未选中和滑动删除按钮不可见
-        for (int i = 0; i < mContentsList.size(); i++) {
-            visibleDeleteTv.put(i, View.GONE);
-            selectCb.put(i, false);
+        if(mContentsList!=null) {
+            // 更新界面时,记录为 未选中和滑动删除按钮不可见
+            for (int i = 0; i < mContentsList.size(); i++) {
+                visibleDeleteTv.put(i, View.GONE);
+                selectCb.put(i, false);
+            }
         }
     }
 
@@ -62,7 +63,11 @@ public class FollowListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mContentsList.size();
+        if(mContentsList!=null) {
+
+            return mContentsList.size();
+        }
+        return -1;
     }
 
     @Override

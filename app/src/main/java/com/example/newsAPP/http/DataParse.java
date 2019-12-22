@@ -2,13 +2,14 @@ package com.example.newsAPP.http;
 
 import android.util.Log;
 
+import com.example.newsAPP.bean.FansBean;
+import com.example.newsAPP.bean.FollowBean;
 import com.example.newsAPP.bean.JudgeFriendBean;
 import com.example.newsAPP.bean.LoginBean;
 import com.example.newsAPP.bean.NewsBean;
 import com.example.newsAPP.bean.NoDataBean;
 import com.example.newsAPP.bean.TrendBean;
 import com.example.newsAPP.bean.CommentBean;
-import com.example.newsAPP.bean.WXZFollowBean;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -41,14 +42,26 @@ public class DataParse {
         return null;
     }
 
-    // 关注列表，粉丝列表解析
-    public static ArrayList<WXZFollowBean.DataBean> FollowList(String json) {
+    // 关注列表解析
+    public static ArrayList<FollowBean.DataBean> FollowList(String json) {
         Gson gson = new Gson();
-        WXZFollowBean followBean = gson.fromJson(json, WXZFollowBean.class);
+       FollowBean followBean = gson.fromJson(json, FollowBean.class);
         if(followBean.getStatus().equals("success")){
-            return (ArrayList<WXZFollowBean.DataBean>) followBean.getData();
+            return (ArrayList<FollowBean.DataBean>) followBean.getData();
         }else{
             Log.e(TAG, "FollowBeanParse: Request error");
+        }
+        return null;
+    }
+
+    // 粉丝列表解析
+    public static ArrayList<FansBean.DataBean> FansList(String json) {
+        Gson gson = new Gson();
+        FansBean fansBean = gson.fromJson(json, FansBean.class);
+        if(fansBean.getStatus().equals("success")){
+            return (ArrayList<FansBean.DataBean>) fansBean.getData();
+        }else{
+            Log.e(TAG, "FansBeanParse: Request error");
         }
         return null;
     }
