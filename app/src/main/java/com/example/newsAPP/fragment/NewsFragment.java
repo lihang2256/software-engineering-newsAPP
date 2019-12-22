@@ -130,8 +130,9 @@ public class NewsFragment extends BaseFragment implements DefineView {
             myChannelList = CategoryDataUtils.getChannelCategoryBeans();
             moreChannelList = CategoryDataUtils.getMoreCategoryBeans();
             setType(myChannelList);
+            setType(moreChannelList);
             SharedPreferenceUtils.getInstance().setDataList(getActivity(),"myChannel", myChannelList);
-            SharedPreferenceUtils.getInstance().setDataList(getActivity(),"moreChannel", myChannelList);
+            SharedPreferenceUtils.getInstance().setDataList(getActivity(),"moreChannel", moreChannelList);
             SharedPreferenceUtils.getInstance().setBoolean(getActivity(),"isFirst", false);
         } else {
             myChannelList = SharedPreferenceUtils.getInstance().getDataList(getActivity(),"myChannel",ProjectChannelBean.class);
