@@ -2,6 +2,7 @@ package com.example.newsAPP.http;
 
 import android.util.Log;
 
+import com.example.newsAPP.bean.CollectionBean;
 import com.example.newsAPP.bean.FansBean;
 import com.example.newsAPP.bean.FollowBean;
 import com.example.newsAPP.bean.JudgeFriendBean;
@@ -152,6 +153,20 @@ public class DataParse {
         return null;
     }
 
+    public static String iscollect(String json) {
+        Gson gson = new Gson();
+        CollectionBean collectionBean = gson.fromJson(json, CollectionBean.class);
+        if (collectionBean.getString().equals("True")) {
+            return collectionBean.getString();
+        }
+        if (collectionBean.getString().equals("False")) {
+            return collectionBean.getString();
+        }
+        else{
+            Log.e(TAG, "actionFailed: Request error");
+        }
+        return null;
+    }
 
     //
 //    public static ArrayList<NewsBean.DataBean> NewsList(String json) {
