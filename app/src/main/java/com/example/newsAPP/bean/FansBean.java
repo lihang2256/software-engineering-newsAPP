@@ -1,48 +1,64 @@
 package com.example.newsAPP.bean;
 
+import java.util.List;
+
 public class FansBean {
-    private long id;
-    private String name;
-    private String description;
-    private String others;
+    /**
+     * data : [{"nick_name":"cxiaoyu","ID":26},{"nick_name":"dxiaoyu","ID":27},{"nick_name":"exiaoyu","ID":28},{"nick_name":"fxiaoyu","ID":29}]
+     * status : success
+     */
+    private String status;
+    private List<DataBean> data;
 
-    public FansBean(long id, String name, String description, String others){
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.others = others;
+
+
+    public String getStatus() {
+        return status;
     }
 
-    public long getId() {
-        return id;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public List<DataBean> getData() {
+        return data;
     }
 
-    public String getName() {
-        return name;
+    public void setData(List<DataBean> data) {
+        this.data = data;
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+
+    public static class DataBean {
+        /**
+         * nick_name : cxiaoyu
+         * ID : 26
+         */
+
+        private String nick_name;
+        private int ID;
+
+        public String getNick_name() {
+            return nick_name;
+        }
+
+        public void setNick_name(String nick_name) {
+            this.nick_name = nick_name;
+
+        }
+
+        public int getID() {
+            return ID;
+        }
+
+        public void setID(int ID) {
+            this.ID = ID;
+        }
+
     }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getOthers() {
-        return others;
-    }
-
-    public void setOthers(String others) {
-        this.others = others;
-    }
 
 }
+

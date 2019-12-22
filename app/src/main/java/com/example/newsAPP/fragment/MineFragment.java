@@ -24,6 +24,7 @@ import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.activity.AboutActivity;
 import com.example.newsAPP.activity.CollectionListActivity;
 import com.example.newsAPP.activity.FansListActivity;
+import com.example.newsAPP.activity.FollowListActivity;
 import com.example.newsAPP.activity.LoginActivity;
 import com.example.newsAPP.activity.MainActivity;
 import com.example.newsAPP.activity.ShakeActivity;
@@ -94,7 +95,7 @@ public class MineFragment extends BaseFragment{
                         break;
                     case 2:
                         //进入关注
-                        intent = new Intent(getActivity(), FansListActivity.class);
+                        intent = new Intent(getActivity(), FollowListActivity.class);
                         startActivity(intent);
                         break;
                     case 3:

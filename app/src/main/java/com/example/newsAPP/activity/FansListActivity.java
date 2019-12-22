@@ -25,10 +25,10 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
     private  ListView myLv;
     private Button myDeleteBtn;
     private FansListAdapter myAdapter;
-    private List<FansBean> myContentsList = new ArrayList<>();
+    private List<FansBean.DataBean> myContentsList = new ArrayList<>();
     private String[] myContentsArray;
   //  private List<String> myContentsList = new ArrayList<String>();
-    private List<FansBean> mySelectedList = new ArrayList<>();
+    private List<FansBean.DataBean> mySelectedList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,11 +59,10 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
     @Override
     public void bindData() {
         myContentsArray = this.getResources().getStringArray(R.array.my_fans);
-//        if(myContentsArray != null){
-//            Collections.addAll(myContentsList, myContentsArray);
-//        }
-        myAdapter = new FansListAdapter(this,myContentsList,this);
-        myLv.setAdapter(myAdapter);
+     if(myContentsList != null) {
+         myAdapter = new FansListAdapter(this, myContentsList, this);
+         myLv.setAdapter(myAdapter);
+     }
     }
 
     @Override

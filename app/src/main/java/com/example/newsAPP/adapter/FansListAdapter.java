@@ -22,7 +22,7 @@ import java.util.Map;
 public class FansListAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
-    private List<FansBean> mContentsList ;
+    private List<FansBean.DataBean> mContentsList ;
     private Context mContext;
     private FansListAdapter.ContentsDeleteListener mContentsDeleteListener;
     //设置滑动删除按钮是否显示
@@ -33,7 +33,7 @@ public class FansListAdapter extends BaseAdapter {
     private int mLastX = 0;
 //	private int mLastY = 0;
 
-    public FansListAdapter(Context mContext,List<FansBean> mContentsList, FansListAdapter.ContentsDeleteListener mContentsDeleteListener) {
+    public FansListAdapter(Context mContext,List<FansBean.DataBean> mContentsList, FansListAdapter.ContentsDeleteListener mContentsDeleteListener) {
         this.mContext = mContext;
         this.mContentsList = mContentsList;
         this.mContentsDeleteListener = mContentsDeleteListener;
@@ -50,7 +50,7 @@ public class FansListAdapter extends BaseAdapter {
         }
     }
 
-    public void updateView(List<FansBean> mContentsList) {
+    public void updateView(List<FansBean.DataBean> mContentsList) {
         this.mContentsList = mContentsList;
         this.notifyDataSetChanged();
     }

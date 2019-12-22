@@ -16,17 +16,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.newsAPP.R;
+
 import com.example.newsAPP.adapter.FollowListAdapter.ContentsDeleteListener;
 import com.example.newsAPP.adapter.FollowListAdapter;
+
+import com.example.newsAPP.bean.FollowBean;
 import com.example.newsAPP.common.DefineView;
 
 public class FollowListActivity extends BaseActivity implements ContentsDeleteListener,OnClickListener, DefineView {
     private  ListView myLv;
     private Button myDeleteBtn;
     private FollowListAdapter myAdapter;
+    private List<FollowBean.DataBean> myContentsList = new ArrayList<>();
     private String[] myContentsArray;
-    private List<String> myContentsList = new ArrayList<String>();
-    private List<String> mySelectedList = new ArrayList<String>();
+    //  private List<String> myContentsList = new ArrayList<String>();
+    private List<FollowBean.DataBean> mySelectedList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,11 +61,10 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
     @Override
     public void bindData() {
         myContentsArray = this.getResources().getStringArray(R.array.my_follow);
-        if(myContentsArray != null){
-            Collections.addAll(myContentsList, myContentsArray);
-        }
-        myAdapter = new FollowListAdapter(this,myContentsList,this);
-        myLv.setAdapter(myAdapter);
+       if(myContentsList != null){
+           myAdapter = new FollowListAdapter(this,myContentsList,this);
+           myLv.setAdapter(myAdapter);
+       }
     }
 
     @Override
@@ -138,5 +141,3 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
         }
     }
 }
-
-

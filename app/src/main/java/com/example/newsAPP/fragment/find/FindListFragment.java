@@ -50,7 +50,7 @@ public class FindListFragment extends BaseFragment implements DefineView {
     private TimePickerView pvTime;
     private OptionsPickerView pv;
     private ArrayList<TypeBean> options1Items = new ArrayList<>();
-    private ArrayList<FollowBean> followbeans = new ArrayList<>();
+    private ArrayList<FollowBean.DataBean> followbeans = new ArrayList<>();
 
 
 
@@ -293,9 +293,9 @@ public class FindListFragment extends BaseFragment implements DefineView {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
-                String tx = followbeans.get(options1).getPickerViewText()
+                String tx = followbeans.get(options1).getNick_name()
                         // + options2Items.get(options1).get(options2)
-                        /* + options3Items.get(options1).get(options2).get(options3).getPickerViewText()*/;
+                        /* + options3Items.get(options1).get(options2).get(options3).getPickerViewText()*/ ;
                 second.setText(tx);
             }
         })
@@ -335,14 +335,14 @@ public class FindListFragment extends BaseFragment implements DefineView {
          */
 
         //选项1
-        followbeans.add(new FollowBean(0, "韩愈", "描述部分", "其他数据"));
-        followbeans.add(new FollowBean(1, "柳宗元", "描述部分", "其他数据"));
-        followbeans.add(new FollowBean(2, "欧阳修", "描述部分", "其他数据"));
-        followbeans.add(new FollowBean(3, "苏洵", "描述部分", "其他数据"));
-        followbeans.add(new FollowBean(4, "苏轼", "描述部分", "其他数据"));
-        followbeans.add(new FollowBean(5, "苏辙", "描述部分", "其他数据"));
-        followbeans.add(new FollowBean(6, "王安石", "描述部分", "其他数据"));
-        followbeans.add(new FollowBean(7, "曾巩", "描述部分", "其他数据"));
+ //    followbeans.add(new FollowBean.DataBean("cxiaoyu",26);
+//        followbeans.add(new FollowBean(1, "柳宗元", "描述部分", "其他数据"));
+//        followbeans.add(new FollowBean(2, "欧阳修", "描述部分", "其他数据"));
+//        followbeans.add(new FollowBean(3, "苏洵", "描述部分", "其他数据"));
+//        followbeans.add(new FollowBean(4, "苏轼", "描述部分", "其他数据"));
+//        followbeans.add(new FollowBean(5, "苏辙", "描述部分", "其他数据"));
+//        followbeans.add(new FollowBean(6, "王安石", "描述部分", "其他数据"));
+//        followbeans.add(new FollowBean(7, "曾巩", "描述部分", "其他数据"));
 
         /*--------数据源添加完毕---------*/
     }
