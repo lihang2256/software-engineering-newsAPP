@@ -137,7 +137,7 @@ public class FindListFragment extends BaseFragment implements DefineView {
 
                     Fragment news = new SearchNewsFragment();
                     FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                    transaction.add(R.id.search_fragment, news,"").commit();
+                    transaction.replace(R.id.search_fragment, news,"").commit();
 
                 }
             });
@@ -164,7 +164,7 @@ public class FindListFragment extends BaseFragment implements DefineView {
 
                     Fragment trend = new SearchTrendFragment();
                     FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                    transaction.add(R.id.search_fragment, trend,"").commit();
+                    transaction.replace(R.id.search_fragment, trend,"").commit();
 
 
                 }
@@ -252,7 +252,7 @@ public class FindListFragment extends BaseFragment implements DefineView {
 
     private String getTime(Date date) {  //时间选择器选择的时间  显示
         Log.d("getTime()", "choice date millis: " + date.getTime());
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(date);
     }
 
