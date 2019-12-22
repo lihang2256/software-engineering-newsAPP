@@ -125,7 +125,7 @@ public class SearchNewsFragment extends BaseFragment {
         protected ArrayList<NewsBean.DataBean> doInBackground(String... strings) {
             ArrayList<NewsBean.DataBean> list = new HttpUtils().searchNews(
                     SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHTYPE",null),
-                    SharedPreferenceUtils.getInstance().getString(getActivity(),"NEWSINPUT","我"),
+                    SharedPreferenceUtils.getInstance().getString(getActivity(),"NEWSINPUT",""),
                     SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHTIME",null)
 
            // ArrayList<NewsBean.DataBean> list = new HttpUtils().searchNews("娱乐","",""

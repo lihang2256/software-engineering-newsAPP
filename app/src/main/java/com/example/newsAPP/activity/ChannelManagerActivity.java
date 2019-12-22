@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.channelmanager.APPConst;
@@ -22,8 +23,9 @@ import java.util.List;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.SharedPreferenceUtils;
 
-public class ChannelManagerActivity extends BaseActivity implements ChannelAdapter.ChannelItemClickListener{
 
+public class ChannelManagerActivity extends BaseActivity implements ChannelAdapter.ChannelItemClickListener{
+    private static final String TAG="ChannelManagerActivity";
     private RecyclerView mRecyclerView;
     private ChannelAdapter mRecyclerAdapter;
     private List<ProjectChannelBean> mMyChannelList;
@@ -100,6 +102,7 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
         }
         mRecChannelList = new ArrayList<>();
         List<ProjectChannelBean> moreChannelList = SharedPreferenceUtils.getInstance().getDataList(context,"moreChannel",ProjectChannelBean.class);
+//        Log.d(TAG, moreChannelList.get(0).toString());
         mRecChannelList.addAll(moreChannelList);
     }
 
@@ -112,7 +115,8 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
             projectChannelBean.setEditStatus(0);
         }
         SharedPreferenceUtils.getInstance().setDataList(context,"myChannel", mMyChannelList);
-        SharedPreferenceUtils.getInstance().setDataList(context,"moreChannel", mMyChannelList);
+//        TODO::这里可能是mRecChannelList
+        SharedPreferenceUtils.getInstance().setDataList(context,"moreChannel", mRecChannelList);
         super.onPause();
     }
 
