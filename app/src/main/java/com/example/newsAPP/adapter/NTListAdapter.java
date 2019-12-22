@@ -15,9 +15,9 @@ import java.util.ArrayList;
 public class NTListAdapter extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<CommentBean> commentBeans;
+    private ArrayList<CommentBean.DataBean> commentBeans;
     private LayoutInflater inflater;
-    public NTListAdapter(Context context, ArrayList<CommentBean> list){
+    public NTListAdapter(Context context, ArrayList<CommentBean.DataBean> list){
         mContext = context;
         commentBeans = list;
     }

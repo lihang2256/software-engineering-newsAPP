@@ -33,7 +33,7 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
         setContentView(R.layout.activity_trend_detail);
         mContext = this;
         Intent intent = getIntent();
-        trendID = intent.getIntExtra("CID",-1);
+        trendID = intent.getIntExtra("TID",-1);
         //mID = intent.getIntExtra("ID",-1);
         initView();
         initValidata();
@@ -74,42 +74,8 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.trend_pop_menu,menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.menu_1:
-                AlertDialog.Builder builder = new AlertDialog.Builder(TrendDetailActivity.this);
-                builder.setTitle("请输入评论（不超过100字）");
-                //    通过LayoutInflater来加载一个xml的布局文件作为一个View对象
-                View view = LayoutInflater.from(TrendDetailActivity.this).inflate(R.layout.dialog, null);
-                //    设置我们自己定义的布局文件作为弹出框的Content
-                builder.setView(view);
-                final EditText password = (EditText)view.findViewById(R.id.comment_commit_content);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        String s = password.getText().toString().trim();
-                        //    将输入的用户名和密码打印出来
-                        Toast.makeText(TrendDetailActivity.this, "评论: " + s , Toast.LENGTH_SHORT).show();
-                    }
-                });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-
-                    }
-                });
-                builder.show();
-                break;
             case android.R.id.home:
                 finish();
                 break;

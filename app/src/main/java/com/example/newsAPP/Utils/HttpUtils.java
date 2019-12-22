@@ -1,5 +1,7 @@
 package com.example.newsAPP.Utils;
 
+import com.example.newsAPP.bean.NewsBean;
+import com.example.newsAPP.bean.CommentBean;
 import com.example.newsAPP.bean.TrendCommentBean;
 import com.example.newsAPP.common.CollectApi;
 import com.example.newsAPP.common.CommentApi;
@@ -13,25 +15,32 @@ import com.example.newsAPP.common.SearchNewsApi;
 import com.example.newsAPP.common.SendIdApi;
 import com.example.newsAPP.common.TrendIdApi;
 import com.example.newsAPP.common.UserIdApi;
+import com.example.newsAPP.http.DataParse;
 import com.example.newsAPP.http.OkHttp;
 
 import java.nio.file.attribute.UserPrincipal;
 
+import java.util.ArrayList;
+
 public class HttpUtils {
 //    获取新闻列表
-    public String getNews(String ...strings){
+    public ArrayList<NewsBean.DataBean> getNews(String string){
         OkHttp okHttp = new OkHttp();
         GetnewsApi getnewsApi = new GetnewsApi();
-        getnewsApi.setType(strings[0]);
-        return okHttp.sendPost(getnewsApi, DatabaseApi.newsList);
+        getnewsApi.setType(string);
+        String strJson = okHttp.sendPost(getnewsApi, DatabaseApi.newsList);
+        ArrayList<NewsBean.DataBean> beans = DataParse.NewsList(strJson);
+        return beans;
     }
 
 //    获取新闻所有评论
-    public String getNewsComment(String string){
+    public ArrayList<CommentBean.DataBean> getNewsComment(String string){
         OkHttp okHttp = new OkHttp();
         GetNewsCommentApi getNewsComment = new GetNewsCommentApi();
         getNewsComment.setNews_id(string);
-        return okHttp.sendPost(getNewsComment, DatabaseApi.getNewsAllComment);
+        String strJson = okHttp.sendPost(getNewsComment, DatabaseApi.getNewsAllComment);
+        ArrayList<CommentBean.DataBean> beans = DataParse.NewsComment(strJson);
+        return beans;
     }
 
 //    获取所有关注的人列表

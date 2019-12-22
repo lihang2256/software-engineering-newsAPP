@@ -19,6 +19,7 @@ import com.example.newsAPP.Utils.DensityUtils;
 import com.example.newsAPP.activity.TrendDetailActivity;
 import com.example.newsAPP.adapter.TrendListAdapter;
 import com.example.newsAPP.bean.CommentBean;
+import com.example.newsAPP.bean.TrendBean;
 import com.example.newsAPP.common.DatabaseApi;
 import com.example.newsAPP.common.GetnewsApi;
 import com.example.newsAPP.fragment.BaseFragment;
@@ -39,7 +40,7 @@ public class SearchTrendFragment extends BaseFragment {
     private IRecyclerView mIRecyclerView;
     private LoadMoreFooterView mLoadMoreFooterView;
     private TrendListAdapter mTrendListAdapter;
-    private ArrayList<CommentBean> mTrendBeanList;   // 启动时获得的数据
+    private ArrayList<TrendBean.DataBean> mTrendBeanList;   // 启动时获得的数据
 
     @Nullable
     @Override
@@ -86,7 +87,7 @@ public class SearchTrendFragment extends BaseFragment {
         });
     }
 
-    class CommentAsyncTask extends AsyncTask<String,Integer,ArrayList<CommentBean>>{
+    class CommentAsyncTask extends AsyncTask<String,Integer,ArrayList<TrendBean.DataBean>>{
 
         @Override
         protected void onPreExecute(){
@@ -94,18 +95,18 @@ public class SearchTrendFragment extends BaseFragment {
         }
 
         @Override
-        protected ArrayList<CommentBean> doInBackground(String... strings) {
+        protected ArrayList<TrendBean.DataBean> doInBackground(String... strings) {
             OkHttp okHttp = new OkHttp();
             GetnewsApi getnewsApi = new GetnewsApi();
             getnewsApi.setType(strings[0]);
             String result = okHttp.sendPost(getnewsApi, DatabaseApi.newsList);
-            ArrayList<CommentBean> list = null;
+            ArrayList<TrendBean.DataBean> list = null;
             //list = DataParse.NewsList(result);
             return list;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<CommentBean> list) {
+        protected void onPostExecute(ArrayList<TrendBean.DataBean> list) {
             super.onPostExecute(list);
             mTrendBeanList = list;
             bindData();
@@ -114,13 +115,13 @@ public class SearchTrendFragment extends BaseFragment {
 
     @Override
     public void bindData() {
-        mTrendListAdapter = new TrendListAdapter(MyApplication.getContext(), mTrendBeanList);
+        mTrendListAdapter = new TrendListAdapter(getActivity(), mTrendBeanList);
         mIRecyclerView.setIAdapter(mTrendListAdapter);
         // 设置Item点击跳转事件
         mTrendListAdapter.setOnItemClickListener(new TrendListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                CommentBean commentBean = mTrendBeanList.get(position);
+                TrendBean.DataBean bean = mTrendBeanList.get(position);
                 Intent intent;
                 intent = new Intent(getActivity(), TrendDetailActivity.class);
                 intent.putExtra("CID", 1);

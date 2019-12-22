@@ -9,18 +9,19 @@ import android.widget.TextView;
 import com.aspsine.irecyclerview.IViewHolder;
 import com.example.newsAPP.R;
 import com.example.newsAPP.bean.CommentBean;
+import com.example.newsAPP.bean.TrendBean;
 
 import java.util.ArrayList;
 
 public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.ViewHolder> {
     private final String TAG = TrendListAdapter.class.getSimpleName();
     private Context mContext;
-    private ArrayList<CommentBean> mCommentBeans;
+    private ArrayList<TrendBean.DataBean> beans;
     private TrendListAdapter.OnItemClickListener mOnItemClickListener;
 
-    public TrendListAdapter(Context context, ArrayList<CommentBean> commentBeans){
+    public TrendListAdapter(Context context, ArrayList<TrendBean.DataBean> commentBeans){
         mContext = context;
-        mCommentBeans = commentBeans;
+        beans = commentBeans;
     }
 
     @Override
@@ -32,13 +33,16 @@ public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.View
 
     @Override
     public void onBindViewHolder(TrendListAdapter.ViewHolder holder, int position) {
-        CommentBean commentBean = mCommentBeans.get(position);
-        //add something
+        TrendBean.DataBean bean = beans.get(position);
+        holder.item_comment_public_author.setText(bean.getNick_name());
+        holder.item_comment_publish_time.setText(bean.getRelease_time());
+        holder.comment_show_content.setText(bean.getContent());
+        holder.comment_news_about.setText(bean.getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return mCommentBeans.size();
+        return beans.size();
     }
 
     class ViewHolder extends IViewHolder{

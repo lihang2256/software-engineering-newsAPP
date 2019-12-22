@@ -109,7 +109,7 @@ public class LoginActivity extends BaseActivity implements DefineView {
             @Override
             public void onClick(View v) {
                 if (flag == 0) {
-                    SharedPreferenceUtils.getInstance().put(mContext, "USERID", 20);
+                    SharedPreferenceUtils.getInstance().put(mContext, "USERID", "20");
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 }

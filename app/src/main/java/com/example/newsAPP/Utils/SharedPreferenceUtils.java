@@ -3,6 +3,7 @@ package com.example.newsAPP.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -93,6 +94,7 @@ public final class SharedPreferenceUtils {
         Gson gson = new Gson();
         //转换成json数据，再保存
         String strJson = gson.toJson(datalist);
+        System.out.println(strJson);
         put(context,tag,strJson);
     }
 
@@ -103,8 +105,9 @@ public final class SharedPreferenceUtils {
      * @return
      */
     public <T> List<T> getDataList(Context context, String tag, Class<T> clazz) {
-        List<T> datalist=new ArrayList<>();
+        List<T> datalist = new ArrayList<>();
         String strJson = (String) get(context,tag,null);
+        System.out.println(strJson);
         if (null == strJson) {
             return datalist;
         }
@@ -112,9 +115,6 @@ public final class SharedPreferenceUtils {
         for (final JsonElement elem : array) {
             datalist.add(new Gson().fromJson(elem, clazz));
         }
-        Gson gson = new Gson();
-        datalist = gson.fromJson(strJson, new TypeToken<List<T>>() {
-        }.getType());
         return datalist;
     }
 }

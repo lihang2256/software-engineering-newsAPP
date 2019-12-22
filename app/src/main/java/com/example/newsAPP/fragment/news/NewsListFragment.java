@@ -102,10 +102,7 @@ public class NewsListFragment extends BaseFragment {
 
         @Override
         protected ArrayList<NewsBean.DataBean> doInBackground(String... strings) {
-            HttpUtils http = new HttpUtils();
-            String result = http.getNews(strings);
-            ArrayList<NewsBean.DataBean> list;
-            list = DataParse.NewsList(result);
+            ArrayList<NewsBean.DataBean> list = new HttpUtils().getNews(strings[0]);
             return list;
         }
 
@@ -126,11 +123,10 @@ public class NewsListFragment extends BaseFragment {
             @Override
             public void onItemClick(View v, int position) {
                 NewsBean.DataBean bean = mNewsBeanList.get(position);
-                //int newsID = bean.getID();
                 Intent intent;
                 intent = new Intent(getActivity(), NewsDetailActivity.class);
                 intent.putExtra("URL", bean.getUrl());
-                //intent.putExtra("ID",bean.getID());
+                intent.putExtra("NEWSID",bean.getId());
                 getActivity().startActivity(intent);
             }
         });

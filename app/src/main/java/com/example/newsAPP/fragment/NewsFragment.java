@@ -130,17 +130,20 @@ public class NewsFragment extends BaseFragment implements DefineView {
         moreChannelList = CategoryDataUtils.getMoreCategoryBeans();
         myChannelList = setType(myChannelList);
         moreChannelList = setType(moreChannelList);
+        SharedPreferenceUtils.getInstance().setDataList(getActivity(),"myChannel", myChannelList);
+        SharedPreferenceUtils.getInstance().setDataList(getActivity(),"moreChannel", myChannelList);
+//        SharedPreferenceUtils.getInstance().getDataList(getActivity(),"moreChannel",ProjectChannelBean.class);
 //        isFirst = (boolean)SharedPreferenceUtils.getInstance().get(getActivity(),"isFirst", true);
 //        if (isFirst) {
 //            myChannelList = CategoryDataUtils.getChannelCategoryBeans();
 //            moreChannelList = CategoryDataUtils.getMoreCategoryBeans();
 //            myChannelList = setType(myChannelList);
 //            moreChannelList = setType(moreChannelList);
-//            SharedPreferenceUtils.getInstance().setDataList(getContext(),"myChannel", myChannelList);
-//            SharedPreferenceUtils.getInstance().setDataList(getContext(),"moreChannel", myChannelList);
+//            SharedPreferenceUtils.getInstance().setDataList(getActivity(),"myChannel", myChannelList);
+//            SharedPreferenceUtils.getInstance().setDataList(getActivity(),"moreChannel", myChannelList);
 //            SharedPreferenceUtils.getInstance().put(getActivity(),"isFirst", false);
 //        } else {
-//            SharedPreferenceUtils.getInstance().getDataList(getContext(),"moreChannel",ProjectChannelBean.class);
+//            SharedPreferenceUtils.getInstance().getDataList(getActivity(),"moreChannel",ProjectChannelBean.class);
 //        }
         fragments.clear();
         for (int i = 0; i < myChannelList.size(); i++) {

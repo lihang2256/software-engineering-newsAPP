@@ -1,18 +1,22 @@
 package com.example.newsAPP.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.newsAPP.R;
 
@@ -73,8 +77,10 @@ public class MineFragment extends BaseFragment{
 //                2.关注
 //                3.粉丝
 //                4.收藏
-//                5.摇一摇
-//                6.关于App
+//                5.发表动态
+//                6.摇一摇
+//                7.关于App
+//                8.退出登录
                 switch (position) {
                     case 0:
                         //用户界面
@@ -107,13 +113,37 @@ public class MineFragment extends BaseFragment{
                         startActivity(intent);
                         break;
                     case 6:
+                        //发表动态
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("请输入评动态（不超过100字）");
+                        View mView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog, null);
+                        builder.setView(mView);
+                        final EditText password = (EditText)view.findViewById(R.id.comment_commit_content);
+                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                //add something
+                            }
+                        });
+                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                            }
+                        });
+                        builder.show();
+                        break;
+                    case 7:
                         //进入关于App
                         intent = new Intent(getActivity(), AboutActivity.class);
                         startActivity(intent);
                         break;
-                    case 7:
+                    case 8:
                         //退出登录
-                        SharedPreferenceUtils.getInstance().put(getActivity(),"USERID",-100);
+                        SharedPreferenceUtils.getInstance().put(getActivity(),"USERID",null);
                         intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                 }

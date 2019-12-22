@@ -3,7 +3,6 @@ package com.example.newsAPP.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -15,12 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.newsAPP.R;
-import com.example.newsAPP.Utils.SharedPreferenceUtils;
+import com.example.newsAPP.Utils.HttpUtils;
+import com.example.newsAPP.adapter.NTListAdapter;
 import com.example.newsAPP.bean.CommentBean;
 import com.example.newsAPP.common.DefineView;
 
@@ -28,12 +28,14 @@ import java.util.ArrayList;
 
 public class NewsDetailActivity extends BaseActivity implements DefineView {
     private final String TAG = NewsDetailActivity.class.getSimpleName();
-    private int mID;
+    private String mID;
     private Context mContext;
     private WebView mWebView;
     private String mUrl;
-    private int id;
-    private ArrayList<CommentBean> commentBeans;
+    private int userID;
+    private ArrayList<CommentBean.DataBean> commentBeans;
+    private NTListAdapter adapter;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,9 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
         mContext = this;
         Intent intent = getIntent();
         mUrl = intent.getStringExtra("URL");
-        id = (int)SharedPreferenceUtils.getInstance().get(mContext,"USERID",-100);
-        //mID = intent.getIntExtra("ID",-1);
+        //id = (int)SharedPreferenceUtils.getInstance().get(mContext,"USERID",-100);
+        mID = intent.getStringExtra("NEWSID");
+        listView = findViewById(R.id.news_trend_list);
         initView();
         initValidata();
         initListener();
@@ -78,37 +81,12 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        Toast.makeText(NewsDetailActivity.this, "positive: " + id, Toast.LENGTH_SHORT).show();
+
                     }
                 });
                 builder.show();
                 break;
             case R.id.menu_2:
-//                AlertDialog.Builder builder1 = new AlertDialog.Builder(NewsDetailActivity.this);
-//                //    设置Title的图标
-//                //builder.setIcon(R.drawable.ic_launcher);
-//                //    设置Title的内容
-//                builder1.setTitle("关注");
-//
-//                builder1.setMessage("是否关注"+"pighao");
-//                builder1.setPositiveButton("确定", new DialogInterface.OnClickListener()
-//                {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which)
-//                    {
-//                        Toast.makeText(NewsDetailActivity.this, "positive: " + id, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//                //    设置一个NegativeButton
-//                builder1.setNegativeButton("取消", new DialogInterface.OnClickListener()
-//                {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which)
-//                    {
-//                        Toast.makeText(NewsDetailActivity.this, "negative: " + which, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//                builder1.show();
                 //判断
                 boolean flag = true;
                 if (flag){
@@ -155,7 +133,7 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
 
     @Override
     public void initValidata() {
-        new NewsDetailsAsyncTask().execute();
+        new NewsDetailsAsyncTask().execute(mID);
     }
 
     @Override
@@ -197,22 +175,27 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
             }
         });
         mWebView.loadUrl(mUrl);
+        if (commentBeans == null||commentBeans.size() <= 0){ }
+        else {
+            adapter = new NTListAdapter(this,commentBeans);
+            listView.setAdapter(adapter);
+        }
     }
 
-    class NewsDetailsAsyncTask extends AsyncTask<String,Integer, ArrayList<CommentBean>>{
+    class NewsDetailsAsyncTask extends AsyncTask<String,Integer, ArrayList<CommentBean.DataBean>>{
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
         }
 
         @Override
-        protected ArrayList<CommentBean> doInBackground(String... strings) {
-            ArrayList<CommentBean> list;
-            return null;
+        protected ArrayList<CommentBean.DataBean> doInBackground(String... strings) {
+            ArrayList<CommentBean.DataBean> list = new HttpUtils().getNewsComment(strings[0]);
+            return list;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<CommentBean> list) {
+        protected void onPostExecute(ArrayList<CommentBean.DataBean> list) {
             super.onPostExecute(list);
             commentBeans = list;
             bindData();

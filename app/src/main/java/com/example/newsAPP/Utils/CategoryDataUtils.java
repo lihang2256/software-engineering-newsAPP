@@ -13,15 +13,15 @@ public class CategoryDataUtils {
         beans.add(new ProjectChannelBean("国内"));
         beans.add(new ProjectChannelBean("国际"));
         beans.add(new ProjectChannelBean("娱乐"));
-        beans.add(new ProjectChannelBean("体育"));
-        beans.add(new ProjectChannelBean("军事"));
-        beans.add(new ProjectChannelBean("科技"));
+
         return beans;
     }
 
     public static List<ProjectChannelBean> getMoreCategoryBeans(){
         List<ProjectChannelBean>  beans=new ArrayList<>();
-        beans.add(new ProjectChannelBean("财经"));
+        beans.add(new ProjectChannelBean("体育"));
+        beans.add(new ProjectChannelBean("军事"));
+        beans.add(new ProjectChannelBean("科技"));
         beans.add(new ProjectChannelBean("时尚"));
         return beans;
     }

@@ -84,7 +84,7 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
         List<ProjectChannelBean> list =
                 //CategoryDataUtils.getChannelCategoryBeans();
                 //listDataSave.getDataList("myChannel", ProjectChannelBean.class);
-            SharedPreferenceUtils.getInstance().getDataList(getBaseContext(),"myChannel",ProjectChannelBean.class);
+                SharedPreferenceUtils.getInstance().getDataList(context,"myChannel",ProjectChannelBean.class);
         for (int i = 0; i < list.size(); i ++){
             ProjectChannelBean projectChannelBean = list.get(i);
             if (i == tabposition){
@@ -107,7 +107,7 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
         List<ProjectChannelBean> moreChannelList =
                 //getMoreChannelFromAsset();
                 //listDataSave.getDataList("moreChannel", ProjectChannelBean.class);
-                SharedPreferenceUtils.getInstance().getDataList(getBaseContext(),"moreChannel",ProjectChannelBean.class);
+                SharedPreferenceUtils.getInstance().getDataList(context,"moreChannel",ProjectChannelBean.class);
         for (ProjectChannelBean projectChannelBean : moreChannelList) {
             mRecChannelList.add(projectChannelBean);
         }
@@ -122,8 +122,8 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
             // 将当前模式设置为不可编辑状态
             projectChannelBean.setEditStatus(0);
         }
-        SharedPreferenceUtils.getInstance().setDataList(getBaseContext(),"myChannel", mMyChannelList);
-        SharedPreferenceUtils.getInstance().setDataList(getBaseContext(),"moreChannel", mMyChannelList);
+        SharedPreferenceUtils.getInstance().setDataList(context,"myChannel", mMyChannelList);
+        SharedPreferenceUtils.getInstance().setDataList(context,"moreChannel", mMyChannelList);
 //        listDataSave.setDataList("myChannel", mMyChannelList);
 //        listDataSave.setDataList("moreChannel", mRecChannelList);
 

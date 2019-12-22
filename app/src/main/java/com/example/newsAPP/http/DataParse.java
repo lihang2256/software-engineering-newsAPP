@@ -7,12 +7,11 @@ import com.example.newsAPP.bean.LoginBean;
 import com.example.newsAPP.bean.NewsBean;
 import com.example.newsAPP.bean.NoDataBean;
 import com.example.newsAPP.bean.TrendBean;
-import com.example.newsAPP.bean.WXZCommentBean;
+import com.example.newsAPP.bean.CommentBean;
 import com.example.newsAPP.bean.WXZFollowBean;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 import static android.content.ContentValues.TAG;
 
@@ -31,11 +30,11 @@ public class DataParse {
     }
 
     // 新闻评论解析
-    public static ArrayList<WXZCommentBean.DataBean> NewsComment(String json) {
+    public static ArrayList<CommentBean.DataBean> NewsComment(String json) {
         Gson gson = new Gson();
-        WXZCommentBean commentBean = gson.fromJson(json, WXZCommentBean.class);
+        CommentBean commentBean = gson.fromJson(json, CommentBean.class);
         if(commentBean.getStatus().equals("success")){
-            return (ArrayList<WXZCommentBean.DataBean>) commentBean.getData();
+            return (ArrayList<CommentBean.DataBean>) commentBean.getData();
         }else{
             Log.e(TAG, "GetNewsAllComment: Request error");
         }
