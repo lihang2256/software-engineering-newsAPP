@@ -47,16 +47,16 @@ public class TrendCommentBean {
          * release_time : 2019-12-14 22:07:03
          */
 
-        private int user_id;
+        private String user_id;
         private String nick_name;
         private String content;
         private String release_time;
 
-        public int getUser_id() {
+        public String getUser_id() {
             return user_id;
         }
 
-        public void setUser_id(int user_id) {
+        public void setUser_id(String user_id) {
             this.user_id = user_id;
         }
 
@@ -98,11 +98,11 @@ public class TrendCommentBean {
          */
 
         private String nick_name;
-        private int ID;
-        private int author_id;
+        private String ID;
+        private String author_id;
         private String title;
         private String content;
-        private int news_id;
+        private String news_id;
         private String url;
         private String release_time;
 
@@ -114,19 +114,19 @@ public class TrendCommentBean {
             this.nick_name = nick_name;
         }
 
-        public int getID() {
+        public String getID() {
             return ID;
         }
 
-        public void setID(int ID) {
+        public void setID(String ID) {
             this.ID = ID;
         }
 
-        public int getAuthor_id() {
+        public String getAuthor_id() {
             return author_id;
         }
 
-        public void setAuthor_id(int author_id) {
+        public void setAuthor_id(String author_id) {
             this.author_id = author_id;
         }
 
@@ -146,11 +146,11 @@ public class TrendCommentBean {
             this.content = content;
         }
 
-        public int getNews_id() {
+        public String getNews_id() {
             return news_id;
         }
 
-        public void setNews_id(int news_id) {
+        public void setNews_id(String news_id) {
             this.news_id = news_id;
         }
 

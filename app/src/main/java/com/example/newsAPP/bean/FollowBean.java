@@ -57,7 +57,7 @@ public class FollowBean implements IPickerViewData {
          */
 
         private String nick_name;
-        private int ID;
+        private String ID;
 
         public String getNick_name() {
             return nick_name;
@@ -68,11 +68,11 @@ public class FollowBean implements IPickerViewData {
 
         }
 
-        public int getID() {
+        public String getID() {
             return ID;
         }
 
-        public void setID(int ID) {
+        public void setID(String ID) {
             this.ID = ID;
         }
 

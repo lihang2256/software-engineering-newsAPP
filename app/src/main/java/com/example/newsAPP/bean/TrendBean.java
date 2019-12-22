@@ -41,11 +41,11 @@ public class TrendBean {
          */
 
         private String nick_name;
-        private int ID;
-        private int author_id;
+        private String ID;
+        private String author_id;
         private String title;
         private String content;
-        private int news_id;
+        private String news_id;
         private String url;
         private String release_time;
 
@@ -57,19 +57,19 @@ public class TrendBean {
             this.nick_name = nick_name;
         }
 
-        public int getID() {
+        public String getID() {
             return ID;
         }
 
-        public void setID(int ID) {
+        public void setID(String ID) {
             this.ID = ID;
         }
 
-        public int getAuthor_id() {
+        public String getAuthor_id() {
             return author_id;
         }
 
-        public void setAuthor_id(int author_id) {
+        public void setAuthor_id(String author_id) {
             this.author_id = author_id;
         }
 
@@ -89,11 +89,11 @@ public class TrendBean {
             this.content = content;
         }
 
-        public int getNews_id() {
+        public String getNews_id() {
             return news_id;
         }
 
-        public void setNews_id(int news_id) {
+        public void setNews_id(String news_id) {
             this.news_id = news_id;
         }
 
