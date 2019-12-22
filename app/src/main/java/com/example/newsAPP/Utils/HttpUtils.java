@@ -16,6 +16,7 @@ import com.example.newsAPP.common.LoginApi;
 import com.example.newsAPP.common.ReleaseTrendApi;
 import com.example.newsAPP.common.SearchNewsApi;
 import com.example.newsAPP.common.SendIdApi;
+import com.example.newsAPP.common.SignupApi;
 import com.example.newsAPP.common.TrendIdApi;
 import com.example.newsAPP.common.UserIdApi;
 import com.example.newsAPP.http.DataParse;
@@ -124,24 +125,36 @@ public class HttpUtils {
     }
 
 //    判断是否关注
-    public String isFollow(String user_id,String friend_id){
+    public boolean isFollow(String user_id,String friend_id){
         OkHttp okHttp = new OkHttp();
         FollowSomebodyApi sendId = new FollowSomebodyApi();
         sendId.setUser_id(user_id);
         sendId.setFriend_id(friend_id);
-        return okHttp.sendPost(sendId, DatabaseApi.isFollow);
+        String strJson = okHttp.sendPost(sendId, DatabaseApi.isFollow);
+        boolean flag = DataParse.isFollowed(strJson);
+        return flag;
     }
 
 //     获得动态的评论和详细信息
-    public String getTrendComment(String string){
+    public ArrayList<TrendCommentBean.CommentListBean> getTrendComment(String string){
         OkHttp okHttp = new OkHttp();
         TrendIdApi trendIdApi = new TrendIdApi();
         trendIdApi.setTrend_id(string);
-        return okHttp.sendPost(trendIdApi, DatabaseApi.getTrendInformation);
+        String strJson = okHttp.sendPost(trendIdApi, DatabaseApi.getTrendInformation);
+        ArrayList<TrendCommentBean.CommentListBean> beans = DataParse.TrendComment(strJson);
+        return beans;
+    }
+    public ArrayList<TrendCommentBean.DataBean> getTrendDetail(String string){
+        OkHttp okHttp = new OkHttp();
+        TrendIdApi trendIdApi = new TrendIdApi();
+        trendIdApi.setTrend_id(string);
+        String strJson = okHttp.sendPost(trendIdApi, DatabaseApi.getTrendInformation);
+        ArrayList<TrendCommentBean.DataBean> beans = DataParse.TrendDetail(strJson);
+        return beans;
     }
 
 //    发布动态
-    public String releaseTrend(String user_id, String content){
+    public String releaseTrend(String user_id, String content, String news_id){
         OkHttp okHttp = new OkHttp();
         ReleaseTrendApi releaseTrendApi = new ReleaseTrendApi();
         releaseTrendApi.setUser_id(user_id);
@@ -170,11 +183,13 @@ public class HttpUtils {
     }
 
 //    获取收藏
-    public String getCollect(String string){
+    public ArrayList<NewsBean.DataBean> getCollect(String string){
         OkHttp okHttp = new OkHttp();
         UserIdApi userIdApi = new UserIdApi();
         userIdApi.setUser(string);
-        return okHttp.sendPost(userIdApi, DatabaseApi.getCollect);
+        String strJson =  okHttp.sendPost(userIdApi, DatabaseApi.getCollect);
+        ArrayList<NewsBean.DataBean> beans = DataParse.NewsList(strJson);
+        return beans;
     }
 
 //    登陆
@@ -186,6 +201,17 @@ public class HttpUtils {
         String strJson = okHttp.sendPost(loginApi, DatabaseApi.login);
         return DataParse.login(strJson);
     }
+
+//    注册
+    public String signup(String userName, String password){
+        OkHttp okHttp = new OkHttp();
+        SignupApi signupApi = new SignupApi();
+        signupApi.setPassword(password);
+        signupApi.setId(userName);
+        String strJson = okHttp.sendPost(signupApi, DatabaseApi.signup);
+        return DataParse.signup(strJson);
+    }
+
 //    搜索新闻
     public ArrayList<NewsBean.DataBean> searchNews(String type, String keyword, String time){
         OkHttp okHttp = new OkHttp();

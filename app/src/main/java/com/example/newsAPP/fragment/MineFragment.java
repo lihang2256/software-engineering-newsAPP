@@ -57,7 +57,7 @@ public class MineFragment extends BaseFragment{
         TextView user_name = (TextView) user_view.findViewById(R.id.user_name);
         if (SharedPreferenceUtils.getInstance().getString(getActivity(),"USERID",null) != null){
             user_icon.setImageDrawable(getResources().getDrawable(R.drawable.photo));
-            user_name.setText(SharedPreferenceUtils.getInstance().getString(getActivity(),"USERID",null));
+            user_name.setText(SharedPreferenceUtils.getInstance().getString(getActivity(),"NICKNAME",null));
         }
         mListView.addHeaderView(user_view);
     }

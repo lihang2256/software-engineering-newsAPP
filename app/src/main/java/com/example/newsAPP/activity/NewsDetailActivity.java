@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.HttpUtils;
+import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.adapter.NTListAdapter;
 import com.example.newsAPP.bean.CommentBean;
 import com.example.newsAPP.common.DefineView;
@@ -28,11 +29,11 @@ import java.util.ArrayList;
 
 public class NewsDetailActivity extends BaseActivity implements DefineView {
     private final String TAG = NewsDetailActivity.class.getSimpleName();
-    private String mID;
+    private String newsID;
     private Context mContext;
     private WebView mWebView;
     private String mUrl;
-    private int userID;
+    private String userID;
     private ArrayList<CommentBean.DataBean> commentBeans;
     private NTListAdapter adapter;
     private ListView listView;
@@ -44,8 +45,8 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
         mContext = this;
         Intent intent = getIntent();
         mUrl = intent.getStringExtra("URL");
-        //id = (int)SharedPreferenceUtils.getInstance().get(mContext,"USERID",-100);
-        mID = intent.getStringExtra("NEWSID");
+        userID = SharedPreferenceUtils.getInstance().getString(mContext,"USERID",null);
+        newsID = intent.getStringExtra("NEWSID");
         listView = findViewById(R.id.news_trend_list);
         initView();
         initValidata();
@@ -66,14 +67,14 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
                 builder.setTitle("请输入评论（不超过100字）");
                 View view = LayoutInflater.from(NewsDetailActivity.this).inflate(R.layout.dialog, null);
                 builder.setView(view);
-                final EditText password = (EditText)view.findViewById(R.id.comment_commit_content);
-
+                final EditText editText = (EditText)view.findViewById(R.id.comment_commit_content);
+                final String text = editText.getText().toString();
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        //add something
+                        new CommentAsyncTask().execute(userID,text, newsID);
                     }
                 });
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
@@ -81,29 +82,39 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
-
                     }
                 });
                 builder.show();
                 break;
             case R.id.menu_2:
                 //判断
-                boolean flag = true;
-                if (flag){
-                    Toast.makeText(NewsDetailActivity.this,"收藏成功",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(NewsDetailActivity.this,"已收藏，不要重复点击",Toast.LENGTH_SHORT).show();
-                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        boolean flag = true;
+                        if (flag){
+
+                            Toast.makeText(NewsDetailActivity.this,"收藏成功",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(NewsDetailActivity.this,"已收藏，不要重复点击",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).start();
                 break;
             case R.id.menu_3:
-                boolean fflag = true;
-                if (fflag){
-                    Toast.makeText(NewsDetailActivity.this,"未收藏，不可取消收藏",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(NewsDetailActivity.this,"取消收藏成功",Toast.LENGTH_SHORT).show();
-                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        boolean fflag = true;
+                        if (fflag){
+                            Toast.makeText(NewsDetailActivity.this,"未收藏，不可取消收藏",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(NewsDetailActivity.this,"取消收藏成功",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).start();
                 break;
             case android.R.id.home:
                 finish();
@@ -133,7 +144,7 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
 
     @Override
     public void initValidata() {
-        new NewsDetailsAsyncTask().execute(mID);
+        new NewsDetailsAsyncTask().execute(newsID);
     }
 
     @Override
@@ -182,6 +193,25 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
         }
     }
 
+    class CollectonAsyncTask extends AsyncTask<String,Integer,String>{
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            bindData();
+        }
+
+    }
     class NewsDetailsAsyncTask extends AsyncTask<String,Integer, ArrayList<CommentBean.DataBean>>{
         @Override
         protected void onPreExecute(){
@@ -199,6 +229,24 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
             super.onPostExecute(list);
             commentBeans = list;
             bindData();
+        }
+    }
+    class CommentAsyncTask extends AsyncTask<String,Integer,String>{
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = new HttpUtils().comment(strings[0],strings[1],strings[2]);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Toast.makeText(NewsDetailActivity.this,"评论成功",Toast.LENGTH_SHORT);
         }
     }
 }

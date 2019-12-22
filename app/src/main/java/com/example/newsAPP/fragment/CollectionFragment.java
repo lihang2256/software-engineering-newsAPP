@@ -16,6 +16,8 @@ import com.aspsine.irecyclerview.OnRefreshListener;
 import com.example.newsAPP.MyApplication;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.DensityUtils;
+import com.example.newsAPP.Utils.HttpUtils;
+import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.activity.NewsDetailActivity;
 import com.example.newsAPP.adapter.NewsListAdapter;
 import com.example.newsAPP.bean.NewsBean;
@@ -36,11 +38,13 @@ public class CollectionFragment extends BaseFragment {
     private LoadMoreFooterView mLoadMoreFooterView;
     private NewsListAdapter mNewsListAdapter;
     private ArrayList<NewsBean.DataBean> mNewsBeanList = new ArrayList<>();
+    private String userID;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_collection_list, container,false);
+        userID = SharedPreferenceUtils.getInstance().getString(getActivity(),"USERID",null);
         initView();
         initValidata();
         initListener();
@@ -88,11 +92,11 @@ public class CollectionFragment extends BaseFragment {
             @Override
             public void onItemClick(View v, int position) {
                 NewsBean.DataBean bean = mNewsBeanList.get(position);
-                //int newsID = bean.getID();
+                String newsID = bean.getId();
                 Intent intent;
                 intent = new Intent(getActivity(), NewsDetailActivity.class);
                 intent.putExtra("URL", bean.getUrl());
-                //intent.putExtra("ID",bean.getID());
+                intent.putExtra("ID", newsID);
                 getActivity().startActivity(intent);
             }
         });
@@ -106,12 +110,7 @@ public class CollectionFragment extends BaseFragment {
 
         @Override
         protected ArrayList<NewsBean.DataBean> doInBackground(String... strings) {
-            OkHttp okHttp = new OkHttp();
-            GetnewsApi getnewsApi = new GetnewsApi();
-            getnewsApi.setType(strings[0]);
-            String result = okHttp.sendPost(getnewsApi, DatabaseApi.newsList);
-            ArrayList<NewsBean.DataBean> list;
-            list = DataParse.NewsList(result);
+            ArrayList<NewsBean.DataBean> list = new HttpUtils().getCollect(userID);
             return list;
         }
 

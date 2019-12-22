@@ -10,6 +10,8 @@ import com.example.newsAPP.bean.NewsBean;
 import com.example.newsAPP.bean.NoDataBean;
 import com.example.newsAPP.bean.TrendBean;
 import com.example.newsAPP.bean.CommentBean;
+import com.example.newsAPP.bean.TrendCommentBean;
+import com.example.newsAPP.common.SignupApi;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -106,12 +108,44 @@ public class DataParse {
     }
 
 //    TODO：动态详细页面解析，不知道要啥
+    public static ArrayList<TrendCommentBean.CommentListBean> TrendComment (String json) {
+        Gson gson = new Gson();
+        TrendCommentBean bean = gson.fromJson(json, TrendCommentBean.class);
+        if(bean.getStatus().equals("success")){
+            return (ArrayList<TrendCommentBean.CommentListBean>) bean.getCommentList();
+        }else{
+            Log.e(TAG, "NewsList: Request error");
+        }
+        return null;
+    }
+
+    public static ArrayList<TrendCommentBean.DataBean> TrendDetail (String json) {
+        Gson gson = new Gson();
+        TrendCommentBean bean = gson.fromJson(json, TrendCommentBean.class);
+        if(bean.getStatus().equals("success")){
+            return (ArrayList<TrendCommentBean.DataBean>) bean.getData();
+        }else{
+            Log.e(TAG, "NewsList: Request error");
+        }
+        return null;
+    }
 
     public static String login(String json) {
         Gson gson = new Gson();
         LoginBean loginBean = gson.fromJson(json, LoginBean.class);
         if(loginBean.getStatus().equals("success")){
             return loginBean.getId();
+        }else{
+            Log.e(TAG, "actionFailed: Request error");
+        }
+        return null;
+    }
+
+    public static String signup(String json) {
+        Gson gson = new Gson();
+        NoDataBean noDataBean= gson.fromJson(json, NoDataBean.class);
+        if(noDataBean.getStatus().equals("success")){
+            return "success";
         }else{
             Log.e(TAG, "actionFailed: Request error");
         }

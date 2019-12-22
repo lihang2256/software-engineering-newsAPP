@@ -30,13 +30,13 @@ import com.example.newsAPP.common.DefineView;
 
 public class ShakeActivity extends BaseActivity implements DefineView ,SensorEventListener{
 
-
     private SensorManager sensorManager = null;
     private Vibrator vibrator = null;
     private LinearLayout topLayout, bottomLayout;
     private ImageView topLineIv, bottomLineIv;
     private boolean isShake = false;
-
+    private String userID;
+    private String anotherID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

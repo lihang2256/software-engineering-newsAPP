@@ -19,25 +19,47 @@ public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.View
     private ArrayList<TrendBean.DataBean> beans;
     private TrendListAdapter.OnItemClickListener mOnItemClickListener;
 
-    public TrendListAdapter(Context context, ArrayList<TrendBean.DataBean> commentBeans){
+    public TrendListAdapter(Context context, ArrayList<TrendBean.DataBean> trendBeans){
         mContext = context;
-        beans = commentBeans;
+        beans = trendBeans;
     }
 
     @Override
     public TrendListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        view = View.inflate(mContext,R.layout.item_news_comment_list,null);
+        view = View.inflate(mContext,R.layout.item_trend,null);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(TrendListAdapter.ViewHolder holder, int position) {
-        TrendBean.DataBean bean = beans.get(position);
-        holder.item_comment_public_author.setText(bean.getNick_name());
-        holder.item_comment_publish_time.setText(bean.getRelease_time());
-        holder.comment_show_content.setText(bean.getContent());
-        holder.comment_news_about.setText(bean.getTitle());
+    public void onBindViewHolder(final TrendListAdapter.ViewHolder holder, int position) {
+        //if (position >= 0){
+            TrendBean.DataBean bean = beans.get(position);
+            String name = bean.getNick_name();
+            String time = bean.getRelease_time();
+            String content = bean.getContent();
+            String title = bean.getTitle();
+            holder.item_comment_public_author.setText(name);
+            holder.item_comment_publish_time.setText(time);
+            holder.comment_show_content.setText(content);
+            holder.comment_news_about.setText(title);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // IRecyclerView的Adapter会默认多出两个头部View，需要减去2个position
+                    int pos = holder.getIAdapterPosition();
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(holder.itemView, pos);
+                    }
+                }
+            });
+        //}
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
     }
 
     @Override
@@ -50,7 +72,6 @@ public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.View
         public TextView item_comment_publish_time;
         public TextView comment_show_content;
         public TextView comment_news_about;
-
 
         public ViewHolder(View itemView) {
             super(itemView);

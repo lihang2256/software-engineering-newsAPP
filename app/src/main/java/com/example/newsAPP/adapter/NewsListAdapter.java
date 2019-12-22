@@ -40,11 +40,11 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     //
     @Override
     public void onBindViewHolder(final NewsListAdapter.ViewHolder holder, int position) {
-        NewsBean.DataBean newsListNormalBean = mNewsBeanList.get(position);
-        String imageSrc = newsListNormalBean.getPicture();
-        String title = newsListNormalBean.getTitle();
-        String source = newsListNormalBean.getAuthor();
-        String postTime = newsListNormalBean.getTime();
+        NewsBean.DataBean bean = mNewsBeanList.get(position);
+        String imageSrc = bean.getPicture();
+        String title = bean.getTitle();
+        String source = bean.getAuthor();
+        String postTime = bean.getTime();
         ViewHolder viewHolder = holder;
         // 设置图片
         setNetPicture(imageSrc, holder.item_news_tv_img);

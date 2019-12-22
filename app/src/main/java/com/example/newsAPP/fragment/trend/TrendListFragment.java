@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
+import com.example.newsAPP.MyApplication;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.DensityUtils;
 import com.example.newsAPP.Utils.HttpUtils;
@@ -21,23 +22,19 @@ import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.activity.TrendDetailActivity;
 import com.example.newsAPP.adapter.TrendListAdapter;
 import com.example.newsAPP.bean.TrendBean;
-import com.example.newsAPP.common.DatabaseApi;
-import com.example.newsAPP.common.GetnewsApi;
 import com.example.newsAPP.fragment.BaseFragment;
-import com.example.newsAPP.http.OkHttp;
 import com.example.newsAPP.widget.ClassicRefreshHeaderView;
 import com.example.newsAPP.widget.DividerGridItemDecoration;
 import com.example.newsAPP.widget.LoadMoreFooterView;
 
-import java.net.HttpCookie;
 import java.util.ArrayList;
 
 public class TrendListFragment extends BaseFragment {
 
-    private String tname;
+    private String ttype;
     private View mView;
     private final String TAG = TrendListFragment.class.getSimpleName();
-    private static final String KEY_TNAME = "TNAME";
+    private static final String KEY_TNAME = "TTYPE";
     private IRecyclerView mIRecyclerView;
     private LoadMoreFooterView mLoadMoreFooterView;
     private TrendListAdapter mTrendListAdapter;
@@ -71,9 +68,46 @@ public class TrendListFragment extends BaseFragment {
     @Override
     public void initValidata() {
         if (getArguments() != null) {
-            tname = getArguments().getString("TNAME");
+            ttype = getArguments().getString("TTYPE");
         }
-        new TrendAsyncTask().execute(tname,"25");
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                mTrendBeanList = new HttpUtils().getAllTrend();
+//            }
+//        }).start();
+//        bindData();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                ArrayList<TrendBean.DataBean> list;
+//                if (userID == null){
+//                    if (ttype.equals("所有")) {
+//                        list = new HttpUtils().getAllTrend();
+//                    }
+//                    else if (ttype.equals("关注")) {
+//                        list = null;
+//                    }
+//                    else {
+//                        list = null;
+//                    }
+//                }
+//                else {
+//                    if (ttype.equals("所有")) {
+//                        list = new HttpUtils().getAllTrend();
+//                    }
+//                    else if (ttype.equals("关注")) {
+//                        list = new HttpUtils().getFriendTrend(userID);
+//                    }
+//                    else {
+//                        list = new HttpUtils().getMyTrend(userID);
+//                    }
+//                }
+//                mTrendBeanList = list;
+//                bindData();
+//            }
+//        }).start();
+        new TrendAsyncTask().execute(ttype,userID);
     }
 
     @Override
@@ -138,7 +172,7 @@ public class TrendListFragment extends BaseFragment {
     @Override
     public void bindData() {
         if (mTrendBeanList != null) {
-            mTrendListAdapter = new TrendListAdapter(getActivity(), mTrendBeanList);
+            mTrendListAdapter = new TrendListAdapter(MyApplication.getContext(), mTrendBeanList);
             mIRecyclerView.setIAdapter(mTrendListAdapter);
             // 设置Item点击跳转事件
             mTrendListAdapter.setOnItemClickListener(new TrendListAdapter.OnItemClickListener() {
@@ -147,7 +181,14 @@ public class TrendListFragment extends BaseFragment {
                     TrendBean.DataBean bean = mTrendBeanList.get(position);
                     Intent intent;
                     intent = new Intent(getActivity(), TrendDetailActivity.class);
-                    intent.putExtra("TID", bean.getID());
+                    intent.putExtra("TRENDID", bean.getID());
+                    intent.putExtra("TAUTHORID",bean.getAuthor_id());
+                    intent.putExtra("TNAME",bean.getNick_name());
+                    intent.putExtra("TTIME",bean.getRelease_time());
+                    intent.putExtra("TCONTENT",bean.getContent());
+                    intent.putExtra("TNEWSID",bean.getNews_id());
+                    intent.putExtra("TNEWSTITLE",bean.getTitle());
+                    intent.putExtra("TNEWSURL",bean.getUrl());
                     getActivity().startActivity(intent);
                 }
             });

@@ -3,6 +3,7 @@ package com.example.newsAPP.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ public class LoginActivity extends BaseActivity implements DefineView {
     private Button button;
     private EditText nickname, password;
     private Context mContext;
+    private String userName,mPassword;
     private int flag = 0;
 
     @Override
@@ -89,7 +91,6 @@ public class LoginActivity extends BaseActivity implements DefineView {
                 button.setText("登录");
                 flag = 0;
                 forgot_password.setVisibility(View.VISIBLE);
-                //add something
             }
         });
         signup.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +104,6 @@ public class LoginActivity extends BaseActivity implements DefineView {
                 button.setText("注册");
                 flag = 1;
                 forgot_password.setVisibility(View.INVISIBLE);
-                //add something
             }
         });
         button.setOnClickListener(new View.OnClickListener() {
@@ -114,22 +114,20 @@ public class LoginActivity extends BaseActivity implements DefineView {
                         Toast.makeText(LoginActivity.this, "请填写完整", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        String userName = nickname.getText().toString();
-                        String mPassword = password.getText().toString();
-                        String result = new HttpUtils().login(userName,mPassword);
-                        if (result == null){
-                            Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            SharedPreferenceUtils.getInstance().setString(mContext, "USERID", result);
-                            SharedPreferenceUtils.getInstance().setString(mContext,"NICKNAME", userName);
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        }
+                        userName = nickname.getText().toString();
+                        mPassword = password.getText().toString();
+                        new LoginAsyncTask().execute(userName,mPassword);
                     }
                 }
                 else if (flag == 1) {
-                    Toast.makeText(LoginActivity.this,"注册成功，请登录",Toast.LENGTH_SHORT).show();
+                    if (nickname.getText().toString().equals("") || password.getText().toString().equals("")) {
+                        Toast.makeText(LoginActivity.this, "请填写完整", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        userName = nickname.getText().toString();
+                        mPassword = password.getText().toString();
+                        new SignupAsyncTask().execute(userName,mPassword);
+                    }
                 }
             }
         });
@@ -138,5 +136,55 @@ public class LoginActivity extends BaseActivity implements DefineView {
     @Override
     public void bindData() {
 
+    }
+
+    class LoginAsyncTask extends AsyncTask<String,Integer,String> {
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = new HttpUtils().login(strings[0],strings[1]);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if (result == null){
+                Toast.makeText(LoginActivity.this,"用户名或密码错误",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                SharedPreferenceUtils.getInstance().setString(mContext, "USERID", result);
+                SharedPreferenceUtils.getInstance().setString(mContext,"NICKNAME", userName);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        }
+    }
+    class SignupAsyncTask extends AsyncTask<String,Integer,String> {
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = new HttpUtils().signup(strings[0],strings[1]);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if (result == null){
+                Toast.makeText(LoginActivity.this,"昵称重复",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(LoginActivity.this,"注册成功，请登录",Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
