@@ -181,7 +181,9 @@ public class HttpUtils {
         collectApi.setKey(key);
         collectApi.setNews(news_id);
         collectApi.setUser(user_id);
-        return okHttp.sendPost(collectApi, DatabaseApi.collect);
+        String strJson = okHttp.sendPost(collectApi, DatabaseApi.collect);
+        String result = DataParse.iscollect(strJson);
+        return result;
     }
 
 //    获取收藏

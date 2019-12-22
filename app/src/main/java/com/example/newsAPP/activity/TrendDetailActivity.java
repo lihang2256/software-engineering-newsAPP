@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.HttpUtils;
 import com.example.newsAPP.Utils.SharedPreferenceUtils;
+import com.example.newsAPP.adapter.TCListAdapter;
 import com.example.newsAPP.bean.TrendCommentBean;
 import com.example.newsAPP.common.DefineView;
 
@@ -46,13 +47,14 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
     private TextView news;
     private ListView listView;
     private ArrayList<TrendCommentBean> beans;
+    private TCListAdapter adapter;
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trend_detail);
-        userID = SharedPreferenceUtils.getInstance().getString(mContext,"USERID",null);
         mContext = this;
+        userID = SharedPreferenceUtils.getInstance().getString(mContext,"USERID",null);
         Intent intent = getIntent();
         trendID = intent.getStringExtra("TRENDID");
         authorID = intent.getStringExtra("TAUTHORID");
@@ -116,10 +118,10 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
         news.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
+                Intent intent = new Intent(TrendDetailActivity.this,NewsDetailActivity.class);
                 intent.putExtra("NEWSID",t_newID);
                 intent.putExtra("URL",t_newsUrl);
-                TrendDetailActivity.this.startActivity(intent);
+                startActivity(intent);
             }
         });
     }
@@ -180,14 +182,7 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
         }
         return true;
     }
-    class TrendDetailAsyncTask extends AsyncTask<String,Integer,ArrayList<TrendCommentBean.DataBean>>{
 
-        @Override
-        protected ArrayList<TrendCommentBean.DataBean> doInBackground(String... strings) {
-
-            return null;
-        }
-    }
     class TrendCommentAsyncTask extends AsyncTask<String,Integer,ArrayList<TrendCommentBean.CommentListBean>>{
 
         @Override

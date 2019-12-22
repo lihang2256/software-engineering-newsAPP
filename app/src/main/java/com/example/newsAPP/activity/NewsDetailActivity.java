@@ -87,34 +87,23 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
                 builder.show();
                 break;
             case R.id.menu_2:
-                //判断
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        boolean flag = true;
-                        if (flag){
-
-                            Toast.makeText(NewsDetailActivity.this,"收藏成功",Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            Toast.makeText(NewsDetailActivity.this,"已收藏，不要重复点击",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }).start();
+                //判断是否收藏
+                new IsCollectedAsyncTask().execute("query",userID,newsID,"two");
                 break;
             case R.id.menu_3:
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        boolean fflag = true;
-                        if (fflag){
-                            Toast.makeText(NewsDetailActivity.this,"未收藏，不可取消收藏",Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            Toast.makeText(NewsDetailActivity.this,"取消收藏成功",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }).start();
+                new IsCollectedAsyncTask().execute("query",userID,newsID,"three");
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        boolean fflag = true;
+//                        if (fflag){
+//                            Toast.makeText(NewsDetailActivity.this,"未收藏，不可取消收藏",Toast.LENGTH_SHORT).show();
+//                        }
+//                        else {
+//                            Toast.makeText(NewsDetailActivity.this,"取消收藏成功",Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }).start();
                 break;
             case android.R.id.home:
                 finish();
@@ -142,21 +131,11 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
         }
     }
 
-    @Override
-    public void initValidata() {
-        new NewsDetailsAsyncTask().execute(newsID);
-    }
-
-    @Override
-    public void initListener() {
-
-    }
-
     /**
      * 去除网页内的广告
      */
     @Override
-    public void bindData() {
+    public void initValidata() {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setWebChromeClient(new WebChromeClient(){
             @Override
@@ -186,6 +165,16 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
             }
         });
         mWebView.loadUrl(mUrl);
+        new NewsDetailsAsyncTask().execute(newsID);
+    }
+
+    @Override
+    public void initListener() {
+
+    }
+
+    @Override
+    public void bindData() {
         if (commentBeans == null||commentBeans.size() <= 0){ }
         else {
             adapter = new NTListAdapter(this,commentBeans);
@@ -193,6 +182,40 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
         }
     }
 
+    class IsCollectedAsyncTask extends AsyncTask<String,Integer,ArrayList<String>>{
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected ArrayList<String> doInBackground(String... strings) {
+            ArrayList<String> result = new ArrayList<>();
+            result.add(new HttpUtils().collect(strings[0],strings[1],strings[2]));
+            result.add(strings[3]);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> result) {
+            super.onPostExecute(result);
+            if (result.get(0).equals("True")&&result.get(1).equals("two")){
+                Toast.makeText(NewsDetailActivity.this,"已收藏，不要重复点击",Toast.LENGTH_SHORT).show();
+            }
+            else if (result.equals("False")&&result.get(1).equals("two")) {
+                new CollectonAsyncTask().execute("add",userID,newsID);
+            }
+            else if (result.get(0).equals("True")&&result.get(1).equals("three")) {
+                new CollectonAsyncTask().execute("delete",userID,newsID);
+            }
+            else if (result.get(0).equals("False")&&result.get(1).equals("three")) {
+                Toast.makeText(NewsDetailActivity.this,"未收藏，不可取消收藏",Toast.LENGTH_SHORT).show();
+            }
+            else{
+
+            }
+        }
+    }
     class CollectonAsyncTask extends AsyncTask<String,Integer,String>{
 
         @Override
@@ -202,13 +225,19 @@ public class NewsDetailActivity extends BaseActivity implements DefineView {
 
         @Override
         protected String doInBackground(String... strings) {
-            return null;
+            String result = new HttpUtils().collect(strings[0],strings[1],strings[2]);
+            return result;
         }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            bindData();
+            if (result.equals("True")) {
+                Toast.makeText(NewsDetailActivity.this,"成功",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(NewsDetailActivity.this,"失败",Toast.LENGTH_SHORT).show();
+            }
         }
 
     }

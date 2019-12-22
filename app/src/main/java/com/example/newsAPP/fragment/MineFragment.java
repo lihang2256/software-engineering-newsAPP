@@ -109,11 +109,6 @@ public class MineFragment extends BaseFragment{
                         startActivity(intent);
                         break;
                     case 5:
-                        //进入摇一摇
-                        intent = new Intent(getActivity(), ShakeActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 6:
                         //发表动态
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setTitle("请输入评动态（不超过100字）");
@@ -136,6 +131,11 @@ public class MineFragment extends BaseFragment{
                             }
                         });
                         builder.show();
+                        break;
+                    case 6:
+                        //进入摇一摇
+                        intent = new Intent(getActivity(), ShakeActivity.class);
+                        startActivity(intent);
                         break;
                     case 7:
                         //进入关于App
