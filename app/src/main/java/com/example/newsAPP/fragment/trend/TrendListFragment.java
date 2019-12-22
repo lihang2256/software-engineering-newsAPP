@@ -32,9 +32,6 @@ import com.example.newsAPP.widget.LoadMoreFooterView;
 import java.net.HttpCookie;
 import java.util.ArrayList;
 
-/**
- * Created by LiHang on 2019/11/17
- */
 public class TrendListFragment extends BaseFragment {
 
     private String tname;
@@ -76,7 +73,7 @@ public class TrendListFragment extends BaseFragment {
         if (getArguments() != null) {
             tname = getArguments().getString("TNAME");
         }
-        new TrendAsyncTask().execute(tname,userID);
+        new TrendAsyncTask().execute(tname,"25");
     }
 
     @Override

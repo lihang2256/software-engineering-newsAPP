@@ -56,7 +56,7 @@ public class MineFragment extends BaseFragment{
         TextView user_name = (TextView) user_view.findViewById(R.id.user_name);
         if (SharedPreferenceUtils.getInstance().getString(getActivity(),"USERID",null) != null){
             user_icon.setImageDrawable(getResources().getDrawable(R.drawable.photo));
-            user_name.setText("hello");
+            user_name.setText(SharedPreferenceUtils.getInstance().getString(getActivity(),"USERID",null));
         }
         mListView.addHeaderView(user_view);
     }
@@ -144,6 +144,7 @@ public class MineFragment extends BaseFragment{
                     case 8:
                         //退出登录
                         SharedPreferenceUtils.getInstance().setString(getActivity(),"USERID",null);
+                        SharedPreferenceUtils.getInstance().getString(getActivity(),"NICKNAME",null);
                         intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                 }

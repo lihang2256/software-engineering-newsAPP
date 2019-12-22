@@ -23,9 +23,6 @@ import com.example.newsAPP.fragment.trend.TrendListFragment;
 
 import static com.example.newsAPP.R.id.tab_layout;
 
-/**
- * Created by LiHang on 2019/11/17
- */
 public class TrendFragment extends BaseFragment implements DefineView {
 
     private final String TAG = TrendFragment.class.getSimpleName();

@@ -177,7 +177,8 @@ public class HttpUtils {
         LoginApi loginApi = new LoginApi();
         loginApi.setPassword(password);
         loginApi.setId(userName);
-        return okHttp.sendPost(loginApi, DatabaseApi.login);
+        String strJson = okHttp.sendPost(loginApi, DatabaseApi.login);
+        return DataParse.login(strJson);
     }
 //    搜索新闻
     public String searchNews(String type, String keyword, String time){

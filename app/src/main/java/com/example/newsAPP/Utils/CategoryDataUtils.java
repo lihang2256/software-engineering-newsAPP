@@ -13,7 +13,6 @@ public class CategoryDataUtils {
         beans.add(new ProjectChannelBean("国内"));
         beans.add(new ProjectChannelBean("国际"));
         beans.add(new ProjectChannelBean("娱乐"));
-
         return beans;
     }
 

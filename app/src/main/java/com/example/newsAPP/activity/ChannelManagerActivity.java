@@ -105,7 +105,6 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
 
     @Override
     protected void onPause() {
-
         Iterator<ProjectChannelBean> iterator = mMyChannelList.iterator();
         while (iterator.hasNext()){
             ProjectChannelBean projectChannelBean = iterator.next();

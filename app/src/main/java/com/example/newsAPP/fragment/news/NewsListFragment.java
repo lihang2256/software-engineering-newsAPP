@@ -116,20 +116,22 @@ public class NewsListFragment extends BaseFragment {
 
     @Override
     public void bindData() {
-        mNewsListAdapter = new NewsListAdapter(MyApplication.getContext(), mNewsBeanList);
-        mIRecyclerView.setIAdapter(mNewsListAdapter);
-        // 设置Item点击跳转事件
-        mNewsListAdapter.setOnItemClickListener(new NewsListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                NewsBean.DataBean bean = mNewsBeanList.get(position);
-                Intent intent;
-                intent = new Intent(getActivity(), NewsDetailActivity.class);
-                intent.putExtra("URL", bean.getUrl());
-                intent.putExtra("NEWSID",bean.getId());
-                getActivity().startActivity(intent);
-            }
-        });
+        if (mNewsBeanList != null){
+            mNewsListAdapter = new NewsListAdapter(MyApplication.getContext(), mNewsBeanList);
+            mIRecyclerView.setIAdapter(mNewsListAdapter);
+            // 设置Item点击跳转事件
+            mNewsListAdapter.setOnItemClickListener(new NewsListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position) {
+                    NewsBean.DataBean bean = mNewsBeanList.get(position);
+                    Intent intent;
+                    intent = new Intent(getActivity(), NewsDetailActivity.class);
+                    intent.putExtra("URL", bean.getUrl());
+                    intent.putExtra("NEWSID",bean.getId());
+                    getActivity().startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.newsAPP.R;
+import com.example.newsAPP.Utils.HttpUtils;
 import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.common.DefineView;
 
@@ -109,11 +110,23 @@ public class LoginActivity extends BaseActivity implements DefineView {
             @Override
             public void onClick(View v) {
                 if (flag == 0) {
-                    String userName = nickname.getText().toString();
-                    String mPassword = password.getText().toString();
-                    SharedPreferenceUtils.getInstance().setString(mContext, "USERID", "25");
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    if (nickname.getText().toString().equals("") || password.getText().toString().equals("")) {
+                        Toast.makeText(LoginActivity.this, "请填写完整", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        String userName = nickname.getText().toString();
+                        String mPassword = password.getText().toString();
+                        String result = new HttpUtils().login(userName,mPassword);
+                        if (result == null){
+                            Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            SharedPreferenceUtils.getInstance().setString(mContext, "USERID", result);
+                            SharedPreferenceUtils.getInstance().setString(mContext,"NICKNAME", userName);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    }
                 }
                 else if (flag == 1) {
                     Toast.makeText(LoginActivity.this,"注册成功，请登录",Toast.LENGTH_SHORT).show();

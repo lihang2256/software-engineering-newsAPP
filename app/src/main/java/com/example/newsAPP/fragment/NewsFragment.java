@@ -80,7 +80,6 @@ public class NewsFragment extends BaseFragment implements DefineView {
 
     @Override
     public void initValidata() {
-        //listDataSave = new ListDataSave(getActivity(), "channel");
         fragments = new ArrayList<>();
         fixedPagerAdapter = new FixedPagerAdapter(getChildFragmentManager());
         mTabLayout.setupWithViewPager(mNewsViewpager);
@@ -126,18 +125,17 @@ public class NewsFragment extends BaseFragment implements DefineView {
      * 如果不是第一次进入，则从sharedPrefered中获取设置好的频道
      */
     private void getDataFromSharedPreference() {
-        SharedPreferenceUtils.getInstance().getDataList(getActivity(),"moreChannel",ProjectChannelBean.class);
         isFirst = (boolean)SharedPreferenceUtils.getInstance().getBoolean(getActivity(),"isFirst", true);
         if (isFirst) {
             myChannelList = CategoryDataUtils.getChannelCategoryBeans();
             moreChannelList = CategoryDataUtils.getMoreCategoryBeans();
             setType(myChannelList);
-            setType(moreChannelList);
             SharedPreferenceUtils.getInstance().setDataList(getActivity(),"myChannel", myChannelList);
             SharedPreferenceUtils.getInstance().setDataList(getActivity(),"moreChannel", myChannelList);
             SharedPreferenceUtils.getInstance().setBoolean(getActivity(),"isFirst", false);
         } else {
-            SharedPreferenceUtils.getInstance().getDataList(getActivity(),"moreChannel",ProjectChannelBean.class);
+            myChannelList = SharedPreferenceUtils.getInstance().getDataList(getActivity(),"myChannel",ProjectChannelBean.class);
+            moreChannelList = SharedPreferenceUtils.getInstance().getDataList(getActivity(),"moreChannel",ProjectChannelBean.class);
         }
         fragments.clear();
         for (int i = 0; i < myChannelList.size(); i++) {
