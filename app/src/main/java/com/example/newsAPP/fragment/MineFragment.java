@@ -121,6 +121,7 @@ public class MineFragment extends BaseFragment{
                             public void onClick(DialogInterface dialog, int which)
                             {
                                 //add something
+
                             }
                         });
                         builder.setNegativeButton("取消", new DialogInterface.OnClickListener()

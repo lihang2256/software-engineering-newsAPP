@@ -230,7 +230,7 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
             }
         }
     }
-    class followAsyncTask extends AsyncTask<String,Integer,Boolean> {
+    class FollowAsyncTask extends AsyncTask<String,Integer,Boolean> {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
@@ -248,11 +248,11 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
             if (!aBoolean) {
                 Toast.makeText(TrendDetailActivity.this, "关注失败", Toast.LENGTH_SHORT).show();
             } else {
-                isFollowAsyncTask.execute();
+                Toast.makeText(TrendDetailActivity.this, "关注成功", Toast.LENGTH_SHORT).show();
             }
         }
     }
-    class isFollowAsyncTask extends AsyncTask<String,Integer,Boolean> {
+    class IsFollowAsyncTask extends AsyncTask<String,Integer,Boolean> {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
