@@ -3,6 +3,7 @@ package com.example.newsAPP.http;
 import android.util.Log;
 
 import com.example.newsAPP.bean.JudgeFriendBean;
+import com.example.newsAPP.bean.LoginBean;
 import com.example.newsAPP.bean.NewsBean;
 import com.example.newsAPP.bean.NoDataBean;
 import com.example.newsAPP.bean.TrendBean;
@@ -91,6 +92,20 @@ public class DataParse {
         }
         return false;
     }
+
+//    TODO：动态详细页面解析，不知道要啥
+
+    public static String login(String json) {
+        Gson gson = new Gson();
+        LoginBean loginBean = gson.fromJson(json, LoginBean.class);
+        if(loginBean.getStatus().equals("success")){
+            return loginBean.getId();
+        }else{
+            Log.e(TAG, "actionFailed: Request error");
+        }
+        return null;
+    }
+
 
     //
 //    public static ArrayList<NewsBean.DataBean> NewsList(String json) {
