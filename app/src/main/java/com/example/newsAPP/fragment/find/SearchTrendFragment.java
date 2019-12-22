@@ -17,6 +17,7 @@ import com.example.newsAPP.MyApplication;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.DensityUtils;
 import com.example.newsAPP.Utils.HttpUtils;
+import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.activity.TrendDetailActivity;
 import com.example.newsAPP.adapter.TrendListAdapter;
 import com.example.newsAPP.bean.CommentBean;
@@ -66,30 +67,10 @@ public class SearchTrendFragment extends BaseFragment {
 
     @Override
     public void initValidata() {
-        if (getArguments() != null) {
-            tname = getArguments().getString("TNAME");
-        }
-     //   new CommentAsyncTask().execute(tname);
+
+    //   new SearchListAsyncTask().execute();
     }
-//    class TrendAsyncTask extends AsyncTask<String,Integer,ArrayList<TrendBean.DataBean>>{
-//        @Override
-//        protected void onPreExecute(){
-//            super.onPreExecute();
-//        }
-//
-//        @Override
-//        protected ArrayList<TrendBean.DataBean> doInBackground(String... strings) {
-//            ArrayList<TrendBean.DataBean> list = new HttpUtils().searchTrend(strings[0]);
-//            return list;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(ArrayList<TrendBean.DataBean> list) {
-//            super.onPostExecute(list);
-//            mTrendBeanList = list;
-//            bindData();
-//        }
-//    }
+
 
     @Override
     public void initListener() {
@@ -107,31 +88,6 @@ public class SearchTrendFragment extends BaseFragment {
         });
     }
 
-    class CommentAsyncTask extends AsyncTask<String,Integer,ArrayList<TrendBean.DataBean>>{
-
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-        }
-
-        @Override
-        protected ArrayList<TrendBean.DataBean> doInBackground(String... strings) {
-            OkHttp okHttp = new OkHttp();
-            GetnewsApi getnewsApi = new GetnewsApi();
-            getnewsApi.setType(strings[0]);
-            String result = okHttp.sendPost(getnewsApi, DatabaseApi.newsList);
-            ArrayList<TrendBean.DataBean> list = null;
-            //list = DataParse.NewsList(result);
-            return list;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<TrendBean.DataBean> list) {
-            super.onPostExecute(list);
-            mTrendBeanList = list;
-            bindData();
-        }
-    }
 
     @Override
     public void bindData() {
@@ -152,6 +108,30 @@ public class SearchTrendFragment extends BaseFragment {
             });
         }
     }
+//   搜索 动态 接口
+//    class SearchListAsyncTask extends AsyncTask<String,Integer,ArrayList<TrendBean.DataBean>>{
+//        @Override
+//        protected void onPreExecute(){
+//            super.onPreExecute();
+//        }
+//
+//        @Override
+//        protected ArrayList<TrendBean.DataBean> doInBackground(String... strings) {
+//            ArrayList<TrendBean.DataBean> list = new HttpUtils().searchTrend(
+//                    SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHFRIEND",null),
+//                    SharedPreferenceUtils.getInstance().getString(getActivity(),"TRENDINPUT",""),
+//                    SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHTIME",null)
+//            );
+//            return list;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(ArrayList<TrendBean.DataBean> list) {
+//            super.onPostExecute(list);
+//            mTrendBeanList = list;
+//            bindData();
+//        }
+//    }
 
     public static TrendListFragment newInstance(String tname){
         Bundle bundle = new Bundle();

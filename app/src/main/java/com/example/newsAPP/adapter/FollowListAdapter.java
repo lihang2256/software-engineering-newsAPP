@@ -1,11 +1,13 @@
 package com.example.newsAPP.adapter;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,6 +23,9 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.newsAPP.R;
+import com.example.newsAPP.Utils.HttpUtils;
+import com.example.newsAPP.Utils.SharedPreferenceUtils;
+import com.example.newsAPP.activity.FollowListActivity;
 import com.example.newsAPP.bean.FollowBean;
 
 @SuppressLint("UseSparseArrays")
@@ -47,6 +52,7 @@ public class FollowListAdapter extends BaseAdapter {
 
         visibleDeleteTv = new HashMap<Integer, Integer>();
         selectCb = new HashMap<Integer, Boolean>();
+
         if(mContentsList!=null) {
             // 更新界面时,记录为 未选中和滑动删除按钮不可见
             for (int i = 0; i < mContentsList.size(); i++) {
@@ -214,6 +220,8 @@ public class FollowListAdapter extends BaseAdapter {
                 // Log.d(TAG, "onClick:position=" + position);
                 mContentsList.remove(position);
                 mContentsDeleteListener.contentDelete(position);
+
+
                 for (int i = 0; i < mContentsList.size(); i++) {
                     visibleDeleteTv.put(i, View.GONE);
                     selectCb.put(i, false);

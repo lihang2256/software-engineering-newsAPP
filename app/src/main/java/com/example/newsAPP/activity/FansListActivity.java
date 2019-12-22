@@ -29,6 +29,7 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
     private  FansListAdapter myAdapter;
     private  List<FansBean.DataBean> myContentsList = new ArrayList<>();
     private  String userID ;
+    private String fansID;
 
 
     private String[] myContentsArray;
@@ -57,6 +58,7 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
     public void initValidata() {
         new FansAsyncTask().execute();
     }
+
     class FansAsyncTask extends AsyncTask<String,Integer,ArrayList<FansBean.DataBean>> {
         @Override
         protected void onPreExecute(){
@@ -77,6 +79,29 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
             bindData();
         }
     }
+
+//   删除的接口调用
+//    class unFansAsyncTask extends AsyncTask<String,Integer,ArrayList<FansBean.DataBean>> {
+//        @Override
+//        protected void onPreExecute(){
+//            super.onPreExecute();
+//        }
+//
+//        @Override
+//        protected ArrayList<FansBean.DataBean> doInBackground(String... strings) {
+//
+//            ArrayList<FansBean.DataBean> list = new HttpUtils().unFans(userID, fansID);
+//
+//            return list;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(ArrayList<FansBean.DataBean> list) {
+//            super.onPostExecute(list);
+//            mySelectedList = list;
+//            bindData();
+//        }
+//    }
     @Override
     public void initListener() {
 
@@ -148,6 +173,14 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
             case R.id.my_delete_btn2:
                 myContentsList.removeAll(mySelectedList);
                 myAdapter.updateView(myContentsList);
+
+                //判断 删除的ID
+//                if(mySelectedList!=null) {
+//                    for (int i = 0; i < mySelectedList.size(); i++) {
+//                        fansID = mySelectedList.get(i).getID();
+//                        new unFansAsyncTask().execute();
+//                    }
+//                }
                 break;
         }
     }

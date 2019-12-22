@@ -30,7 +30,8 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
     private Button myDeleteBtn;
     private FollowListAdapter myAdapter;
     private String userID;
-     private List<FollowBean.DataBean> myContentsList = new ArrayList<>();
+    private String friendID;
+    private List<FollowBean.DataBean> myContentsList = new ArrayList<>();
     private String[] myContentsArray;
     private List<FollowBean.DataBean> mySelectedList = new ArrayList<>();
     @Override
@@ -38,6 +39,7 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follow_list);
         userID = SharedPreferenceUtils.getInstance().getString(this,"USERID",null);
+
         initView();
         initValidata();
         initListener();
@@ -55,6 +57,7 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
     public void initValidata() {
         new FollowAsyncTask().execute();
     }
+
     class FollowAsyncTask extends AsyncTask<String,Integer,ArrayList<FollowBean.DataBean>> {
         @Override
         protected void onPreExecute(){
@@ -72,6 +75,28 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
         protected void onPostExecute(ArrayList<FollowBean.DataBean> list) {
             super.onPostExecute(list);
             myContentsList = list;
+            bindData();
+        }
+    }
+
+    class unFollowAsyncTask extends AsyncTask<String,Integer,ArrayList<FollowBean.DataBean>> {
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected ArrayList<FollowBean.DataBean> doInBackground(String... strings) {
+
+                ArrayList<FollowBean.DataBean> list = new HttpUtils().unFollow(userID, friendID);
+
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<FollowBean.DataBean> list) {
+            super.onPostExecute(list);
+            mySelectedList = list;
             bindData();
         }
     }
@@ -122,6 +147,7 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
     public void contentsDeleteSelect(int position,boolean isChecked) {
         if(isChecked){
             mySelectedList.add(myContentsList.get(position));
+
         }else{
             mySelectedList.remove(myContentsList.get(position));
         }
@@ -145,6 +171,14 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
             case R.id.my_delete_btn1:
                 myContentsList.removeAll(mySelectedList);
                 myAdapter.updateView(myContentsList);
+                if(mySelectedList!=null) {
+                    for (int i = 0; i < mySelectedList.size(); i++) {
+                      friendID = mySelectedList.get(i).getID();
+                      new unFollowAsyncTask().execute();
+                    }
+                }
+
+
                 break;
         }
     }
