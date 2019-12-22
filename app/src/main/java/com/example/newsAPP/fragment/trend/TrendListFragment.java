@@ -1,5 +1,6 @@
 package com.example.newsAPP.fragment.trend;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.example.newsAPP.R;
 import com.example.newsAPP.Utils.DensityUtils;
+import com.example.newsAPP.Utils.HttpUtils;
+import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.activity.TrendDetailActivity;
 import com.example.newsAPP.adapter.TrendListAdapter;
 import com.example.newsAPP.bean.TrendBean;
@@ -26,6 +29,7 @@ import com.example.newsAPP.widget.ClassicRefreshHeaderView;
 import com.example.newsAPP.widget.DividerGridItemDecoration;
 import com.example.newsAPP.widget.LoadMoreFooterView;
 
+import java.net.HttpCookie;
 import java.util.ArrayList;
 
 /**
@@ -41,11 +45,15 @@ public class TrendListFragment extends BaseFragment {
     private LoadMoreFooterView mLoadMoreFooterView;
     private TrendListAdapter mTrendListAdapter;
     private ArrayList<TrendBean.DataBean> mTrendBeanList;   // 启动时获得的数据
+    private Context mContext;
+    private String userID;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_trend_list, container, false);
+        mContext = getActivity();
+        userID = SharedPreferenceUtils.getInstance().getString(mContext,"USERID",null);
         initView();
         initValidata();
         initListener();
@@ -68,7 +76,7 @@ public class TrendListFragment extends BaseFragment {
         if (getArguments() != null) {
             tname = getArguments().getString("TNAME");
         }
-        new TrendAsyncTask().execute(tname);
+        new TrendAsyncTask().execute(tname,userID);
     }
 
     @Override
@@ -96,12 +104,29 @@ public class TrendListFragment extends BaseFragment {
 
         @Override
         protected ArrayList<TrendBean.DataBean> doInBackground(String... strings) {
-            OkHttp okHttp = new OkHttp();
-            GetnewsApi getnewsApi = new GetnewsApi();
-            getnewsApi.setType(strings[0]);
-            String result = okHttp.sendPost(getnewsApi, DatabaseApi.newsList);
-            ArrayList<TrendBean.DataBean> list = null;
-            //list = DataParse.NewsList(result);
+            ArrayList<TrendBean.DataBean> list;
+            if (strings[1] == null){
+                if (strings[0].equals("所有")) {
+                    list = new HttpUtils().getAllTrend();
+                }
+                else if (strings[0].equals("关注")) {
+                    list = null;
+                }
+                else {
+                    list = null;
+                }
+            }
+            else {
+                if (strings[0].equals("所有")) {
+                    list = new HttpUtils().getAllTrend();
+                }
+                else if (strings[0].equals("关注")) {
+                    list = new HttpUtils().getFriendTrend(strings[1]);
+                }
+                else {
+                    list = new HttpUtils().getMyTrend(strings[1]);
+                }
+            }
             return list;
         }
 
@@ -115,19 +140,21 @@ public class TrendListFragment extends BaseFragment {
 
     @Override
     public void bindData() {
-        mTrendListAdapter = new TrendListAdapter(getActivity(), mTrendBeanList);
-        mIRecyclerView.setIAdapter(mTrendListAdapter);
-        // 设置Item点击跳转事件
-        mTrendListAdapter.setOnItemClickListener(new TrendListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                TrendBean.DataBean bean = mTrendBeanList.get(position);
-                Intent intent;
-                intent = new Intent(getActivity(), TrendDetailActivity.class);
-                intent.putExtra("TID", bean.getID());
-                getActivity().startActivity(intent);
-            }
-        });
+        if (mTrendBeanList != null) {
+            mTrendListAdapter = new TrendListAdapter(getActivity(), mTrendBeanList);
+            mIRecyclerView.setIAdapter(mTrendListAdapter);
+            // 设置Item点击跳转事件
+            mTrendListAdapter.setOnItemClickListener(new TrendListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position) {
+                    TrendBean.DataBean bean = mTrendBeanList.get(position);
+                    Intent intent;
+                    intent = new Intent(getActivity(), TrendDetailActivity.class);
+                    intent.putExtra("TID", bean.getID());
+                    getActivity().startActivity(intent);
+                }
+            });
+        }
     }
 
     public static TrendListFragment newInstance(String tname){

@@ -54,7 +54,7 @@ public class MineFragment extends BaseFragment{
         View user_view = LayoutInflater.from(getActivity()).inflate(R.layout.user_view, mListView, false);
         ImageView user_icon = (ImageView) user_view.findViewById(R.id.user_icon);
         TextView user_name = (TextView) user_view.findViewById(R.id.user_name);
-        if ((int)SharedPreferenceUtils.getInstance().get(getActivity(),"USERID",-100) > 0){
+        if (SharedPreferenceUtils.getInstance().getString(getActivity(),"USERID",null) != null){
             user_icon.setImageDrawable(getResources().getDrawable(R.drawable.photo));
             user_name.setText("hello");
         }
@@ -84,7 +84,7 @@ public class MineFragment extends BaseFragment{
                 switch (position) {
                     case 0:
                         //用户界面
-                        if ((int)SharedPreferenceUtils.getInstance().get(getActivity(),"USERID",-100) < 0) {
+                        if (SharedPreferenceUtils.getInstance().getString(getActivity(),"USERID",null) == null) {
                             intent = new Intent(getActivity(), LoginActivity.class);
                             startActivity(intent);
                         }
@@ -143,7 +143,7 @@ public class MineFragment extends BaseFragment{
                         break;
                     case 8:
                         //退出登录
-                        SharedPreferenceUtils.getInstance().put(getActivity(),"USERID",null);
+                        SharedPreferenceUtils.getInstance().setString(getActivity(),"USERID",null);
                         intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                 }

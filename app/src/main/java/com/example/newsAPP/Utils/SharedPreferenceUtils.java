@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.channelmanager.ProjectChannelBean;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -32,90 +33,80 @@ public final class SharedPreferenceUtils {
         return mInstance;
     }
 
-    /**
-     * 存入键值对
-     * @param context
-     * @param key
-     * @param value
-     */
-
-    public void put(Context context, String key, Object value){
-        //判断类型
-        String type = value.getClass().getSimpleName();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        if("Integer".equals(type)){
-            editor.putInt(key,(Integer)value);
-        }else if ("Boolean".equals(type)){
-            editor.putBoolean(key,(Boolean)value);
-        }else if ("Float".equals(type)){
-            editor.putFloat(key,(Float)value);
-        }else if ("Long".equals(type)){
-            editor.putLong(key,(Long)value);
-        }else if ("String".equals(type)){
-            editor.putString(key,(String) value);
-        }
-        editor.apply();
-    }
-
-    /**
-     * 读取键的值，若无则返回默认值
-     * @param context
-     * @param key
-     * @param defValue 默认值
-     * @return
-     */
-    @Nullable
-    public Object get(Context context, String key, Object defValue){
-        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        String type = defValue.getClass().getSimpleName();
-        if("Integer".equals(type)){
-            return sharedPreferences.getInt(key,(Integer)defValue);
-        }else if ("Boolean".equals(type)){
-            return sharedPreferences.getBoolean(key,(Boolean)defValue);
-        }else if ("Float".equals(type)){
-            return sharedPreferences.getFloat(key,(Float)defValue);
-        }else if ("Long".equals(type)){
-            return sharedPreferences.getLong(key,(Long)defValue);
-        }else if ("String".equals(type)){
-            return sharedPreferences.getString(key,(String) defValue);
-        }
-        return null;
-    }
-
-    /**
-     * 保存List
-     * @param tag
-     * @param datalist
-     */
-    public <T> void setDataList(Context context, String tag, List<T> datalist) {
+    public void setDataList(Context context, String tag, List<ProjectChannelBean> datalist) {
         if (null == datalist || datalist.size() <= 0)
             return;
         Gson gson = new Gson();
         //转换成json数据，再保存
         String strJson = gson.toJson(datalist);
         System.out.println(strJson);
-        put(context,tag,strJson);
+        setString(context,tag,strJson);
     }
 
     /**
      * 获取list
      * @param tag
-     * @param clazz 传入解析json所需要的Class对象
+     * @param channel 传入解析json所需要的Class对象
      * @return
      */
-    public <T> List<T> getDataList(Context context, String tag, Class<T> clazz) {
-        List<T> datalist = new ArrayList<>();
-        String strJson = (String) get(context,tag,null);
+    public List<ProjectChannelBean> getDataList(Context context, String tag, Class<ProjectChannelBean> channel) {
+        List<ProjectChannelBean> datalist = new ArrayList<>();
+        String strJson = getString(context,tag,null);
         System.out.println(strJson);
         if (null == strJson) {
             return datalist;
         }
         JsonArray array = new JsonParser().parse(strJson).getAsJsonArray();
         for (final JsonElement elem : array) {
-            datalist.add(new Gson().fromJson(elem, clazz));
+            datalist.add(new Gson().fromJson(elem, channel));
         }
         return datalist;
+    }
+
+    public boolean getBoolean(Context ctx, String key, boolean defValue) {
+        SharedPreferences sp = ctx.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        return sp.getBoolean(key, defValue);
+    }
+
+    public void setBoolean(Context ctx, String key, boolean value) {
+        SharedPreferences sp = ctx.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        sp.edit().putBoolean(key, value).apply();
+    }
+
+    public void setString(Context ctx, String key, String value) {
+        SharedPreferences sp = ctx.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        sp.edit().putString(key, value).apply();
+    }
+
+    public String getString(Context ctx, String key, String defValue) {
+        SharedPreferences sp = ctx.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        return sp.getString(key, defValue);
+    }
+
+    public void setInt(Context ctx, String key, int value) {
+        SharedPreferences sp = ctx.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        sp.edit().putInt(key, value).apply();
+    }
+
+    public int getInt(Context ctx, String key, int defValue) {
+        SharedPreferences sp = ctx.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        return sp.getInt(key, defValue);
+    }
+
+    public void setLong(Context ctx, String key, long value) {
+        SharedPreferences sp = ctx.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        sp.edit().putLong(key, value).apply();
+    }
+
+    public long getLong(Context ctx, String key, long defValue) {
+        SharedPreferences sp = ctx.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        return sp.getLong(key, defValue);
     }
 }
 

@@ -28,7 +28,7 @@ public class CategoryDataUtils {
     public static List<ProjectChannelBean> getTrendCategoryBeans(){
         List<ProjectChannelBean> beans = new ArrayList<>();
         beans.add(new ProjectChannelBean("所有"));
-        beans.add(new ProjectChannelBean("好友"));
+        beans.add(new ProjectChannelBean("关注"));
         beans.add(new ProjectChannelBean("我的"));
         return beans;
     }

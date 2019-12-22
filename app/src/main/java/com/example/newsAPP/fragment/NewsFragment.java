@@ -126,25 +126,19 @@ public class NewsFragment extends BaseFragment implements DefineView {
      * 如果不是第一次进入，则从sharedPrefered中获取设置好的频道
      */
     private void getDataFromSharedPreference() {
-        myChannelList = CategoryDataUtils.getChannelCategoryBeans();
-        moreChannelList = CategoryDataUtils.getMoreCategoryBeans();
-        myChannelList = setType(myChannelList);
-        moreChannelList = setType(moreChannelList);
-        SharedPreferenceUtils.getInstance().setDataList(getActivity(),"myChannel", myChannelList);
-        SharedPreferenceUtils.getInstance().setDataList(getActivity(),"moreChannel", myChannelList);
-//        SharedPreferenceUtils.getInstance().getDataList(getActivity(),"moreChannel",ProjectChannelBean.class);
-//        isFirst = (boolean)SharedPreferenceUtils.getInstance().get(getActivity(),"isFirst", true);
-//        if (isFirst) {
-//            myChannelList = CategoryDataUtils.getChannelCategoryBeans();
-//            moreChannelList = CategoryDataUtils.getMoreCategoryBeans();
-//            myChannelList = setType(myChannelList);
-//            moreChannelList = setType(moreChannelList);
-//            SharedPreferenceUtils.getInstance().setDataList(getActivity(),"myChannel", myChannelList);
-//            SharedPreferenceUtils.getInstance().setDataList(getActivity(),"moreChannel", myChannelList);
-//            SharedPreferenceUtils.getInstance().put(getActivity(),"isFirst", false);
-//        } else {
-//            SharedPreferenceUtils.getInstance().getDataList(getActivity(),"moreChannel",ProjectChannelBean.class);
-//        }
+        SharedPreferenceUtils.getInstance().getDataList(getActivity(),"moreChannel",ProjectChannelBean.class);
+        isFirst = (boolean)SharedPreferenceUtils.getInstance().getBoolean(getActivity(),"isFirst", true);
+        if (isFirst) {
+            myChannelList = CategoryDataUtils.getChannelCategoryBeans();
+            moreChannelList = CategoryDataUtils.getMoreCategoryBeans();
+            setType(myChannelList);
+            setType(moreChannelList);
+            SharedPreferenceUtils.getInstance().setDataList(getActivity(),"myChannel", myChannelList);
+            SharedPreferenceUtils.getInstance().setDataList(getActivity(),"moreChannel", myChannelList);
+            SharedPreferenceUtils.getInstance().setBoolean(getActivity(),"isFirst", false);
+        } else {
+            SharedPreferenceUtils.getInstance().getDataList(getActivity(),"moreChannel",ProjectChannelBean.class);
+        }
         fragments.clear();
         for (int i = 0; i < myChannelList.size(); i++) {
             baseFragment = NewsListFragment.newInstance(myChannelList.get(i).getTname());

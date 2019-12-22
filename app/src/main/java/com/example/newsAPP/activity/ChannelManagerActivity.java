@@ -80,11 +80,7 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
      */
     private void initData() {
         mMyChannelList = new ArrayList<>();
-
-        List<ProjectChannelBean> list =
-                //CategoryDataUtils.getChannelCategoryBeans();
-                //listDataSave.getDataList("myChannel", ProjectChannelBean.class);
-                SharedPreferenceUtils.getInstance().getDataList(context,"myChannel",ProjectChannelBean.class);
+        List<ProjectChannelBean> list = SharedPreferenceUtils.getInstance().getDataList(context,"myChannel",ProjectChannelBean.class);
         for (int i = 0; i < list.size(); i ++){
             ProjectChannelBean projectChannelBean = list.get(i);
             if (i == tabposition){
@@ -102,15 +98,9 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
             }
             mMyChannelList.add(projectChannelBean);
         }
-
         mRecChannelList = new ArrayList<>();
-        List<ProjectChannelBean> moreChannelList =
-                //getMoreChannelFromAsset();
-                //listDataSave.getDataList("moreChannel", ProjectChannelBean.class);
-                SharedPreferenceUtils.getInstance().getDataList(context,"moreChannel",ProjectChannelBean.class);
-        for (ProjectChannelBean projectChannelBean : moreChannelList) {
-            mRecChannelList.add(projectChannelBean);
-        }
+        List<ProjectChannelBean> moreChannelList = SharedPreferenceUtils.getInstance().getDataList(context,"moreChannel",ProjectChannelBean.class);
+        mRecChannelList.addAll(moreChannelList);
     }
 
     @Override
@@ -124,9 +114,6 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
         }
         SharedPreferenceUtils.getInstance().setDataList(context,"myChannel", mMyChannelList);
         SharedPreferenceUtils.getInstance().setDataList(context,"moreChannel", mMyChannelList);
-//        listDataSave.setDataList("myChannel", mMyChannelList);
-//        listDataSave.setDataList("moreChannel", mRecChannelList);
-
         super.onPause();
     }
 

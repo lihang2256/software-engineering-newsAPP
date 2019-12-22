@@ -2,6 +2,7 @@ package com.example.newsAPP.Utils;
 
 import com.example.newsAPP.bean.NewsBean;
 import com.example.newsAPP.bean.CommentBean;
+import com.example.newsAPP.bean.TrendBean;
 import com.example.newsAPP.bean.TrendCommentBean;
 import com.example.newsAPP.common.CollectApi;
 import com.example.newsAPP.common.CommentApi;
@@ -17,6 +18,8 @@ import com.example.newsAPP.common.TrendIdApi;
 import com.example.newsAPP.common.UserIdApi;
 import com.example.newsAPP.http.DataParse;
 import com.example.newsAPP.http.OkHttp;
+
+import org.apache.http.impl.cookie.DateParseException;
 
 import java.nio.file.attribute.UserPrincipal;
 
@@ -60,25 +63,31 @@ public class HttpUtils {
     }
 
 //    获取所有用户动态
-    public String getAllTrend(){
+    public ArrayList<TrendBean.DataBean> getAllTrend(){
         OkHttp okHttp = new OkHttp();
-        return okHttp.sendGet(DatabaseApi.getAllTrend);
+        String strJson = okHttp.sendGet(DatabaseApi.getAllTrend);
+        ArrayList<TrendBean.DataBean> list = DataParse.TrendList(strJson);
+        return list;
     }
 
 //    获取关注的人的动态
-    public String getFriendTrend(String string){
+    public ArrayList<TrendBean.DataBean> getFriendTrend(String string){
         OkHttp okHttp = new OkHttp();
         SendIdApi sendId = new SendIdApi();
         sendId.setID(string);
-        return okHttp.sendPost(sendId, DatabaseApi.getFriendTrend);
+        String strJson = okHttp.sendPost(sendId, DatabaseApi.getFriendTrend);
+        ArrayList<TrendBean.DataBean> list = DataParse.TrendList(strJson);
+        return list;
     }
 
 //    获取自己的动态
-    public String getMyTrend(String string){
+    public ArrayList<TrendBean.DataBean> getMyTrend(String string){
         OkHttp okHttp = new OkHttp();
         SendIdApi sendId = new SendIdApi();
         sendId.setID(string);
-        return okHttp.sendPost(sendId, DatabaseApi.getMyTrend);
+        String strJson = okHttp.sendPost(sendId, DatabaseApi.getMyTrend);
+        ArrayList<TrendBean.DataBean> list = DataParse.TrendList(strJson);
+        return list;
     }
 
 //    关注用户
@@ -169,7 +178,6 @@ public class HttpUtils {
         loginApi.setPassword(password);
         loginApi.setId(userName);
         return okHttp.sendPost(loginApi, DatabaseApi.login);
-
     }
 //    搜索新闻
     public String searchNews(String type, String keyword, String time){

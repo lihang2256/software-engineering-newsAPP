@@ -109,7 +109,9 @@ public class LoginActivity extends BaseActivity implements DefineView {
             @Override
             public void onClick(View v) {
                 if (flag == 0) {
-                    SharedPreferenceUtils.getInstance().put(mContext, "USERID", "20");
+                    String userName = nickname.getText().toString();
+                    String mPassword = password.getText().toString();
+                    SharedPreferenceUtils.getInstance().setString(mContext, "USERID", "25");
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
