@@ -120,12 +120,14 @@ public class HttpUtils {
     }
 
 //    禁止对方的关注
-    public String ban(String user_id,String friend_id){
+    public ArrayList <FansBean.DataBean> ban(String user_id,String friend_id){
         OkHttp okHttp = new OkHttp();
         FollowSomebodyApi sendId = new FollowSomebodyApi();
         sendId.setUser_id(user_id);
         sendId.setFriend_id(friend_id);
-        return okHttp.sendPost(sendId, DatabaseApi.ban);
+        String strJson = okHttp.sendPost(sendId, DatabaseApi.ban);
+        ArrayList<FansBean.DataBean> list = DataParse.FansList(strJson);
+        return list;
     }
 
 //    判断是否关注

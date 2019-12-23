@@ -169,8 +169,10 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
         // TODO Auto-generated method stub
         switch(v.getId()){
             case R.id.my_delete_btn1:
-                myContentsList.removeAll(mySelectedList);
-                myAdapter.updateView(myContentsList);
+                if(myContentsList!=null) {
+                    myContentsList.removeAll(mySelectedList);
+                    myAdapter.updateView(myContentsList);
+                }
                 if(mySelectedList!=null) {
                     for (int i = 0; i < mySelectedList.size(); i++) {
                       friendID = mySelectedList.get(i).getID();
