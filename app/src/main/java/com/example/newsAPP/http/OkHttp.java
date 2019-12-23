@@ -28,7 +28,7 @@ public class OkHttp {
 
     public String sendGet(final String route){
         try{
-            responseData = get(DatabaseApi.host1 + route);
+            responseData = get(DatabaseApi.host + route);
         }catch (IOException e) {
             e.printStackTrace();
         }

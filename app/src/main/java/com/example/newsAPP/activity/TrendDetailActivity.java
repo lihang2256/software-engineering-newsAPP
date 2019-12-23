@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,7 +29,7 @@ import com.example.newsAPP.common.DefineView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrendDetailActivity extends BaseActivity implements DefineView {
+public class TrendDetailActivity extends BaseActivity implements DefineView{
     private final String TAG = TrendDetailActivity.class.getSimpleName();
     private String trendID;
     private String authorID;
@@ -39,14 +40,17 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
     private String t_newsTitle;
     private String t_newsUrl;
     private String userID;
+    private String friendID;
+    private String friendName;
     private Context mContext;
     private String text;
+    private EditText editText;
     private TextView author;
     private TextView time;
     private TextView content;
     private TextView news;
     private ListView listView;
-    private ArrayList<TrendCommentBean> beans;
+    private ArrayList<TrendCommentBean.CommentListBean> beans;
     private TCListAdapter adapter;
 
     @Override
@@ -80,7 +84,12 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
         author.setText(a_name);
         time.setText(t_time);
         content.setText(t_content);
-        news.setText(t_newsTitle);
+        if (t_newsTitle.equals("null")){
+            news.setVisibility(View.GONE);
+        }
+        else {
+            news.setText(t_newsTitle);
+        }
     }
 
     @Override
@@ -96,13 +105,12 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
                 AlertDialog.Builder builder = new AlertDialog.Builder(TrendDetailActivity.this);
                 builder.setTitle("关注");
                 builder.setMessage(a_name);
-                builder.setPositiveButton("添加好友", new DialogInterface.OnClickListener()
+                builder.setPositiveButton("添加关注", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
-//                        TODO::添加关注
-                        Toast.makeText(TrendDetailActivity.this, "positive: " + which, Toast.LENGTH_SHORT).show();
+                        new IsFollowedAsyncTask().execute(userID,authorID,"one");
                     }
                 });
                 builder.setNegativeButton("取消添加", new DialogInterface.OnClickListener()
@@ -110,25 +118,58 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
+
                     }
                 });
                 builder.show();
             }
         });
-        news.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TrendDetailActivity.this,NewsDetailActivity.class);
-                intent.putExtra("NEWSID",t_newID);
-                intent.putExtra("URL",t_newsUrl);
-                startActivity(intent);
-            }
-        });
+        if (news.getVisibility() == View.VISIBLE){
+            news.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(TrendDetailActivity.this,NewsDetailActivity.class);
+                    intent.putExtra("NEWSID",t_newID);
+                    intent.putExtra("URL",t_newsUrl);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
     public void bindData() {
-
+        if (beans != null) {
+            adapter = new TCListAdapter(this,beans);
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    TrendCommentBean.CommentListBean bean = beans.get(position);
+                    friendID = bean.getUser_id();
+                    friendName = bean.getNick_name();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TrendDetailActivity.this);
+                    builder.setTitle("关注");
+                    builder.setMessage(friendName);
+                    builder.setPositiveButton("添加关注", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            new IsFollowedAsyncTask().execute(userID,friendID,"one");
+                        }
+                    });
+                    builder.setNegativeButton("取消添加", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                        }
+                    });
+                    builder.show();
+                }
+            });
+        }
     }
 
     private void initToolbar(){
@@ -158,14 +199,19 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
                 builder.setTitle("请输入评论（不超过100字）");
                 View view = LayoutInflater.from(TrendDetailActivity.this).inflate(R.layout.dialog, null);
                 builder.setView(view);
-                final EditText editText = (EditText)view.findViewById(R.id.comment_commit_content);
-                text = editText.getText().toString();
+                editText = (EditText)view.findViewById(R.id.comment_commit_content);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        new IsFriendAsyncTask().execute(userID,authorID);
+                        text = editText.getText().toString();
+                        if (text == ""){
+                            Toast.makeText(TrendDetailActivity.this,"不可以为空",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            new IsFollowedAsyncTask().execute(userID,authorID,"two");
+                        }
                     }
                 });
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
@@ -183,11 +229,24 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
         return true;
     }
 
+
     class TrendCommentAsyncTask extends AsyncTask<String,Integer,ArrayList<TrendCommentBean.CommentListBean>>{
 
         @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
         protected ArrayList<TrendCommentBean.CommentListBean> doInBackground(String... strings) {
-            return null;
+            return new HttpUtils().getTrendComment(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<TrendCommentBean.CommentListBean> result) {
+            super.onPostExecute(result);
+            beans = result;
+            bindData();
         }
     }
     class CommentAsyncTask extends AsyncTask<String,Integer,String>{
@@ -198,7 +257,7 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
 
         @Override
         protected String doInBackground(String... strings) {
-            String result = new HttpUtils().releaseTrend(strings[0],strings[1],strings[2]);
+            String result = new HttpUtils().comment(strings[0],strings[1],strings[2]);
             return result;
         }
 
@@ -208,25 +267,39 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
             Toast.makeText(TrendDetailActivity.this,"评论成功",Toast.LENGTH_SHORT).show();
         }
     }
-    class IsFriendAsyncTask extends AsyncTask<String,Integer,Boolean>{
+    class IsFollowedAsyncTask extends AsyncTask<String,Integer,ArrayList<Boolean>>{
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
         }
 
         @Override
-        protected Boolean doInBackground(String... strings) {
-            return new HttpUtils().isFollow(strings[0],strings[1]);
+        protected ArrayList<Boolean> doInBackground(String... strings) {
+            ArrayList<Boolean> result = new ArrayList<>();
+            result.add(new HttpUtils().isFollow(strings[0],strings[1]));
+            if (strings[2].equals("one")) {
+                result.add(true);
+            }
+            else {
+                result.add(false);
+            }
+            return result;
         }
 
         @Override
-        protected void onPostExecute(Boolean result) {
+        protected void onPostExecute(ArrayList<Boolean> result) {
             super.onPostExecute(result);
-            if (result) {
+            if (result.get(0) && !result.get(1)) {
                 new CommentAsyncTask().execute(userID, text, trendID);
             }
-            else {
+            else if (!result.get(0) && !result.get(1)){
                 Toast.makeText(TrendDetailActivity.this,"请添加关注后评论",Toast.LENGTH_SHORT).show();
+            }
+            else if (!result.get(0) && result.get(1)) {
+                new FollowAsyncTask().execute(userID,authorID);
+            }
+            else if (result.get(0) && result.get(1)) {
+                Toast.makeText(TrendDetailActivity.this,"已关注，不要重复点击",Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -252,29 +325,4 @@ public class TrendDetailActivity extends BaseActivity implements DefineView {
             }
         }
     }
-    class IsFollowAsyncTask extends AsyncTask<String,Integer,Boolean> {
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Boolean doInBackground(String... strings) {
-            boolean result = new HttpUtils().isFollow(strings[0],strings[1]);
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-            if (!aBoolean) {
-                //未关注
-
-            } else {
-                //已关注
-                
-            }
-        }
-    }
-
 }

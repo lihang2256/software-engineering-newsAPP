@@ -150,6 +150,8 @@ public class HttpUtils {
         ArrayList<TrendCommentBean.CommentListBean> beans = DataParse.TrendComment(strJson);
         return beans;
     }
+
+//     获得动态详细信息
     public ArrayList<TrendCommentBean.DataBean> getTrendDetail(String string){
         OkHttp okHttp = new OkHttp();
         TrendIdApi trendIdApi = new TrendIdApi();
@@ -165,7 +167,7 @@ public class HttpUtils {
         ReleaseTrendApi releaseTrendApi = new ReleaseTrendApi();
         releaseTrendApi.setUser_id(user_id);
         releaseTrendApi.setContent(content);
-        releaseTrendApi.setContent(news_id);
+        releaseTrendApi.setNews_id(news_id);
         return okHttp.sendPost(releaseTrendApi, DatabaseApi.releaseTrend);
     }
 
@@ -186,9 +188,7 @@ public class HttpUtils {
         collectApi.setKey(key);
         collectApi.setNews(news_id);
         collectApi.setUser(user_id);
-        String strJson = okHttp.sendPost(collectApi, DatabaseApi.collect);
-        String result = DataParse.iscollect(strJson);
-        return result;
+        return okHttp.sendPost(collectApi, DatabaseApi.collect);
     }
 
 //    获取收藏

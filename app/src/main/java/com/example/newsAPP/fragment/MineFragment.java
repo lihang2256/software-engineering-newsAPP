@@ -134,7 +134,12 @@ public class MineFragment extends BaseFragment{
                             public void onClick(DialogInterface dialog, int which)
                             {
                                 text = editText.getText().toString();
-                                new ReleaseTrendAsyncTask().execute(userID,text,"1");
+                                if (text.equals("")){
+                                    Toast.makeText(getActivity(), "不可以发表空评论", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    new ReleaseTrendAsyncTask().execute(userID,text,"1");
+                                }
                             }
                         });
                         builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
@@ -207,14 +212,13 @@ public class MineFragment extends BaseFragment{
 
         @Override
         protected String doInBackground(String... strings) {
-            String result = new HttpUtils().releaseTrend(strings[0],strings[1],strings[2]);
-            return result;
+            return new HttpUtils().releaseTrend(strings[0],strings[1],strings[2]);
         }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if (result=="success") {
+            if (result.equals("success")) {
                 Toast.makeText( getActivity(), "发表成功", Toast.LENGTH_SHORT).show();
             } else if(result=="insert trend error"){
                 Toast.makeText(getActivity(), "插入动态表失败", Toast.LENGTH_SHORT).show();

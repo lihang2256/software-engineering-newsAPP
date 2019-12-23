@@ -42,7 +42,12 @@ public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.View
             holder.item_comment_public_author.setText(name);
             holder.item_comment_publish_time.setText(time);
             holder.comment_show_content.setText(content);
-            holder.comment_news_about.setText(title);
+            if (title.equals("null")) {
+                holder.comment_news_about.setVisibility(View.GONE);
+            }
+            else {
+                holder.comment_news_about.setText(title);
+            }
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

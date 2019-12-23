@@ -2,7 +2,6 @@ package com.example.newsAPP.common;
 
 public class DatabaseApi {
     public static final String host = "http://47.100.79.111:8080/";
-    public static final String host1 = "http://47.100.79.111:8088/";
     //新闻列表
     public static final String newsList = "getNews";
     public static final String getFollow = "getFriend";

@@ -108,7 +108,7 @@ public class DataParse {
         return false;
     }
 
-//    TODO：动态详细页面解析，不知道要啥
+    //获取动态评论
     public static ArrayList<TrendCommentBean.CommentListBean> TrendComment (String json) {
         Gson gson = new Gson();
         TrendCommentBean bean = gson.fromJson(json, TrendCommentBean.class);

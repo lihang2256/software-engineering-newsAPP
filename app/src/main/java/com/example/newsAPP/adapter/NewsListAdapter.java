@@ -47,11 +47,12 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
         String postTime = bean.getTime();
         ViewHolder viewHolder = holder;
         // 设置图片
-        setNetPicture(imageSrc, holder.item_news_tv_img);
-        holder.item_news_tv_title.setText(title);
-        holder.item_news_tv_time.setText(postTime);
-        holder.item_news_tv_source.setText(source);
-
+        if (!title.equals("null")){
+            setNetPicture(imageSrc, holder.item_news_tv_img);
+            holder.item_news_tv_title.setText(title);
+            holder.item_news_tv_time.setText(postTime);
+            holder.item_news_tv_source.setText(source);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +73,6 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     @Override
     public int getItemCount() {
         if(mNewsBeanList!=null) {
-            System.out.println(mNewsBeanList.size());
             return mNewsBeanList.size();
         }
         return -1;

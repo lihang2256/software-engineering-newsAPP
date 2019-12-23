@@ -90,7 +90,7 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
         @Override
         protected ArrayList<FansBean.DataBean> doInBackground(String... strings) {
 
-            ArrayList<FansBean.DataBean> list = new HttpUtils().ban(userID, fansID);
+            ArrayList<FansBean.DataBean> list = new HttpUtils().ban(fansID, userID);
 
             return list;
         }

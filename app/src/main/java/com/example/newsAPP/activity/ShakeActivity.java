@@ -132,7 +132,7 @@ public class ShakeActivity extends BaseActivity implements DefineView ,SensorEve
         builder.setTitle("网络一线牵");
 
         builder.setMessage("lucky");
-        builder.setPositiveButton("添加好友", new DialogInterface.OnClickListener()
+        builder.setPositiveButton("添加关注", new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialog, int which)
@@ -238,4 +238,5 @@ public class ShakeActivity extends BaseActivity implements DefineView ,SensorEve
             actionBar.setHomeAsUpIndicator(R.drawable.icon_back);
         }
     }
+    // private
 }

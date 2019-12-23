@@ -14,12 +14,11 @@ import java.util.ArrayList;
 
 public class NTListAdapter extends BaseAdapter {
 
-    private Context mContext;
     private ArrayList<CommentBean.DataBean> commentBeans;
     private LayoutInflater inflater;
     public NTListAdapter(Context context, ArrayList<CommentBean.DataBean> list){
-        mContext = context;
         commentBeans = list;
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -53,13 +52,14 @@ public class NTListAdapter extends BaseAdapter {
         else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-//            viewHolder.author.setText(commentBeans.get(position).getAuthor());
-//            viewHolder.content.setText(commentBeans.get(position).getContent());
-            return convertView;
+        viewHolder.author.setText(commentBeans.get(position).getNick_name());
+        viewHolder.content.setText(commentBeans.get(position).getContent());
+        viewHolder.time.setText(commentBeans.get(position).getRelease_time());
+        return convertView;
     }
     private class ViewHolder {
-        public TextView author;
+        TextView author;
         public TextView content;
-        public TextView time;
+        TextView time;
     }
 }
