@@ -80,7 +80,10 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
         }
     }
 
-//   删除的接口调用
+
+    /**
+     *   删除粉丝的接口的异步调用
+     */
     class unFansAsyncTask extends AsyncTask<String,Integer,ArrayList<FansBean.DataBean>> {
         @Override
         protected void onPreExecute(){
@@ -123,16 +126,17 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        // Inflate the menu; this adds items to the action bar if it is present.
+       //跳转到菜单，增加了action bar中的item
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
+    /**
+     * 在这里处理动作栏项目的点击。只要在AndroidManifest.xml中指定父Activity，操作栏将自动处理Home/Up按钮上的单击。
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
@@ -140,10 +144,8 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
         return super.onOptionsItemSelected(item);
     }
 
-    /*
+    /**
      * 根据isChecked,给选择的List中添加或删除数据
-     * (non-Javadoc)
-     * @see com.example.slideandselectdeletedemo.MyAdapter.ContentsDeleteListener#contentsDeleteSelect(int, boolean)
      */
     @Override
     public void contentsDeleteSelect(int position,boolean isChecked) {
@@ -154,10 +156,8 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
         }
     }
 
-    /*
+    /**
      * 删除指定位置的数据
-     * (non-Javadoc)
-     * @see com.example.slideandselectdeletedemo.MyAdapter.ContentsDeleteListener#contentDelete(int)
      */
     @Override
     public void contentDelete(int position) {
@@ -165,7 +165,9 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
         myContentsList.remove(position);
     }
 
-
+    /**
+     * 删除按钮的点击事件，实现批量删除
+     */
     @Override
     public void onClick(View v) {
         // TODO Auto-generated method stub
@@ -176,7 +178,8 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
                     myAdapter.updateView(myContentsList);
                 }
 
-                //判断 删除的ID
+                //判断 获取的list是否为空
+                // 找到批量删除的每个ID
                 if(mySelectedList!=null) {
                     for (int i = 0; i < mySelectedList.size(); i++) {
                         fansID = mySelectedList.get(i).getID();
@@ -186,6 +189,10 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
                 break;
         }
     }
+
+    /**
+     * 初始化ToolBar 设定指定页面的ToolBar的文字信息
+     */
     private void initToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         toolbar.setTitle("");

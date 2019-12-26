@@ -21,15 +21,9 @@ import com.example.newsAPP.Utils.HttpUtils;
 import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.activity.NewsDetailActivity;
 import com.example.newsAPP.adapter.NewsListAdapter;
-import com.example.newsAPP.adapter.TrendListAdapter;
 import com.example.newsAPP.bean.NewsBean;
-import com.example.newsAPP.bean.TrendBean;
-import com.example.newsAPP.common.DatabaseApi;
-import com.example.newsAPP.common.GetnewsApi;
 import com.example.newsAPP.fragment.BaseFragment;
 import com.example.newsAPP.fragment.MineFragment;
-import com.example.newsAPP.http.DataParse;
-import com.example.newsAPP.http.OkHttp;
 import com.example.newsAPP.widget.ClassicRefreshHeaderView;
 import com.example.newsAPP.widget.DividerGridItemDecoration;
 import com.example.newsAPP.widget.LoadMoreFooterView;
@@ -44,8 +38,6 @@ public class SearchNewsFragment extends BaseFragment {
     private LoadMoreFooterView mLoadMoreFooterView;
     private NewsListAdapter mNewsListAdapter;
     private ArrayList<NewsBean.DataBean> mNewsBeanList = new ArrayList<>();
-    private TrendListAdapter mTrendListAdapter;
-    private ArrayList<TrendBean.DataBean> mTrendBeanList = new ArrayList<>();
 
 
 
@@ -73,7 +65,7 @@ public class SearchNewsFragment extends BaseFragment {
 
     @Override
     public void initValidata() {
-
+    //调用execute()方法，向后端发出请求
         new SearchListAsyncTask().execute();
         }
 
@@ -115,6 +107,10 @@ public class SearchNewsFragment extends BaseFragment {
         }
     }
 
+    /**
+     * 搜索 新闻 接口
+     * 异步方法，获取并渲染
+     */
     class SearchListAsyncTask extends AsyncTask<String,Integer,ArrayList<NewsBean.DataBean>> {
         @Override
         protected void onPreExecute(){
@@ -124,6 +120,7 @@ public class SearchNewsFragment extends BaseFragment {
         @Override
         protected ArrayList<NewsBean.DataBean> doInBackground(String... strings) {
             ArrayList<NewsBean.DataBean> list = new HttpUtils().searchNews(
+                    //接收到FindListFragment向此fragment传的值，并向后端post
                     SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHTYPE",null),
                     SharedPreferenceUtils.getInstance().getString(getActivity(),"NEWSINPUT",""),
                     SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHTIME",null)

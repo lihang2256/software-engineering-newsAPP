@@ -1,12 +1,13 @@
 package com.example.newsAPP.bean;
 
+import com.contrarywind.interfaces.IPickerViewData;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-import com.contrarywind.interfaces.IPickerViewData;
 
-public class FollowBean implements IPickerViewData {
+public class FollowBean {
 
     /**
      * data : [{"nick_name":"cxiaoyu","ID":26},{"nick_name":"dxiaoyu","ID":27},{"nick_name":"exiaoyu","ID":28},{"nick_name":"fxiaoyu","ID":29}]
@@ -33,24 +34,19 @@ public class FollowBean implements IPickerViewData {
         this.data = data;
     }
 
+//    public String getPickerViewText() {
+//
+//        //   List<String> mapList1 = name.stream().map(FollowBean.DataBean::getNick_name).collect(Collectors.toList());   java8语法，不适用
+//
+//        List<FollowBean.DataBean> followbeans = new ArrayList<>();
+//        List<String> name = new ArrayList<>();
+//        for( int i = 0; i < followbeans.size(); i++ ) {
+//            name.add(followbeans.get(i).getNick_name());
+//        }
+//        return name.toString();
+//    }
 
-    // 实现 IPickerViewData 接口，
-    // 这个用来显示在PickerView上面的字符串，
-    // PickerView会通过IPickerViewData获取getPickerViewText方法显示出来。
-    @Override
-    public String getPickerViewText() {
-
-        //   List<String> mapList1 = name.stream().map(FollowBean.DataBean::getNick_name).collect(Collectors.toList());  java8
-
-        List<FollowBean.DataBean> list = new ArrayList<>();
-        List<String> name = new ArrayList<>();
-        for( int i = 0; i < list.size(); i++ ) {
-            name.add(list.get(i).getNick_name());
-        }
-        return name.toString();
-    }
-
-    public static class DataBean {
+    public static class DataBean  implements IPickerViewData {
         /**
          * nick_name : cxiaoyu
          * ID : 26
@@ -59,7 +55,13 @@ public class FollowBean implements IPickerViewData {
         private String nick_name;
         private String ID;
 
-        public String getNick_name() {
+        /**
+         *      实现 IPickerViewData 接口，
+         *      这个用来显示在PickerView上面的字符串，
+         *      PickerView会通过IPickerViewData获取getPickerViewText方法显示出来。
+         */
+        @Override
+        public String getPickerViewText() {
             return nick_name;
         }
 
@@ -77,7 +79,6 @@ public class FollowBean implements IPickerViewData {
         }
 
     }
-
 
 
 }

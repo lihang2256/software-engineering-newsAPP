@@ -2,6 +2,7 @@ package com.example.newsAPP.fragment.find;
 
 import android.app.Dialog;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,7 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.newsAPP.R;
+import com.example.newsAPP.Utils.HttpUtils;
 import com.example.newsAPP.Utils.SharedPreferenceUtils;
 import com.example.newsAPP.bean.FollowBean;
 import com.example.newsAPP.bean.TypeBean;
@@ -36,10 +38,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
-public class FindListFragment extends BaseFragment implements DefineView {
+public class FindListFragment extends BaseFragment implements DefineView  {
 
     private String tname;
+    private String userID;
     private View mView;
     private final String TAG = FindListFragment.class.getSimpleName();
     private static final String FINDTNAME = "FINDTNAME";
@@ -51,7 +55,7 @@ public class FindListFragment extends BaseFragment implements DefineView {
     private TimePickerView pvTime;
     private OptionsPickerView pv;
     private ArrayList<TypeBean> options1Items = new ArrayList<>();
-    private ArrayList<FollowBean.DataBean> followbeans = new ArrayList<>();
+    private List<FollowBean.DataBean> followbeans = new ArrayList<>();
 
 
 
@@ -64,12 +68,15 @@ public class FindListFragment extends BaseFragment implements DefineView {
         second = (Button)mView.findViewById(R.id.btn_second);
         search = (Button)mView.findViewById(R.id.btn_search);
         editText = (EditText) mView.findViewById(R.id.input_key_word);
+        userID = SharedPreferenceUtils.getInstance().getString(getActivity(),"USERID",null);
 
 
         if (getArguments() != null) {
             tname = getArguments().getString("FINDTNAME");
         }
-
+        //做出判断：
+        // 如果是新闻搜索的tab，需要初始化时间选择器和类型选择器，
+        // 如果是动态搜索的tab,需要初始化时间选择器和好友选择器
         if (tname == "新闻搜索") {
             getTypeOptionData();
             initView();
@@ -96,15 +103,10 @@ public class FindListFragment extends BaseFragment implements DefineView {
             first.setText("时间");
             second.setText("类型");
 
-
-
         }
         else {
             first.setText("时间");
             second.setText("关注");
-
-
-
         }
     }
 
@@ -132,9 +134,9 @@ public class FindListFragment extends BaseFragment implements DefineView {
             });
             search.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
-                    //to search news fragment
+                    //把文本框的输入值 传值给 SearchNewsFragment
                     SharedPreferenceUtils.getInstance().setString(getActivity(),"NEWSINPUT",editText.getText().toString());
-
+                    //如果tname是新闻搜索，那么就调SearchNewsFragment这个fragment
                     Fragment news = new SearchNewsFragment();
                     FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                     transaction.replace(R.id.search_fragment, news,"").commit();
@@ -158,10 +160,10 @@ public class FindListFragment extends BaseFragment implements DefineView {
             });
             search.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
-                    //to search trend fragment
+                    //把文本框的输入值 传值给 SearchTrendFragment
                     SharedPreferenceUtils.getInstance().setString(getActivity(),"TRENDINPUT",editText.getText().toString());
 
-
+                    //如果tname是动态搜索，那么就调SearchTrendFragment这个fragment
                     Fragment trend = new SearchTrendFragment();
                     FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                     transaction.replace(R.id.search_fragment, trend,"").commit();
@@ -185,22 +187,27 @@ public class FindListFragment extends BaseFragment implements DefineView {
         return fragment;
     }
 
-    private void initTimePicker() {    //Dialog 模式下，在底部弹出
+    /**
+     * 初始化 时间选择器
+     */
+    private void initTimePicker() {
+        //Dialog 模式下，在底部弹出
         Calendar selectedDate = Calendar.getInstance();
         Calendar startDate = Calendar.getInstance();
         Calendar endDate = Calendar.getInstance();
 
 
-        //正确设置方式 原因：注意事项有说明
+        //设置 起止时间
         startDate.set(2018,0,1);
         endDate.set(2020,11,31);
 
         pvTime = new TimePickerBuilder(getActivity(), new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
-       //         Toast.makeText(getActivity() ,getTime(date), Toast.LENGTH_SHORT).show();
+               //   Toast.makeText(getActivity() ,getTime(date), Toast.LENGTH_SHORT).show();
                 Log.i("pvTime", "onTimeSelect");
                 first.setText(getTime(date));
+                //把时间选择器的选择的值 传值给 Fragment
                 SharedPreferenceUtils.getInstance().setString(getActivity(),"SEARCHTIME",getTime(date));
 
             }
@@ -250,19 +257,23 @@ public class FindListFragment extends BaseFragment implements DefineView {
         }
     }
 
-    private String getTime(Date date) {  //时间选择器选择的时间  显示
+
+    /**
+     *  时间选择器选择的时间  显示
+     */
+    private String getTime(Date date) {
         Log.d("getTime()", "choice date millis: " + date.getTime());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(date);
     }
 
     private void getTypeOptionData() {
-        /*
-         * 注意：如果是添加JavaBean实体数据，则实体类需要实现 IPickerViewData 接口，
-         * PickerView会通过getPickerViewText方法获取字符串显示出来。
-         */
 
-        //选项1
+         // 注意：如果是添加JavaBean实体数据，则实体类需要实现 IPickerViewData 接口，
+         // PickerView会通过getPickerViewText方法获取字符串显示出来。
+
+
+        //选项
         options1Items.add(new TypeBean(0, "头条", "描述部分", "其他数据"));
         options1Items.add(new TypeBean(1, "社会", "描述部分", "其他数据"));
         options1Items.add(new TypeBean(2, "国内", "描述部分", "其他数据"));
@@ -274,11 +285,13 @@ public class FindListFragment extends BaseFragment implements DefineView {
         options1Items.add(new TypeBean(8, "财经", "描述部分", "其他数据"));
         options1Items.add(new TypeBean(9, "时尚", "描述部分", "其他数据"));
 
-
         /*--------数据源添加完毕---------*/
     }
 
-    private void initTypePicker(){  //选择器  选择搜索的类型
+    /**
+     * 初始化 选择器 ，此选择器是类型选择器
+     */
+    private void initTypePicker(){
         pv = new OptionsPickerBuilder(getActivity(), new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
@@ -287,6 +300,7 @@ public class FindListFragment extends BaseFragment implements DefineView {
                         // + options2Items.get(options1).get(options2)
                         /* + options3Items.get(options1).get(options2).get(options3).getPickerViewText()*/;
                 second.setText(tx);
+                //把类型选择器选择的值 传值给 SearchNewsFragment
                  SharedPreferenceUtils.getInstance().setString(getActivity(),"SEARCHTYPE",tx);
             }
         })
@@ -313,21 +327,26 @@ public class FindListFragment extends BaseFragment implements DefineView {
                 })
                 .build();
 
-        //        pvOptions.setSelectOptions(1,1);
-        pv.setPicker(options1Items);//一级选择器*/
+               //  pvOptions.setSelectOptions(1,1);
+                  pv.setPicker(options1Items);//一级选择器
         //  pvOptions.setPicker(options1Items, options2Items);//二级选择器
-        /*pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器*/
+        //pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器
     }
 
+    /**
+     * 初始化选择器，此选择器是好友选择器
+     */
     private void initFocusPicker(){  //选择器  选择关注的人
         pv = new OptionsPickerBuilder(getActivity(), new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
-                String tx = followbeans.get(options1).getNick_name()
+                String tx = followbeans.get(options1).getPickerViewText()
                         // + options2Items.get(options1).get(options2)
                         /* + options3Items.get(options1).get(options2).get(options3).getPickerViewText()*/ ;
                 second.setText(tx);
+
+                //把好友选择器选择的值 传值给 SearchTrendFragment
                 String friend = SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHFRIEND",tx);
             }
         })
@@ -366,17 +385,30 @@ public class FindListFragment extends BaseFragment implements DefineView {
          * PickerView会通过getPickerViewText方法获取字符串显示出来。
          */
 
-        //选项1
- //    followbeans.add(new FollowBean.DataBean("cxiaoyu",26);
-//        followbeans.add(new FollowBean(1, "柳宗元", "描述部分", "其他数据"));
-//        followbeans.add(new FollowBean(2, "欧阳修", "描述部分", "其他数据"));
-//        followbeans.add(new FollowBean(3, "苏洵", "描述部分", "其他数据"));
-//        followbeans.add(new FollowBean(4, "苏轼", "描述部分", "其他数据"));
-//        followbeans.add(new FollowBean(5, "苏辙", "描述部分", "其他数据"));
-//        followbeans.add(new FollowBean(6, "王安石", "描述部分", "其他数据"));
-//        followbeans.add(new FollowBean(7, "曾巩", "描述部分", "其他数据"));
-
-        /*--------数据源添加完毕---------*/
+         new SearchFollowAsyncTask().execute();
     }
+    /**
+     * 好友 接口
+     * 异步方法，获取并渲染
+     */
+    class SearchFollowAsyncTask extends AsyncTask<String,Integer,ArrayList<FollowBean.DataBean>> {
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
 
+        @Override
+        protected ArrayList<FollowBean.DataBean> doInBackground(String... strings) {
+            ArrayList<FollowBean.DataBean> list = new HttpUtils().getFollow(userID);
+
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<FollowBean.DataBean> list) {
+            super.onPostExecute(list);
+            followbeans = list;
+            bindData();
+        }
+    }
 }

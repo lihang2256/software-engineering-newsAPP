@@ -31,7 +31,7 @@ public class FansListAdapter extends BaseAdapter {
     private Map<Integer, Boolean> selectCb;
     //滑动后的X坐标点
     private int mLastX = 0;
-//	private int mLastY = 0;
+
 
     public FansListAdapter(Context mContext,List<FansBean.DataBean> mContentsList, FansListAdapter.ContentsDeleteListener mContentsDeleteListener) {
         this.mContext = mContext;
@@ -99,7 +99,7 @@ public class FansListAdapter extends BaseAdapter {
             }
 
         }
-        // 显示内容
+        // 显示的数据的内容
         holderView.listContentTv.setText(mContentsList.get(position).getNick_name());
 
         if (visibleDeleteTv != null) {
@@ -112,11 +112,12 @@ public class FansListAdapter extends BaseAdapter {
                     selectCb.get(position));
         }
 
-        // 处理选择事件
+        // 处理CheckBox选择事件
         holderView.listRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (visibleDeleteTv.containsValue(View.VISIBLE)) {//可见时，再次单击设置不可见，未选中
+                if (visibleDeleteTv.containsValue(View.VISIBLE)) {
+                    //可见时，再次单击设置不可见，未选中
                     for (int i = 0; i < getCount(); i++) {
                         visibleDeleteTv.put(i, View.GONE);
                         selectCb.put(i, false);
@@ -165,16 +166,16 @@ public class FansListAdapter extends BaseAdapter {
                 final Animation alpha = AnimationUtils.loadAnimation(mContext,
                         R.anim.rotate_left);
                 int x = (int) event.getX();
-//				int y = (int) event.getY();
-                // Log.d(TAG, "x=" + x + "  y=" + y);
-                // press down
+
+                // Log.d(TAG, "x=" + x );
+
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     alpha.cancel();
                 } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     alpha.cancel();
                     int deltaX = mLastX - x;
-//					int deltaY = mLastY - y;
-                    // Log.d(TAG, "deltaX=" + deltaX + ",deltaY=" + deltaY);
+
+                    // Log.d(TAG, "deltaX=" + deltaX + ");
                     if (deltaX > 40) {//当滑动距离大于40时，显示该位置的删除按键
                         for (int i = 0; i < getCount(); i++) {
                             visibleDeleteTv.put(i, View.GONE);
@@ -193,12 +194,12 @@ public class FansListAdapter extends BaseAdapter {
                         notifyDataSetChanged();
                     }
                     return true;
-                } else {// other
+                } else {
+                    // other
                     alpha.cancel();
 
                 }
                 mLastX = x;
-//				mLastY = y;
                 return false;
             }
         });
@@ -233,9 +234,6 @@ public class FansListAdapter extends BaseAdapter {
 
     /**
      * 用于删除内容的接口
-     *
-     *
-     *
      */
     public interface ContentsDeleteListener {
         /**

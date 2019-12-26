@@ -22,8 +22,6 @@ import com.example.newsAPP.activity.TrendDetailActivity;
 import com.example.newsAPP.adapter.TrendListAdapter;
 import com.example.newsAPP.bean.CommentBean;
 import com.example.newsAPP.bean.TrendBean;
-import com.example.newsAPP.common.DatabaseApi;
-import com.example.newsAPP.common.GetnewsApi;
 import com.example.newsAPP.fragment.BaseFragment;
 import com.example.newsAPP.fragment.trend.TrendListFragment;
 import com.example.newsAPP.http.OkHttp;
@@ -67,7 +65,7 @@ public class SearchTrendFragment extends BaseFragment {
 
     @Override
     public void initValidata() {
-
+    //调用execute()方法，向后端发出请求
     //   new SearchListAsyncTask().execute();
     }
 
@@ -108,7 +106,11 @@ public class SearchTrendFragment extends BaseFragment {
             });
         }
     }
-//   搜索 动态 接口
+
+    /**
+     * 搜索 动态 接口
+     * 异步方法，获取并渲染
+     */
 //    class SearchListAsyncTask extends AsyncTask<String,Integer,ArrayList<TrendBean.DataBean>>{
 //        @Override
 //        protected void onPreExecute(){
@@ -118,6 +120,7 @@ public class SearchTrendFragment extends BaseFragment {
 //        @Override
 //        protected ArrayList<TrendBean.DataBean> doInBackground(String... strings) {
 //            ArrayList<TrendBean.DataBean> list = new HttpUtils().searchTrend(
+//                      //接收到FindListFragment向此fragment传的值，并向后端post
 //                    SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHFRIEND",null),
 //                    SharedPreferenceUtils.getInstance().getString(getActivity(),"TRENDINPUT",""),
 //                    SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHTIME",null)

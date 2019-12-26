@@ -58,6 +58,10 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
         new FollowAsyncTask().execute();
     }
 
+
+    /**
+     *   取消关注的接口异步调用
+     */
     class FollowAsyncTask extends AsyncTask<String,Integer,ArrayList<FollowBean.DataBean>> {
         @Override
         protected void onPreExecute(){
@@ -122,16 +126,18 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        // Inflate the menu; this adds items to the action bar if it is present.
+        //跳转到菜单，增加了action bar中的item
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
+
+    /**
+     * 在这里处理动作栏项目的点击。只要在AndroidManifest.xml中指定父Activity，操作栏将自动处理Home/Up按钮上的单击。
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
@@ -139,9 +145,8 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
         return super.onOptionsItemSelected(item);
     }
 
-    /*
+    /**
      * 根据isChecked,给选择的List中添加或删除数据
-     *
      */
     @Override
     public void contentsDeleteSelect(int position,boolean isChecked) {
@@ -153,9 +158,9 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
         }
     }
 
-    /*
+
+    /**
      * 删除指定位置的数据
-     *
      */
     @Override
     public void contentDelete(int position) {
@@ -163,7 +168,9 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
         myContentsList.remove(position);
     }
 
-
+    /**
+     * 删除按钮的点击事件，实现批量删除
+     */
     @Override
     public void onClick(View v) {
         // TODO Auto-generated method stub

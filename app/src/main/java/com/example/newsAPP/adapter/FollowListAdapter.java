@@ -1,31 +1,24 @@
 package com.example.newsAPP.adapter;
 
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.newsAPP.R;
-import com.example.newsAPP.Utils.HttpUtils;
-import com.example.newsAPP.Utils.SharedPreferenceUtils;
-import com.example.newsAPP.activity.FollowListActivity;
 import com.example.newsAPP.bean.FollowBean;
 
 @SuppressLint("UseSparseArrays")
@@ -41,7 +34,7 @@ public class FollowListAdapter extends BaseAdapter {
     private Map<Integer, Boolean> selectCb;
     //滑动后的X坐标点
     private int mLastX = 0;
-//	private int mLastY = 0;
+
 
     public FollowListAdapter(Context mContext,List<FollowBean.DataBean> mContentsList, FollowListAdapter.ContentsDeleteListener mContentsDeleteListener) {
         this.mContext = mContext;
@@ -110,8 +103,8 @@ public class FollowListAdapter extends BaseAdapter {
             }
 
         }
-        // 显示内容
-        holderView.listContentTv.setText(mContentsList.get(position).getNick_name());
+        // 显示的数据的内容
+        holderView.listContentTv.setText(mContentsList.get(position).getPickerViewText());
 
         if (visibleDeleteTv != null) {
             holderView.listDeleteTv
@@ -123,11 +116,12 @@ public class FollowListAdapter extends BaseAdapter {
                     selectCb.get(position));
         }
 
-        // 处理选择事件
+        // 处理CheckBox的选择事件
         holderView.listRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (visibleDeleteTv.containsValue(View.VISIBLE)) {//可见时，再次单击设置不可见，未选中
+                if (visibleDeleteTv.containsValue(View.VISIBLE)) {
+                    //可见时，再次单击设置不可见，未选中
                     for (int i = 0; i < getCount(); i++) {
                         visibleDeleteTv.put(i, View.GONE);
                         selectCb.put(i, false);
@@ -176,17 +170,16 @@ public class FollowListAdapter extends BaseAdapter {
                 final Animation alpha = AnimationUtils.loadAnimation(mContext,
                         R.anim.rotate_left);
                 int x = (int) event.getX();
-//				int y = (int) event.getY();
-                // Log.d(TAG, "x=" + x + "  y=" + y);
+                // Log.d(TAG, "x=" + x );
                 // press down
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     alpha.cancel();
                 } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     alpha.cancel();
                     int deltaX = mLastX - x;
-//					int deltaY = mLastY - y;
-                    // Log.d(TAG, "deltaX=" + deltaX + ",deltaY=" + deltaY);
-                    if (deltaX > 40) {//当滑动距离大于40时，显示该位置的删除按键
+                    // Log.d(TAG, "deltaX=" + deltaX );
+                    if (deltaX > 40) {
+                        //当滑动距离大于40时，显示该位置的删除按键
                         for (int i = 0; i < getCount(); i++) {
                             visibleDeleteTv.put(i, View.GONE);
                             selectCb.put(i, false);
@@ -204,12 +197,12 @@ public class FollowListAdapter extends BaseAdapter {
                         notifyDataSetChanged();
                     }
                     return true;
-                } else {// other
+                } else {
+                    // other
                     alpha.cancel();
 
                 }
                 mLastX = x;
-//				mLastY = y;
                 return false;
             }
         });
@@ -246,9 +239,6 @@ public class FollowListAdapter extends BaseAdapter {
 
     /**
      * 用于删除内容的接口
-     *
-     *
-     *
      */
     public interface ContentsDeleteListener {
         /**
