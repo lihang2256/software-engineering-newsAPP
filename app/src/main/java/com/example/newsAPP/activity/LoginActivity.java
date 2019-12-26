@@ -27,7 +27,7 @@ public class LoginActivity extends BaseActivity implements DefineView {
     private EditText nickname, password;
     private Context mContext;
     private String userName,mPassword;
-    private int flag = 0;
+    private int flag = 0;   //用来记录功能是登录还是注册
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +78,12 @@ public class LoginActivity extends BaseActivity implements DefineView {
 
     }
 
+    /**
+     * 绑定登录注册切换键和确定键的函数
+     */
     @Override
     public void initListener() {
+        //点登录变成登录
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,6 +97,7 @@ public class LoginActivity extends BaseActivity implements DefineView {
                 forgot_password.setVisibility(View.VISIBLE);
             }
         });
+        //点注册变成注册
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,6 +111,7 @@ public class LoginActivity extends BaseActivity implements DefineView {
                 forgot_password.setVisibility(View.INVISIBLE);
             }
         });
+        //根据登录注册选择合适的异步访问
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,6 +144,9 @@ public class LoginActivity extends BaseActivity implements DefineView {
 
     }
 
+    /**
+     * 登录异步
+     */
     class LoginAsyncTask extends AsyncTask<String,Integer,String> {
         @Override
         protected void onPreExecute(){
@@ -164,6 +173,10 @@ public class LoginActivity extends BaseActivity implements DefineView {
             }
         }
     }
+
+    /**
+     * 注册异步
+     */
     class SignupAsyncTask extends AsyncTask<String,Integer,String> {
         @Override
         protected void onPreExecute(){

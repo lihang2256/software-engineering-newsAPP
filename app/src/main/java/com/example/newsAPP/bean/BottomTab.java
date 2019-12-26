@@ -1,5 +1,8 @@
 package com.example.newsAPP.bean;
 
+/**
+ * 底部菜单
+ */
 public class BottomTab {
 
     private  int title;

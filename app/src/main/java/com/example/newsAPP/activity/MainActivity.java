@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
         initTab();
     }
 
-    // 初始化底部标签栏
+    /**
+     * 初始化底部标签栏
+     */
     private void initTab() {
         // 新闻标签
         BottomTab bottomTab_news = new BottomTab(NewsFragment.class,R.string.news_fragment,R.drawable.select_icon_news);
@@ -72,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
         mTabHost.setCurrentTab(0);
     }
 
-    // 设置底部tab的图片和文字
+    /**
+     * 设置底部tab的图片和文字
+     */
     private View buildIndicator(BottomTab bottomTab){
         View view = mInflater.inflate(R.layout.tab_indicator, null);
         ImageView img = (ImageView) view.findViewById(R.id.icon_tab);
@@ -82,6 +86,12 @@ public class MainActivity extends AppCompatActivity {
         return view;
     }
 
+    /**
+     * 调用频道管理功能时使用
+     * @param requestCode 请求码
+     * @param resultCode 接收码
+     * @param data 传递数据
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

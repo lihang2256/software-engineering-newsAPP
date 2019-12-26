@@ -1,9 +1,7 @@
 package com.example.newsAPP.fragment;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,11 +29,10 @@ import com.example.newsAPP.activity.FollowListActivity;
 import com.example.newsAPP.activity.LoginActivity;
 import com.example.newsAPP.activity.MainActivity;
 import com.example.newsAPP.activity.ShakeActivity;
-import com.example.newsAPP.activity.TrendDetailActivity;
 
 public class MineFragment extends BaseFragment{
     private final String TAG = MineFragment.class.getSimpleName();
-    private String[] data;
+    private String[] data;  //事先存好的菜单列表
     private AboutAdapter adapter;
     private ListView mListView;
     private View mView;
@@ -63,7 +60,9 @@ public class MineFragment extends BaseFragment{
         View user_view = LayoutInflater.from(getActivity()).inflate(R.layout.user_view, mListView, false);
         ImageView user_icon = (ImageView) user_view.findViewById(R.id.user_icon);
         TextView user_name = (TextView) user_view.findViewById(R.id.user_name);
-        if (SharedPreferenceUtils.getInstance().getString(getActivity(),"USERID",null) != null){
+
+        //判断是否已经登陆，已经登陆则换上另外的头像并显示昵称
+        if (userID != null){
             user_icon.setImageDrawable(getResources().getDrawable(R.drawable.photo));
             user_name.setText(SharedPreferenceUtils.getInstance().getString(getActivity(),"NICKNAME",null));
         }
@@ -75,13 +74,15 @@ public class MineFragment extends BaseFragment{
 
     }
 
+    /**
+     * 给每一个item绑定对应的函数，非登陆将锁定大部分功能
+     */
     @Override
     public void initListener() {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = null;
-                Uri uri;
+                Intent intent;
 //                1.个人信息
 //                2.关注
 //                3.粉丝
@@ -92,69 +93,90 @@ public class MineFragment extends BaseFragment{
 //                8.退出登录
                 switch (position) {
                     case 0:
-                        //用户界面
-                        if (SharedPreferenceUtils.getInstance().getString(getActivity(),"USERID",null) == null) {
+                        //用户界面，已经登陆之后不可点击
+                        if (userID == null) {
                             intent = new Intent(getActivity(), LoginActivity.class);
                             startActivity(intent);
                         }
                         break;
                     case 1:
-                        //进入个人信息
+                        //进入个人信息，目前没有实现
                         break;
                     case 2:
                         //进入关注
-                        intent = new Intent(getActivity(), FollowListActivity.class);
-                        startActivity(intent);
+                        if (userID != null) {
+                            intent = new Intent(getActivity(), FollowListActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(getActivity(),"请先登陆",Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case 3:
                         //进入粉丝
-                        intent = new Intent(getActivity(), FansListActivity.class);
-                        startActivity(intent);
+                        if (userID != null) {
+                            intent = new Intent(getActivity(), FansListActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(getActivity(),"请先登陆",Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case 4:
                         //进入收藏
-                        intent = new Intent(getActivity(), CollectionListActivity.class);
-                        startActivity(intent);
+                        if (userID != null) {
+                            intent = new Intent(getActivity(), CollectionListActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(getActivity(),"请先登陆",Toast.LENGTH_SHORT).show();
+                        }
                         break;
 
                     case 5:
                         //发表动态
-                        if(userID==null){
-                            Toast.makeText( getActivity(), "请先登陆", Toast.LENGTH_SHORT).show();
-                            break;
+                        if (userID != null) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("请输入评动态（不超过100字）");
+                            View vview = LayoutInflater.from(getActivity()).inflate(R.layout.dialog, null);
+                            builder.setView(vview);
+                            editText = vview.findViewById(R.id.comment_commit_content);
+                            builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    text = editText.getText().toString();
+                                    if (text.equals("")){
+                                        Toast.makeText(getActivity(), "不可以发表空评论", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        new ReleaseTrendAsyncTask().execute(userID,text,"1");
+                                    }
+                                }
+                            });
+                            builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                }
+                            });
+                            builder.show();
                         }
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setTitle("请输入评动态（不超过100字）");
-                        View vview = LayoutInflater.from(getActivity()).inflate(R.layout.dialog, null);
-                        builder.setView(vview);
-                        editText = vview.findViewById(R.id.comment_commit_content);
-                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which)
-                            {
-                                text = editText.getText().toString();
-                                if (text.equals("")){
-                                    Toast.makeText(getActivity(), "不可以发表空评论", Toast.LENGTH_SHORT).show();
-                                }
-                                else {
-                                    new ReleaseTrendAsyncTask().execute(userID,text,"1");
-                                }
-                            }
-                        });
-                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which)
-                            {
-                            }
-                        });
-                        builder.show();
+                        else {
+                            Toast.makeText(getActivity(),"请先登陆",Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case 6:
                         //进入摇一摇
-                        intent = new Intent(getActivity(), ShakeActivity.class);
-                        startActivity(intent);
+                        if (userID != null) {
+                            intent = new Intent(getActivity(), ShakeActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(getActivity(),"请先登陆",Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case 7:
                         //进入关于App
@@ -163,10 +185,16 @@ public class MineFragment extends BaseFragment{
                         break;
                     case 8:
                         //退出登录
-                        SharedPreferenceUtils.getInstance().setString(getActivity(),"USERID",null);
-                        SharedPreferenceUtils.getInstance().getString(getActivity(),"NICKNAME",null);
-                        intent = new Intent(getActivity(), MainActivity.class);
-                        startActivity(intent);
+                        if (userID != null) {
+                            SharedPreferenceUtils.getInstance().setString(getActivity(),"USERID",null);
+                            SharedPreferenceUtils.getInstance().getString(getActivity(),"NICKNAME",null);
+                            intent = new Intent(getActivity(), MainActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(getActivity(),"请先登陆",Toast.LENGTH_SHORT).show();
+                        }
+                        break;
                 }
             }
         });
@@ -178,6 +206,9 @@ public class MineFragment extends BaseFragment{
         mListView.setAdapter(adapter);
     }
 
+    /**
+     * about界面listView适配器
+     */
     private class AboutAdapter extends BaseAdapter {
 
         @Override
@@ -204,6 +235,9 @@ public class MineFragment extends BaseFragment{
         }
     }
 
+    /**
+     * 发布动态异步
+     */
     class ReleaseTrendAsyncTask extends AsyncTask<String,Integer,String> {
         @Override
         protected void onPreExecute(){

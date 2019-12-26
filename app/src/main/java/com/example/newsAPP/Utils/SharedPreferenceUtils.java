@@ -15,6 +15,9 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 封装使用SharedPreference
+ */
 public final class SharedPreferenceUtils {
 
     private static final String FILE_NAME = "wink"; //文件名
@@ -33,34 +36,40 @@ public final class SharedPreferenceUtils {
         return mInstance;
     }
 
-    public void setDataList(Context context, String tag, List<ProjectChannelBean> datalist) {
-        if (null == datalist || datalist.size() <= 0)
+    /**
+     * 存储list
+     * @param context 上下文
+     * @param tag 标签
+     * @param dataList 标签列表
+     */
+    public void setDataList(Context context, String tag, List<ProjectChannelBean> dataList) {
+        if (null == dataList || dataList.size() <= 0)
             return;
         Gson gson = new Gson();
         //转换成json数据，再保存
-        String strJson = gson.toJson(datalist);
+        String strJson = gson.toJson(dataList);
         System.out.println(strJson);
         setString(context,tag,strJson);
     }
 
     /**
      * 获取list
-     * @param tag
+     * @param tag 标签
      * @param channel 传入解析json所需要的Class对象
-     * @return
+     * @return 频道列表
      */
     public List<ProjectChannelBean> getDataList(Context context, String tag, Class<ProjectChannelBean> channel) {
-        List<ProjectChannelBean> datalist = new ArrayList<>();
+        List<ProjectChannelBean> dataList = new ArrayList<>();
         String strJson = getString(context,tag,null);
         System.out.println(strJson);
         if (null == strJson) {
-            return datalist;
+            return dataList;
         }
         JsonArray array = new JsonParser().parse(strJson).getAsJsonArray();
         for (final JsonElement elem : array) {
-            datalist.add(new Gson().fromJson(elem, channel));
+            dataList.add(new Gson().fromJson(elem, channel));
         }
-        return datalist;
+        return dataList;
     }
 
     public boolean getBoolean(Context ctx, String key, boolean defValue) {

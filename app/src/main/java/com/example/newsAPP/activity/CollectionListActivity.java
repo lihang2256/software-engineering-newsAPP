@@ -23,6 +23,9 @@ public class CollectionListActivity extends BaseActivity implements DefineView {
         initListener();
     }
 
+    /**
+     * 将收藏列表放置在一个fragment中
+     */
     @Override
     public void initView() {
         initToolbar();

@@ -28,6 +28,9 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
         initListener();
     }
 
+    /**
+     * 初始化toolbar
+     */
     private void initToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         toolbar.setTitle("");
@@ -58,7 +61,6 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
 
     /**
      * 获取版本号
-     *
      * @return 当前应用的版本号
      */
     public String getVersion() {
@@ -69,10 +71,13 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
             return this.getString(R.string.version_name) + version;
         } catch (Exception e) {
             e.printStackTrace();
-            return this.getString(R.string.version_name) + "1.0";
+            return this.getString(R.string.version_name) + "1.4";
         }
     }
 
+    /**
+     * 按键绑定访问github
+     */
     @Override
     public void onClick(View v) {
         Uri uri;

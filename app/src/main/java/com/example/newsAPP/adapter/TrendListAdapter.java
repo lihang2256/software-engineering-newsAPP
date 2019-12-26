@@ -13,6 +13,9 @@ import com.example.newsAPP.bean.TrendBean;
 
 import java.util.ArrayList;
 
+/**
+ * 动态列表适配器
+ */
 public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.ViewHolder> {
     private final String TAG = TrendListAdapter.class.getSimpleName();
     private Context mContext;
@@ -42,6 +45,7 @@ public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.View
             holder.item_comment_public_author.setText(name);
             holder.item_comment_publish_time.setText(time);
             holder.comment_show_content.setText(content);
+            //不是对于新闻评论的动态不显示相关新闻
             if (title.equals("null")) {
                 holder.comment_news_about.setVisibility(View.GONE);
             }

@@ -31,6 +31,7 @@ import java.util.List;
 
 public class TrendDetailActivity extends BaseActivity implements DefineView{
     private final String TAG = TrendDetailActivity.class.getSimpleName();
+    //传递到动态详情页面的参数
     private String trendID;
     private String authorID;
     private String a_name;
@@ -39,17 +40,19 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
     private String t_newID;
     private String t_newsTitle;
     private String t_newsUrl;
+    //其他参数
     private String userID;
     private String friendID;
     private String friendName;
     private Context mContext;
-    private String text;
+    private String text;    //评论框内容
     private EditText editText;
+    //以下是动态详情界面组件
     private TextView author;
     private TextView time;
     private TextView content;
     private TextView news;
-    private ListView listView;
+    private ListView listView;  //动态评论列表
     private ArrayList<TrendCommentBean.CommentListBean> beans;
     private TCListAdapter adapter;
 
@@ -84,6 +87,7 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
         author.setText(a_name);
         time.setText(t_time);
         content.setText(t_content);
+        //如果动态不是评论新闻产生，新闻区消失
         if (t_newsTitle.equals("null")){
             news.setVisibility(View.GONE);
         }
@@ -99,6 +103,7 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
 
     @Override
     public void initListener() {
+        //给动态作者名绑定关注异步
         author.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,6 +129,7 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
                 builder.show();
             }
         });
+        //若有相关新闻，添加跳转链接
         if (news.getVisibility() == View.VISIBLE){
             news.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -137,6 +143,9 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
         }
     }
 
+    /**
+     * 给每一个评论添加点击关注事件
+     */
     @Override
     public void bindData() {
         if (beans != null) {
@@ -191,6 +200,11 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
         return true;
     }
 
+    /**
+     * 右上角添加评论
+     * @param item 菜单项
+     * @return true
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -206,7 +220,7 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
                     public void onClick(DialogInterface dialog, int which)
                     {
                         text = editText.getText().toString();
-                        if (text == ""){
+                        if (text.equals("")){
                             Toast.makeText(TrendDetailActivity.this,"不可以为空",Toast.LENGTH_SHORT).show();
                         }
                         else {
@@ -229,7 +243,9 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
         return true;
     }
 
-
+    /**
+     * 获取动态评论异步
+     */
     class TrendCommentAsyncTask extends AsyncTask<String,Integer,ArrayList<TrendCommentBean.CommentListBean>>{
 
         @Override
@@ -249,6 +265,10 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
             bindData();
         }
     }
+
+    /**
+     * 发表评论异步
+     */
     class CommentAsyncTask extends AsyncTask<String,Integer,String>{
         @Override
         protected void onPreExecute(){
@@ -257,16 +277,24 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
 
         @Override
         protected String doInBackground(String... strings) {
-            String result = new HttpUtils().comment(strings[0],strings[1],strings[2]);
-            return result;
+            return new HttpUtils().comment(strings[0],strings[1],strings[2]);
         }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Toast.makeText(TrendDetailActivity.this,"评论成功",Toast.LENGTH_SHORT).show();
+            if (result.equals("success")){
+                Toast.makeText(TrendDetailActivity.this,"评论成功",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(TrendDetailActivity.this, "评论失败", Toast.LENGTH_SHORT).show();
+            }
         }
     }
+
+    /**
+     * 是否关注异步
+     */
     class IsFollowedAsyncTask extends AsyncTask<String,Integer,ArrayList<Boolean>>{
         @Override
         protected void onPreExecute(){
@@ -303,6 +331,10 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
             }
         }
     }
+
+    /**
+     * 关注异步
+     */
     class FollowAsyncTask extends AsyncTask<String,Integer,Boolean> {
         @Override
         protected void onPreExecute(){
@@ -311,8 +343,7 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
 
         @Override
         protected Boolean doInBackground(String... strings) {
-            boolean result = new HttpUtils().follow(strings[0],strings[1]);
-            return result;
+            return new HttpUtils().follow(strings[0],strings[1]);
         }
 
         @Override

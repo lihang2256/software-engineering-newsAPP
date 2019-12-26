@@ -2,7 +2,9 @@ package com.example.newsAPP.bean;
 
 import java.util.List;
 
-//也就是CommentDetailBean
+/**
+ * 获取动态详细信息以及评论列表
+ */
 public class TrendCommentBean {
 
     /**

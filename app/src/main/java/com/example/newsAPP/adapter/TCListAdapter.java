@@ -14,6 +14,9 @@ import com.example.newsAPP.bean.TrendCommentBean;
 
 import java.util.ArrayList;
 
+/**
+ * 动态评论列表适配器
+ */
 public class TCListAdapter extends BaseAdapter{
 
     private ArrayList<TrendCommentBean.CommentListBean> commentBeans;

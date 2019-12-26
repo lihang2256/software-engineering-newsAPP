@@ -2,7 +2,6 @@ package com.example.newsAPP.http;
 
 import android.util.Log;
 
-import com.example.newsAPP.bean.CollectionBean;
 import com.example.newsAPP.bean.FansBean;
 import com.example.newsAPP.bean.FollowBean;
 import com.example.newsAPP.bean.JudgeFriendBean;
@@ -12,16 +11,22 @@ import com.example.newsAPP.bean.NoDataBean;
 import com.example.newsAPP.bean.TrendBean;
 import com.example.newsAPP.bean.CommentBean;
 import com.example.newsAPP.bean.TrendCommentBean;
-import com.example.newsAPP.common.SignupApi;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * json解析封装
+ */
 public class DataParse {
 
-    // 新闻列表解析
+    /**
+     * 新闻列表解析
+     * @param json json
+     * @return 新闻列表
+     */
     public static ArrayList<NewsBean.DataBean> NewsList(String json) {
         Gson gson = new Gson();
         NewsBean newsBean = gson.fromJson(json, NewsBean.class);
@@ -33,7 +38,11 @@ public class DataParse {
         return null;
     }
 
-    // 新闻评论解析
+    /**
+     * 新闻评论解析
+     * @param json json
+     * @return 新闻评论列表
+     */
     public static ArrayList<CommentBean.DataBean> NewsComment(String json) {
         Gson gson = new Gson();
         CommentBean commentBean = gson.fromJson(json, CommentBean.class);
@@ -45,7 +54,11 @@ public class DataParse {
         return null;
     }
 
-    // 关注列表解析
+    /**
+     * 关注列表解析
+     * @param json json
+     * @return 关注列表
+     */
     public static ArrayList<FollowBean.DataBean> FollowList(String json) {
         Gson gson = new Gson();
        FollowBean followBean = gson.fromJson(json, FollowBean.class);
@@ -57,7 +70,11 @@ public class DataParse {
         return null;
     }
 
-    // 粉丝列表解析
+    /**
+     * 粉丝列表解析
+     * @param json json
+     * @return 粉丝列表
+     */
     public static ArrayList<FansBean.DataBean> FansList(String json) {
         Gson gson = new Gson();
         FansBean fansBean = gson.fromJson(json, FansBean.class);
@@ -69,7 +86,11 @@ public class DataParse {
         return null;
     }
 
-    // 动态列表解析
+    /**
+     * 动态列表解析
+     * @param json json
+     * @return 动态列表
+     */
     public static ArrayList<TrendBean.DataBean> TrendList(String json) {
         Gson gson = new Gson();
         TrendBean trendBean = gson.fromJson(json, TrendBean.class);
@@ -81,7 +102,11 @@ public class DataParse {
         return null;
     }
 
-    // 没有任何返回值，只是看功能是否完成了
+    /**
+     * 没有任何返回值，只是看功能是否完成了
+     * @param json json
+     * @return true
+     */
     public static boolean ActionSuccess(String json) {
         Gson gson = new Gson();
         NoDataBean noDataBean = gson.fromJson(json, NoDataBean.class);
@@ -93,7 +118,11 @@ public class DataParse {
         return false;
     }
 
-    // 判断是否为好友，返回bool
+    /**
+     * 判断是否为好友，返回bool
+     * @param json json
+     * @return true/false
+     */
     public static boolean isFollowed(String json) {
         Gson gson = new Gson();
         JudgeFriendBean judgeFriendBean = gson.fromJson(json, JudgeFriendBean.class);
@@ -108,7 +137,11 @@ public class DataParse {
         return false;
     }
 
-    //获取动态评论
+    /**
+     * 获取动态评论
+     * @param json json
+     * @return 动态的评论列表
+     */
     public static ArrayList<TrendCommentBean.CommentListBean> TrendComment (String json) {
         Gson gson = new Gson();
         TrendCommentBean bean = gson.fromJson(json, TrendCommentBean.class);
@@ -120,6 +153,11 @@ public class DataParse {
         return null;
     }
 
+    /**
+     * 获取动态详情
+     * @param json json
+     * @return 动态详情
+     */
     public static ArrayList<TrendCommentBean.DataBean> TrendDetail (String json) {
         Gson gson = new Gson();
         TrendCommentBean bean = gson.fromJson(json, TrendCommentBean.class);
@@ -131,6 +169,11 @@ public class DataParse {
         return null;
     }
 
+    /**
+     * 判断登录情况
+     * @param json json
+     * @return 成功返回用户id/失败返回null
+     */
     public static String login(String json) {
         Gson gson = new Gson();
         LoginBean loginBean = gson.fromJson(json, LoginBean.class);
@@ -142,6 +185,11 @@ public class DataParse {
         return null;
     }
 
+    /**
+     * 判断注册情况
+     * @param json json
+     * @return 成功返回success/失败返回null
+     */
     public static String signup(String json) {
         Gson gson = new Gson();
         NoDataBean noDataBean= gson.fromJson(json, NoDataBean.class);
@@ -152,33 +200,5 @@ public class DataParse {
         }
         return null;
     }
-
-    public static String iscollect(String json) {
-        Gson gson = new Gson();
-        CollectionBean collectionBean = gson.fromJson(json, CollectionBean.class);
-        if (collectionBean.getString().equals("True")) {
-            return collectionBean.getString();
-        }
-        if (collectionBean.getString().equals("False")) {
-            return collectionBean.getString();
-        }
-        else{
-            Log.e(TAG, "actionFailed: Request error");
-        }
-        return null;
-    }
-
-    //
-//    public static ArrayList<NewsBean.DataBean> NewsList(String json) {
-//        Gson gson = new Gson();
-//        NewsBean newsBean = gson.fromJson(json, NewsBean.class);
-//        if(newsBean.getStatus().equals("success")){
-//            return (ArrayList<NewsBean.DataBean>) newsBean.getData();
-//        }else{
-//            Log.e(TAG, "NewsList: Request error");
-//        }
-//        return null;
-//    }
-
 
 }

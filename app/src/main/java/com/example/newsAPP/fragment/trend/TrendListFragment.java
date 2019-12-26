@@ -29,6 +29,9 @@ import com.example.newsAPP.widget.LoadMoreFooterView;
 
 import java.util.ArrayList;
 
+/**
+ * 内层fragment，放不同标签的动态列表
+ */
 public class TrendListFragment extends BaseFragment {
 
     private String ttype;
@@ -70,43 +73,6 @@ public class TrendListFragment extends BaseFragment {
         if (getArguments() != null) {
             ttype = getArguments().getString("TTYPE");
         }
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                mTrendBeanList = new HttpUtils().getAllTrend();
-//            }
-//        }).start();
-//        bindData();
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                ArrayList<TrendBean.DataBean> list;
-//                if (userID == null){
-//                    if (ttype.equals("所有")) {
-//                        list = new HttpUtils().getAllTrend();
-//                    }
-//                    else if (ttype.equals("关注")) {
-//                        list = null;
-//                    }
-//                    else {
-//                        list = null;
-//                    }
-//                }
-//                else {
-//                    if (ttype.equals("所有")) {
-//                        list = new HttpUtils().getAllTrend();
-//                    }
-//                    else if (ttype.equals("关注")) {
-//                        list = new HttpUtils().getFriendTrend(userID);
-//                    }
-//                    else {
-//                        list = new HttpUtils().getMyTrend(userID);
-//                    }
-//                }
-//                mTrendBeanList = list;
-//                bindData();
-//            }
-//        }).start();
         new TrendAsyncTask().execute(ttype,userID);
     }
 
@@ -126,6 +92,9 @@ public class TrendListFragment extends BaseFragment {
         });
     }
 
+    /**
+     * 获取不同标签动态异步
+     */
     class TrendAsyncTask extends AsyncTask<String,Integer,ArrayList<TrendBean.DataBean>>{
 
         @Override
@@ -180,6 +149,7 @@ public class TrendListFragment extends BaseFragment {
                 public void onItemClick(View v, int position) {
                     TrendBean.DataBean bean = mTrendBeanList.get(position);
                     Intent intent;
+                    //将动态详情全部转移
                     intent = new Intent(getActivity(), TrendDetailActivity.class);
                     intent.putExtra("TRENDID", bean.getID());
                     intent.putExtra("TAUTHORID",bean.getAuthor_id());

@@ -62,7 +62,8 @@ public class TrendFragment extends BaseFragment implements DefineView {
     public void initValidata() {
         fragments = new ArrayList<>();
         fixedPagerAdapter = new FixedPagerAdapter(getChildFragmentManager());
-        for (int i = 0;i<channelBeanList.size();i++){
+        //根据预先设置好的目录初始化tabLayout
+        for (int i = 0; i < channelBeanList.size(); i++){
             ProjectChannelBean channelBean = channelBeanList.get(i);
             BaseFragment fragment = TrendListFragment.newInstance(channelBean.getTname());
             fragments.add(fragment);

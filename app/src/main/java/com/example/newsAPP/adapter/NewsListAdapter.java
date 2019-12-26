@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import com.example.newsAPP.R;
 import com.example.newsAPP.bean.NewsBean;
 
+/**
+ * 新闻列表适配器
+ */
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHolder> {
     private final String TAG = NewsListAdapter.class.getSimpleName();
 
@@ -46,13 +49,15 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
         String source = bean.getAuthor();
         String postTime = bean.getTime();
         ViewHolder viewHolder = holder;
-        // 设置图片
+        //刨去默认新闻
         if (!title.equals("null")){
+            // 设置图片
             setNetPicture(imageSrc, holder.item_news_tv_img);
             holder.item_news_tv_title.setText(title);
             holder.item_news_tv_time.setText(postTime);
             holder.item_news_tv_source.setText(source);
         }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +83,11 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
         return -1;
     }
 
+    /**
+     * 设置图片
+     * @param url 图片url
+     * @param img imageView
+     */
     private void setNetPicture(String url, ImageView img) {
         Glide.with(mContext)
                 .load(url)
@@ -85,11 +95,9 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
                 .into(img);
     }
 
-
     /**
      * 设置Item点击监听
-     *
-     * @param listener
+     * @param listener 监听器
      */
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mOnItemClickListener = listener;

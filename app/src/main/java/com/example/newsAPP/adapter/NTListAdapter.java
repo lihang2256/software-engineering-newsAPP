@@ -12,6 +12,9 @@ import com.example.newsAPP.bean.CommentBean;
 
 import java.util.ArrayList;
 
+/**
+ * 新闻评论列表适配器
+ */
 public class NTListAdapter extends BaseAdapter {
 
     private ArrayList<CommentBean.DataBean> commentBeans;

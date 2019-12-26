@@ -31,6 +31,9 @@ import com.example.newsAPP.widget.LoadMoreFooterView;
 
 import java.util.ArrayList;
 
+/**
+ * 收藏列表
+ */
 public class CollectionFragment extends BaseFragment {
     private final String TAG = MineFragment.class.getSimpleName();
     private View mView;
@@ -92,16 +95,18 @@ public class CollectionFragment extends BaseFragment {
             @Override
             public void onItemClick(View v, int position) {
                 NewsBean.DataBean bean = mNewsBeanList.get(position);
-                String newsID = bean.getId();
                 Intent intent;
                 intent = new Intent(getActivity(), NewsDetailActivity.class);
                 intent.putExtra("URL", bean.getUrl());
-                intent.putExtra("ID", newsID);
+                intent.putExtra("NEWSID", bean.getId());
                 getActivity().startActivity(intent);
             }
         });
     }
 
+    /**
+     * 获取收藏列表异步
+     */
     class CollectionAsyncTask extends AsyncTask<String,Integer,ArrayList<NewsBean.DataBean>> {
         @Override
         protected void onPreExecute(){

@@ -30,10 +30,13 @@ import com.example.newsAPP.widget.ClassicRefreshHeaderView;
 import com.example.newsAPP.widget.DividerGridItemDecoration;
 import com.example.newsAPP.widget.LoadMoreFooterView;
 
+/**
+ * 内层fragment，放不同标签的新闻列表
+ */
 public class NewsListFragment extends BaseFragment {
 
     private final String TAG = NewsListFragment.class.getSimpleName();
-    private static final String KEY = "TNAME";
+    private static final String KEY = "TNAME";  //标签名
     private String tname;
     private View mView;
     private IRecyclerView mIRecyclerView;
@@ -45,7 +48,7 @@ public class NewsListFragment extends BaseFragment {
      * 从外部往Fragment中传参数的方法
      *
      * @param tname 请求标题名字
-     * @return
+     * @return fragment
      */
     public static NewsListFragment newInstance(String tname) {
         Bundle bundle = new Bundle();
@@ -94,26 +97,6 @@ public class NewsListFragment extends BaseFragment {
         new NewsAsyncTask().execute(tname);
     }
 
-    class NewsAsyncTask extends AsyncTask<String,Integer,ArrayList<NewsBean.DataBean>>{
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-        }
-
-        @Override
-        protected ArrayList<NewsBean.DataBean> doInBackground(String... strings) {
-            ArrayList<NewsBean.DataBean> list = new HttpUtils().getNews(strings[0]);
-            return list;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<NewsBean.DataBean> list) {
-            super.onPostExecute(list);
-            mNewsBeanList = list;
-            bindData();
-        }
-    }
-
     @Override
     public void bindData() {
         if (mNewsBeanList != null){
@@ -148,5 +131,28 @@ public class NewsListFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+    /**
+     * 获取标签下新闻异步
+     */
+    class NewsAsyncTask extends AsyncTask<String,Integer,ArrayList<NewsBean.DataBean>>{
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected ArrayList<NewsBean.DataBean> doInBackground(String... strings) {
+            ArrayList<NewsBean.DataBean> list = new HttpUtils().getNews(strings[0]);
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<NewsBean.DataBean> list) {
+            super.onPostExecute(list);
+            mNewsBeanList = list;
+            bindData();
+        }
     }
 }

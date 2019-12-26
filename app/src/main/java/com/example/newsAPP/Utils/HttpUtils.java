@@ -22,136 +22,180 @@ import com.example.newsAPP.common.UserIdApi;
 import com.example.newsAPP.http.DataParse;
 import com.example.newsAPP.http.OkHttp;
 
-import org.apache.http.impl.cookie.DateParseException;
-
-import java.nio.file.attribute.UserPrincipal;
-
 import java.util.ArrayList;
 
+/**
+ * 封装端口访问
+ */
 public class HttpUtils {
-//    获取新闻列表
+
+    /**
+     * 获取新闻列表
+     * @param string json
+     * @return 新闻列表
+     */
     public ArrayList<NewsBean.DataBean> getNews(String string){
         OkHttp okHttp = new OkHttp();
         GetnewsApi getnewsApi = new GetnewsApi();
         getnewsApi.setType(string);
         String strJson = okHttp.sendPost(getnewsApi, DatabaseApi.newsList);
-        ArrayList<NewsBean.DataBean> beans = DataParse.NewsList(strJson);
-        return beans;
+        return DataParse.NewsList(strJson);
     }
 
-//    获取新闻所有评论
+    /**
+     * 获取新闻所有评论
+     * @param string json
+     * @return 对应新闻的所有评论列表
+     */
     public ArrayList<CommentBean.DataBean> getNewsComment(String string){
         OkHttp okHttp = new OkHttp();
         GetNewsCommentApi getNewsComment = new GetNewsCommentApi();
         getNewsComment.setNews_id(string);
         String strJson = okHttp.sendPost(getNewsComment, DatabaseApi.getNewsAllComment);
-        ArrayList<CommentBean.DataBean> beans = DataParse.NewsComment(strJson);
-        return beans;
+        return DataParse.NewsComment(strJson);
     }
 
-//    获取所有关注的人列表
+    /**
+     * 获取所有关注的人列表
+     * @param string json
+     * @return 关注列表
+     */
     public ArrayList<FollowBean.DataBean> getFollow(String string){
         OkHttp okHttp = new OkHttp();
         SendIdApi sendId = new SendIdApi();
         sendId.setID(string);
         String strJson = okHttp.sendPost(sendId, DatabaseApi.getFollow);
-        ArrayList<FollowBean.DataBean> beans = DataParse.FollowList(strJson);
-        return beans;
+        return DataParse.FollowList(strJson);
     }
 
-//    获取粉丝列表
+    /**
+     * 获取粉丝列表
+     * @param string json
+     * @return 粉丝列表
+     */
     public ArrayList<FansBean.DataBean> getFans(String string){
         OkHttp okHttp = new OkHttp();
         SendIdApi sendId = new SendIdApi();
         sendId.setID(string);
         String strJson = okHttp.sendPost(sendId, DatabaseApi.getFans);
-        ArrayList<FansBean.DataBean> beans = DataParse.FansList(strJson);
-        return beans;
+        return DataParse.FansList(strJson);
     }
 
-//    获取所有用户动态
+    /**
+     * 获取所有用户动态
+     * @return 所有动态列表
+     */
     public ArrayList<TrendBean.DataBean> getAllTrend(){
         OkHttp okHttp = new OkHttp();
         String strJson = okHttp.sendGet(DatabaseApi.getAllTrend);
-        ArrayList<TrendBean.DataBean> list = DataParse.TrendList(strJson);
-        return list;
+        return DataParse.TrendList(strJson);
     }
 
-//    获取关注的人的动态
+    /**
+     * 获取关注的人的动态
+     * @param string json
+     * @return 关注的人的动态列表
+     */
     public ArrayList<TrendBean.DataBean> getFriendTrend(String string){
         OkHttp okHttp = new OkHttp();
         SendIdApi sendId = new SendIdApi();
         sendId.setID(string);
         String strJson = okHttp.sendPost(sendId, DatabaseApi.getFriendTrend);
-        ArrayList<TrendBean.DataBean> list = DataParse.TrendList(strJson);
-        return list;
+        return DataParse.TrendList(strJson);
     }
 
-//    获取自己的动态
+    /**
+     * 获取自己的动态
+     * @param string json
+     * @return 自己动态列表
+     */
     public ArrayList<TrendBean.DataBean> getMyTrend(String string){
         OkHttp okHttp = new OkHttp();
         SendIdApi sendId = new SendIdApi();
         sendId.setID(string);
         String strJson = okHttp.sendPost(sendId, DatabaseApi.getMyTrend);
-        ArrayList<TrendBean.DataBean> list = DataParse.TrendList(strJson);
-        return list;
+        return DataParse.TrendList(strJson);
     }
 
-//    关注用户
+    /**
+     * 关注用户
+     * @param user_id 用户id
+     * @param friend_id 另一用户id
+     * @return true
+     */
     public boolean follow(String user_id,String friend_id){
         OkHttp okHttp = new OkHttp();
         FollowSomebodyApi sendId = new FollowSomebodyApi();
         sendId.setUser_id(user_id);
         sendId.setFriend_id(friend_id);
         String result =  okHttp.sendPost(sendId, DatabaseApi.follow);
-        boolean finished = DataParse.ActionSuccess(result);
-        return finished;
+        return DataParse.ActionSuccess(result);
     }
 
-//    取关用户
+    /**
+     * 取关用户
+     * @param user_id 用户id
+     * @param friend_id 取关用户id
+     * @return 取关之后的关注列表
+     */
     public ArrayList <FollowBean.DataBean> unFollow(String user_id,String friend_id){
         OkHttp okHttp = new OkHttp();
         FollowSomebodyApi sendId = new FollowSomebodyApi();
         sendId.setUser_id(user_id);
         sendId.setFriend_id(friend_id);
         String strJson = okHttp.sendPost(sendId, DatabaseApi.unFollow);
-        ArrayList<FollowBean.DataBean> list = DataParse.FollowList(strJson);
-        return list;
+        return DataParse.FollowList(strJson);
     }
 
-//    禁止对方的关注
+    /**
+     * 拉黑粉丝
+     * 因操作需要，两个参数需反着来
+     * @param user_id 粉丝id
+     * @param friend_id 用户id
+     * @return 拉黑之后的粉丝列表
+     */
     public ArrayList <FansBean.DataBean> ban(String user_id,String friend_id){
         OkHttp okHttp = new OkHttp();
         FollowSomebodyApi sendId = new FollowSomebodyApi();
         sendId.setUser_id(user_id);
         sendId.setFriend_id(friend_id);
         String strJson = okHttp.sendPost(sendId, DatabaseApi.ban);
-        ArrayList<FansBean.DataBean> list = DataParse.FansList(strJson);
-        return list;
+        return DataParse.FansList(strJson);
     }
 
-//    判断是否关注
+    /**
+     * 判断是否关注
+     * @param user_id 用户id
+     * @param friend_id 另一用户id
+     * @return true/false
+     */
     public boolean isFollow(String user_id,String friend_id){
         OkHttp okHttp = new OkHttp();
         FollowSomebodyApi sendId = new FollowSomebodyApi();
         sendId.setUser_id(user_id);
         sendId.setFriend_id(friend_id);
         String strJson = okHttp.sendPost(sendId, DatabaseApi.isFollow);
-        boolean flag = DataParse.isFollowed(strJson);
-        return flag;
+        return DataParse.isFollowed(strJson);
     }
 
-//     获得动态的评论和详细信息
+    /**
+     * 获得动态所有评论
+     * @param string json
+     * @return 动态评论列表
+     */
     public ArrayList<TrendCommentBean.CommentListBean> getTrendComment(String string){
         OkHttp okHttp = new OkHttp();
         TrendIdApi trendIdApi = new TrendIdApi();
         trendIdApi.setTrend_id(string);
         String strJson = okHttp.sendPost(trendIdApi, DatabaseApi.getTrendInformation);
-        ArrayList<TrendCommentBean.CommentListBean> beans = DataParse.TrendComment(strJson);
-        return beans;
+        return DataParse.TrendComment(strJson);
     }
 
-//     获得动态详细信息
+    /**
+     * 获得动态详细信息
+     * @param string json
+     * @return 动态详细信息
+     */
     public ArrayList<TrendCommentBean.DataBean> getTrendDetail(String string){
         OkHttp okHttp = new OkHttp();
         TrendIdApi trendIdApi = new TrendIdApi();
@@ -161,7 +205,13 @@ public class HttpUtils {
         return beans;
     }
 
-//    发布动态
+    /**
+     * 发布动态
+     * @param user_id 用户id
+     * @param content 动态内容
+     * @param news_id 评论的新闻id（不是新闻评论的动态默认为1）
+     * @return 成功success
+     */
     public String releaseTrend(String user_id, String content, String news_id){
         OkHttp okHttp = new OkHttp();
         ReleaseTrendApi releaseTrendApi = new ReleaseTrendApi();
@@ -169,40 +219,61 @@ public class HttpUtils {
         releaseTrendApi.setContent(content);
         releaseTrendApi.setNews_id(news_id);
         String strJson = okHttp.sendPost(releaseTrendApi, DatabaseApi.releaseTrend);
-        return DataParse.signup(strJson);
+        return DataParse.signup(strJson);   //解析相同，没有另写
     }
 
-//    发送评论
+    /**
+     * 发布评论
+     * @param user_id 用户id
+     * @param comment 评论内容
+     * @param trend_id 动态id
+     * @return
+     */
     public String comment(String user_id,String comment, String trend_id){
         OkHttp okHttp = new OkHttp();
         CommentApi commentApi = new CommentApi();
         commentApi.setUser_id(user_id);
         commentApi.setComment(comment);
         commentApi.setTrend_id(trend_id);
-        return okHttp.sendPost(commentApi, DatabaseApi.insertTrendComment);
+        String strJson = okHttp.sendPost(commentApi, DatabaseApi.insertTrendComment);
+        return DataParse.signup(strJson);   //解析相同，没有另写
     }
 
-//    收藏新闻
+    /**
+     * 收藏新闻
+     * @param key "query"/"add"/"delete"
+     * @param user_id 用户id
+     * @param news_id 新闻id
+     * @return 查询True/False 收藏/取消成功True
+     */
     public String collect(String key,String user_id, String news_id){
         OkHttp okHttp = new OkHttp();
         CollectApi collectApi = new CollectApi();
         collectApi.setKey(key);
         collectApi.setNews(news_id);
         collectApi.setUser(user_id);
-        return okHttp.sendPost(collectApi, DatabaseApi.collect);
+        return okHttp.sendPost(collectApi, DatabaseApi.collect);    //返回string，不必解析
     }
 
-//    获取收藏
+    /**
+     * 获取收藏
+     * @param string json
+     * @return 收藏新闻列表
+     */
     public ArrayList<NewsBean.DataBean> getCollect(String string){
         OkHttp okHttp = new OkHttp();
         UserIdApi userIdApi = new UserIdApi();
         userIdApi.setUser(string);
         String strJson =  okHttp.sendPost(userIdApi, DatabaseApi.getCollect);
-        ArrayList<NewsBean.DataBean> beans = DataParse.NewsList(strJson);
-        return beans;
+        return DataParse.NewsList(strJson);
     }
 
-//    登陆
+    /**
+     * 登录
+     * @param userName 昵称
+     * @param password 密码
+     * @return 成功success
+     */
     public String login(String userName, String password){
         OkHttp okHttp = new OkHttp();
         LoginApi loginApi = new LoginApi();
@@ -212,7 +283,12 @@ public class HttpUtils {
         return DataParse.login(strJson);
     }
 
-//    注册
+    /**
+     * 注册
+     * @param userName 昵称
+     * @param password 密码
+     * @return 成功success
+     */
     public String signup(String userName, String password){
         OkHttp okHttp = new OkHttp();
         SignupApi signupApi = new SignupApi();
@@ -222,7 +298,13 @@ public class HttpUtils {
         return DataParse.signup(strJson);
     }
 
-//    搜索新闻
+    /**
+     * 搜索新闻
+     * @param type 频道
+     * @param keyword 关键词
+     * @param time 时间
+     * @return 新闻列表
+     */
     public ArrayList<NewsBean.DataBean> searchNews(String type, String keyword, String time){
         OkHttp okHttp = new OkHttp();
         SearchNewsApi searchNewsApi = new SearchNewsApi();
@@ -230,7 +312,6 @@ public class HttpUtils {
         searchNewsApi.setKeyword(keyword);
         searchNewsApi.setTime(time);
         String strJson = okHttp.sendPost(searchNewsApi, DatabaseApi.searchNews);
-        ArrayList<NewsBean.DataBean> beans = DataParse.NewsList(strJson);
-        return beans;
+        return DataParse.NewsList(strJson);
     }
 }

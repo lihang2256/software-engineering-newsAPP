@@ -14,6 +14,9 @@ import java.util.List;
 
 import com.example.newsAPP.fragment.BaseFragment;
 
+/**
+ * viewpager适配器
+ */
 public class FixedPagerAdapter extends FragmentStatePagerAdapter {
     private List<ProjectChannelBean> channelBeanList;
     private FragmentManager fm;

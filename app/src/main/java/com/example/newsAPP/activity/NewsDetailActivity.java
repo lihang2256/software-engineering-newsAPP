@@ -39,9 +39,9 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
     private String userID;
     private ArrayList<CommentBean.DataBean> commentBeans;
     private NTListAdapter adapter;
-    private ListView listView;
+    private ListView listView;  //评论列表
     private EditText editText;
-    private String text;
+    private String text;    //评论内容
     private String authorID;
     private String authorName;
 
@@ -60,15 +60,26 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
         initListener();
     }
 
+    /**
+     * 在右上角产生menu
+     * @param menu 菜单
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.news_pop_menu,menu);
         return true;
     }
 
+    /**
+     * 根据菜单项选择对应的异步
+     * @param item 菜单项
+     * @return true
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
+            //评论
             case R.id.menu_1:
                 AlertDialog.Builder builder = new AlertDialog.Builder(NewsDetailActivity.this);
                 builder.setTitle("请输入评论（不超过100字）");
@@ -99,13 +110,16 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
                 });
                 builder.show();
                 break;
+            //收藏
             case R.id.menu_2:
                 //判断是否收藏
                 new IsCollectedAsyncTask().execute("query",userID,newsID,"two");
                 break;
+            //取消收藏
             case R.id.menu_3:
                 new IsCollectedAsyncTask().execute("query",userID,newsID,"three");
                 break;
+            //左上角返回上一菜单
             case android.R.id.home:
                 finish();
                 break;
@@ -133,7 +147,7 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
     }
 
     /**
-     * 去除网页内的广告
+     * 去除网页内的广告，并加载新闻评论
      */
     @Override
     public void initValidata() {
@@ -174,6 +188,9 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
 
     }
 
+    /**
+     * 给每一个评论绑定触发函数，判断是否关注并添加关注
+     */
     @Override
     public void bindData() {
         if (commentBeans == null||commentBeans.size() <= 0){ }
@@ -210,6 +227,9 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
         }
     }
 
+    /**
+     * 是否收藏异步
+     */
     class IsCollectedAsyncTask extends AsyncTask<String,Integer,ArrayList<String>>{
         @Override
         protected void onPreExecute(){
@@ -227,6 +247,7 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
         @Override
         protected void onPostExecute(ArrayList<String> result) {
             super.onPostExecute(result);
+            //判断条件选择触发收藏或取消收藏异步
             if (result.get(0).equals("True")&&result.get(1).equals("two")){
                 Toast.makeText(NewsDetailActivity.this,"已收藏，不要重复点击",Toast.LENGTH_SHORT).show();
             }
@@ -244,6 +265,10 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
             }
         }
     }
+
+    /**
+     * 收藏/取消收藏异步
+     */
     class CollectonAsyncTask extends AsyncTask<String,Integer,String>{
 
         @Override
@@ -269,6 +294,10 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
         }
 
     }
+
+    /**
+     * 获取所有评论异步
+     */
     class NewsDetailsAsyncTask extends AsyncTask<String,Integer, ArrayList<CommentBean.DataBean>>{
         @Override
         protected void onPreExecute(){
@@ -288,6 +317,10 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
             bindData();
         }
     }
+
+    /**
+     * 评论新闻（发动态）异步
+     */
     class CommentAsyncTask extends AsyncTask<String,Integer,String>{
         @Override
         protected void onPreExecute(){
@@ -310,6 +343,10 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
             }
         }
     }
+
+    /**
+     * 判断是否关注异步
+     */
     class IsFollowedAsyncTask extends AsyncTask<String,Integer,Boolean>{
         @Override
         protected void onPreExecute(){
@@ -332,6 +369,10 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
             }
         }
     }
+
+    /**
+     * 关注用户异步
+     */
     class FollowAsyncTask extends AsyncTask<String,Integer,Boolean> {
         @Override
         protected void onPreExecute(){

@@ -39,8 +39,7 @@ public class NewsFragment extends BaseFragment implements DefineView {
     private List<ProjectChannelBean> myChannelList;
     private List<ProjectChannelBean> moreChannelList;
     private ImageButton mChange_channel;
-    // 当前新闻频道的位置
-    private int tabPosition;
+    private int tabPosition;    // 当前新闻频道的位置
     private boolean isFirst;
     private BaseFragment baseFragment;
 
@@ -100,7 +99,7 @@ public class NewsFragment extends BaseFragment implements DefineView {
             @Override
             public void onTabReselected(TabLayout.Tab tab) { }
         });
-
+        //频道管理
         mChange_channel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,7 +151,7 @@ public class NewsFragment extends BaseFragment implements DefineView {
 
     /**
      * 在MainActivity中被调用，当从ChanelActivity返回时设置当前tab的位置
-     * @param tabPosition
+     * @param tabPosition 当前tab
      */
     public void setCurrentChannel(int tabPosition) {
         mNewsViewpager.setCurrentItem(tabPosition);

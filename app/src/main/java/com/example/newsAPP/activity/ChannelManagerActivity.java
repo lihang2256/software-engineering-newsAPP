@@ -58,6 +58,9 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
         mRecyclerView.setAdapter(mRecyclerAdapter);
     }
 
+    /**
+     * 获取当前tab位置，设置不可移动，并供返回使用
+     */
     private void getIntentData(){
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -102,7 +105,6 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
         }
         mRecChannelList = new ArrayList<>();
         List<ProjectChannelBean> moreChannelList = SharedPreferenceUtils.getInstance().getDataList(context,"moreChannel",ProjectChannelBean.class);
-//        Log.d(TAG, moreChannelList.get(0).toString());
         mRecChannelList.addAll(moreChannelList);
     }
 
@@ -115,7 +117,6 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
             projectChannelBean.setEditStatus(0);
         }
         SharedPreferenceUtils.getInstance().setDataList(context,"myChannel", mMyChannelList);
-//        TODO::这里可能是mRecChannelList
         SharedPreferenceUtils.getInstance().setDataList(context,"moreChannel", mRecChannelList);
         super.onPause();
     }

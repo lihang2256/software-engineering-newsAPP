@@ -2,7 +2,9 @@ package com.example.newsAPP.bean;
 
 import java.util.List;
 
-//这个获取新闻的所有评论
+/**
+ * 获取新闻的所有评论
+ */
 public class CommentBean {
 
     /**

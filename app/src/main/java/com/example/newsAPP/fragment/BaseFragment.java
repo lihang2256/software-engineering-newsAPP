@@ -12,7 +12,7 @@ public abstract class BaseFragment extends Fragment implements DefineView {
 
     /**
      * 设置toolbar标题居中，没有返回键
-     * @param view
+     * @param view view
      * @param id    toolbar的id
      * @param titleId   textView的id
      * @param titleString   textView设置的文字
