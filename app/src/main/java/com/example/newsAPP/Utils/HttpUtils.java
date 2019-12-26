@@ -168,7 +168,8 @@ public class HttpUtils {
         releaseTrendApi.setUser_id(user_id);
         releaseTrendApi.setContent(content);
         releaseTrendApi.setNews_id(news_id);
-        return okHttp.sendPost(releaseTrendApi, DatabaseApi.releaseTrend);
+        String strJson = okHttp.sendPost(releaseTrendApi, DatabaseApi.releaseTrend);
+        return DataParse.signup(strJson);
     }
 
 //    发送评论

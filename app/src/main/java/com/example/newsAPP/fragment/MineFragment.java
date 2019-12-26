@@ -220,10 +220,8 @@ public class MineFragment extends BaseFragment{
             super.onPostExecute(result);
             if (result.equals("success")) {
                 Toast.makeText( getActivity(), "发表成功", Toast.LENGTH_SHORT).show();
-            } else if(result=="insert trend error"){
-                Toast.makeText(getActivity(), "插入动态表失败", Toast.LENGTH_SHORT).show();
-            } else if(result=="release trend error"){
-                Toast.makeText(getActivity(), "插入发布动态失败", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity(), "失败", Toast.LENGTH_SHORT).show();
             }
         }
     }
