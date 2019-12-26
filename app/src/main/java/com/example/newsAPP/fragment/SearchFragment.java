@@ -18,11 +18,11 @@ import java.util.List;
 
 import com.example.newsAPP.adapter.FixedPagerAdapter;
 import com.example.newsAPP.common.DefineView;
-import com.example.newsAPP.fragment.find.FindListFragment;
+import com.example.newsAPP.fragment.find.SearchListFragment;
 import static com.example.newsAPP.R.id.tab_layout;
 
-public class FindFragment extends BaseFragment implements DefineView {
-    private final String TAG = FindFragment.class.getSimpleName();
+public class SearchFragment extends BaseFragment implements DefineView {
+    private final String TAG = SearchFragment.class.getSimpleName();
 
     private TabLayout mtableLayout;
     private ViewPager mFindViewpager;
@@ -35,10 +35,8 @@ public class FindFragment extends BaseFragment implements DefineView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         mView = inflater.inflate(R.layout.tablayout_pager, container, false);
         initView();
-
         return mView;
     }
 
@@ -67,7 +65,7 @@ public class FindFragment extends BaseFragment implements DefineView {
         for (int i = 0;i<channelBeanList.size();i++){
             String str = "";
             ProjectChannelBean channelBean = channelBeanList.get(i);
-            BaseFragment fragment = FindListFragment.newInstance(channelBean.getTname());
+            BaseFragment fragment = SearchListFragment.newInstance(channelBean.getTname());
             fragments.add(fragment);
             fixedPagerAdapter.setChannelBean(channelBeanList);
             fixedPagerAdapter.setFragments(fragments);

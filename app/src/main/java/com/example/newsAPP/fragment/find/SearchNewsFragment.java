@@ -96,11 +96,10 @@ public class SearchNewsFragment extends BaseFragment {
                 @Override
                 public void onItemClick(View v, int position) {
                     NewsBean.DataBean bean = mNewsBeanList.get(position);
-                    //int newsID = bean.getID();
                     Intent intent;
                     intent = new Intent(getActivity(), NewsDetailActivity.class);
                     intent.putExtra("URL", bean.getUrl());
-                    //intent.putExtra("ID",bean.getID());
+                    intent.putExtra("NEWSID",bean.getId());
                     getActivity().startActivity(intent);
                 }
             });
@@ -119,15 +118,12 @@ public class SearchNewsFragment extends BaseFragment {
 
         @Override
         protected ArrayList<NewsBean.DataBean> doInBackground(String... strings) {
-            ArrayList<NewsBean.DataBean> list = new HttpUtils().searchNews(
+            return new HttpUtils().searchNews(
                     //接收到FindListFragment向此fragment传的值，并向后端post
                     SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHTYPE",null),
                     SharedPreferenceUtils.getInstance().getString(getActivity(),"NEWSINPUT",""),
                     SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHTIME",null)
-
             );
-
-            return list;
         }
 
         @Override

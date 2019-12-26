@@ -98,9 +98,16 @@ public class SearchTrendFragment extends BaseFragment {
                 public void onItemClick(View v, int position) {
                     TrendBean.DataBean bean = mTrendBeanList.get(position);
                     Intent intent;
+                    //将动态详情全部转移
                     intent = new Intent(getActivity(), TrendDetailActivity.class);
-                    intent.putExtra("CID", 1);
-                    //commentBean.getID());
+                    intent.putExtra("TRENDID", bean.getID());
+                    intent.putExtra("TAUTHORID",bean.getAuthor_id());
+                    intent.putExtra("TNAME",bean.getNick_name());
+                    intent.putExtra("TTIME",bean.getRelease_time());
+                    intent.putExtra("TCONTENT",bean.getContent());
+                    intent.putExtra("TNEWSID",bean.getNews_id());
+                    intent.putExtra("TNEWSTITLE",bean.getTitle());
+                    intent.putExtra("TNEWSURL",bean.getUrl());
                     getActivity().startActivity(intent);
                 }
             });

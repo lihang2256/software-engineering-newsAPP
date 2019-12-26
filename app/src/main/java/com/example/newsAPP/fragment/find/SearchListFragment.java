@@ -40,12 +40,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class FindListFragment extends BaseFragment implements DefineView  {
+public class SearchListFragment extends BaseFragment implements DefineView  {
 
     private String tname;
     private String userID;
     private View mView;
-    private final String TAG = FindListFragment.class.getSimpleName();
+    private final String TAG = SearchListFragment.class.getSimpleName();
     private static final String FINDTNAME = "FINDTNAME";
     private static final String KEY = "TNAME";
     private Button first;
@@ -57,9 +57,6 @@ public class FindListFragment extends BaseFragment implements DefineView  {
     private ArrayList<TypeBean> options1Items = new ArrayList<>();
     private List<FollowBean.DataBean> followbeans = new ArrayList<>();
 
-
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,7 +66,11 @@ public class FindListFragment extends BaseFragment implements DefineView  {
         search = (Button)mView.findViewById(R.id.btn_search);
         editText = (EditText) mView.findViewById(R.id.input_key_word);
         userID = SharedPreferenceUtils.getInstance().getString(getActivity(),"USERID",null);
-
+        SharedPreferenceUtils.getInstance().setString(getActivity(),"SEARCHTYPE",null);
+        SharedPreferenceUtils.getInstance().setString(getActivity(),"NEWSINPUT","");
+        SharedPreferenceUtils.getInstance().setString(getActivity(),"SEARCHTIME",null);
+        SharedPreferenceUtils.getInstance().setString(getActivity(),"SEARCHFRIEND",null);
+        SharedPreferenceUtils.getInstance().setString(getActivity(),"TRENDINPUT","");
 
         if (getArguments() != null) {
             tname = getArguments().getString("FINDTNAME");
@@ -96,8 +97,7 @@ public class FindListFragment extends BaseFragment implements DefineView  {
         return mView;
     }
 
-
-        @Override
+    @Override
     public void initView() {
         if (tname == "新闻搜索") {
             first.setText("时间");
@@ -114,8 +114,6 @@ public class FindListFragment extends BaseFragment implements DefineView  {
     public void initValidata() {
 
     }
-
-
 
     @Override
     public void initListener() {
@@ -179,10 +177,10 @@ public class FindListFragment extends BaseFragment implements DefineView  {
 
     }
 
-    public static FindListFragment newInstance(String tname){
+    public static SearchListFragment newInstance(String tname){
         Bundle bundle = new Bundle();
         bundle.putSerializable(FINDTNAME, tname);
-        FindListFragment fragment = new FindListFragment();
+        SearchListFragment fragment = new SearchListFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -209,7 +207,6 @@ public class FindListFragment extends BaseFragment implements DefineView  {
                 first.setText(getTime(date));
                 //把时间选择器的选择的值 传值给 Fragment
                 SharedPreferenceUtils.getInstance().setString(getActivity(),"SEARCHTIME",getTime(date));
-
             }
         })
                 .setTimeSelectChangeListener(new OnTimeSelectChangeListener() {
