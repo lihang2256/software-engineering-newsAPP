@@ -11,6 +11,7 @@ import com.example.newsAPP.bean.NoDataBean;
 import com.example.newsAPP.bean.TrendBean;
 import com.example.newsAPP.bean.CommentBean;
 import com.example.newsAPP.bean.TrendCommentBean;
+import com.example.newsAPP.bean.UserBean;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -201,4 +202,15 @@ public class DataParse {
         return null;
     }
 
+    public static UserBean ramdom(String json) {
+        Gson gson = new Gson();
+        UserBean userBean = gson.fromJson(json, UserBean.class);
+        if(userBean.getStatus().equals("success")) {
+            return userBean;
+        }
+        else {
+            Log.e(TAG, "actionFailed: Request error");
+        }
+        return null;
+    }
 }

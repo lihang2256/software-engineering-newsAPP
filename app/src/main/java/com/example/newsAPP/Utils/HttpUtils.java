@@ -6,6 +6,7 @@ import com.example.newsAPP.bean.NewsBean;
 import com.example.newsAPP.bean.CommentBean;
 import com.example.newsAPP.bean.TrendBean;
 import com.example.newsAPP.bean.TrendCommentBean;
+import com.example.newsAPP.bean.UserBean;
 import com.example.newsAPP.common.CollectApi;
 import com.example.newsAPP.common.CommentApi;
 import com.example.newsAPP.common.DatabaseApi;
@@ -330,5 +331,18 @@ public class HttpUtils {
         searchTrendApi.setTime(time);
         String strJson = okHttp.sendPost(searchTrendApi, DatabaseApi.searchTrend);
         return DataParse.TrendList(strJson);
+    }
+
+    /**
+     * 摇一摇获取随机用户
+     * @param user_id 用户id
+     * @return 随机用户bean
+     */
+    public UserBean getUser(String user_id) {
+        OkHttp okHttp = new OkHttp();
+        UserIdApi userIdApi = new UserIdApi();
+        userIdApi.setUser(user_id);
+        String strJson = okHttp.sendPost(userIdApi, DatabaseApi.random);
+        return DataParse.ramdom(strJson);
     }
 }
