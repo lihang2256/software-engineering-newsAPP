@@ -92,7 +92,6 @@ public class SearchListFragment extends BaseFragment implements DefineView  {
             initValidata();
             initListener();
             initTimePicker();
-            initFocusPicker();
         }
         return mView;
     }
@@ -165,8 +164,6 @@ public class SearchListFragment extends BaseFragment implements DefineView  {
                     Fragment trend = new SearchTrendFragment();
                     FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                     transaction.replace(R.id.search_fragment, trend,"").commit();
-
-
                 }
             });
         }
@@ -381,9 +378,9 @@ public class SearchListFragment extends BaseFragment implements DefineView  {
          * 注意：如果是添加JavaBean实体数据，则实体类需要实现 IPickerViewData 接口，
          * PickerView会通过getPickerViewText方法获取字符串显示出来。
          */
-
-         new SearchFollowAsyncTask().execute();
+         new SearchFollowAsyncTask().execute(userID);
     }
+
     /**
      * 好友 接口
      * 异步方法，获取并渲染
@@ -396,16 +393,14 @@ public class SearchListFragment extends BaseFragment implements DefineView  {
 
         @Override
         protected ArrayList<FollowBean.DataBean> doInBackground(String... strings) {
-            ArrayList<FollowBean.DataBean> list = new HttpUtils().getFollow(userID);
-
-            return list;
+            return new HttpUtils().getFollow(strings[0]);
         }
 
         @Override
         protected void onPostExecute(ArrayList<FollowBean.DataBean> list) {
             super.onPostExecute(list);
             followbeans = list;
-            bindData();
+            initFocusPicker();
         }
     }
 }
