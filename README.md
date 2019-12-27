@@ -39,7 +39,7 @@ Wink是一款可以看新闻，添加好友，发表动态的移动应用。用�
 
 ## 3. 应用GUI展示
 
-<img src=".\image\channelmanagement.jpg"  /><img src=".\image\mine.jpg" alt="mine"  /><img src=".\image\news.jpg" alt="news"  /><img src=".\image\channelmanagement.jpg"  /><img src=".\image\mine.jpg" alt="mine"  /><img src=".\image\newsdetail.jpg" alt="newsdetail"  /><img src=".\image\channelmanagement.jpg"  /><img src=".\image\search.jpg" alt="search"  /><img src=".\image\trend.jpg" alt="trend"  /><img src=".\image\trenddetail.jpg" alt="trenddetail"  />
+<img src=".\image\channelmanagement.jpg"  /><img src=".\image\mine.jpg" alt="mine"  /><img src=".\image\news.jpg" alt="news"  /><img src=".\image\newsdetail.jpg" alt="newsdetail"  /><img src=".\image\search.jpg" alt="search"  /><img src=".\image\trend.jpg" alt="trend"  /><img src=".\image\trenddetail.jpg" alt="trenddetail"  />
 
 ## 4. 应用框架与整体架构
 
