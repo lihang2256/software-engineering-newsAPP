@@ -202,7 +202,7 @@ public class DataParse {
         return null;
     }
 
-    public static UserBean ramdom(String json) {
+    public static UserBean random(String json) {
         Gson gson = new Gson();
         UserBean userBean = gson.fromJson(json, UserBean.class);
         if(userBean.getStatus().equals("success")) {

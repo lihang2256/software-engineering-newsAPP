@@ -9,6 +9,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.ActionBar;
@@ -25,7 +26,16 @@ import android.widget.Toast;
 
 
 import com.example.newsAPP.R;
+import com.example.newsAPP.Utils.HttpUtils;
+import com.example.newsAPP.Utils.SharedPreferenceUtils;
+import com.example.newsAPP.bean.UserBean;
 import com.example.newsAPP.common.DefineView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 
 public class ShakeActivity extends BaseActivity implements DefineView ,SensorEventListener{
@@ -35,8 +45,10 @@ public class ShakeActivity extends BaseActivity implements DefineView ,SensorEve
     private LinearLayout topLayout, bottomLayout;
     private ImageView topLineIv, bottomLineIv;
     private boolean isShake = false;
+    private UserBean shakeBean ;
     private String userID;
-    private String anotherID;
+    private String friendID;
+    private String  friendName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +62,7 @@ public class ShakeActivity extends BaseActivity implements DefineView ,SensorEve
         bottomLineIv.setVisibility(View.GONE);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         vibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
+        userID = SharedPreferenceUtils.getInstance().getString(this,"USERID",null);
         initView();
         initValidata();
         initListener();
@@ -130,14 +143,16 @@ public class ShakeActivity extends BaseActivity implements DefineView ,SensorEve
     private void showDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(ShakeActivity.this);
         builder.setTitle("网络一线牵");
-
-        builder.setMessage("lucky");
+        new ShakeAsyncTask().execute();
+        friendID=shakeBean.getRandomID();
+        friendName=shakeBean.getRandomName();
+        builder.setMessage(friendName);
         builder.setPositiveButton("添加关注", new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                Toast.makeText(ShakeActivity.this, "positive: " + which, Toast.LENGTH_SHORT).show();
+                new IsFollowedAsyncTask().execute();
             }
         });
         builder.setNegativeButton("取消添加", new DialogInterface.OnClickListener()
@@ -145,7 +160,7 @@ public class ShakeActivity extends BaseActivity implements DefineView ,SensorEve
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                Toast.makeText(ShakeActivity.this, "negative: " + which, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShakeActivity.this, "已取消添加好友 " , Toast.LENGTH_LONG).show();
             }
         });
         builder.show();
@@ -238,5 +253,86 @@ public class ShakeActivity extends BaseActivity implements DefineView ,SensorEve
             actionBar.setHomeAsUpIndicator(R.drawable.icon_back);
         }
     }
-    // private
+
+    /**
+     * 获取摇一摇的随机用户
+     */
+    class ShakeAsyncTask extends AsyncTask<String,Integer,UserBean>{
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected UserBean doInBackground(String... strings) {
+            UserBean person = new HttpUtils().random(userID);
+            return person;
+        }
+
+        @Override
+        protected void onPostExecute(UserBean person) {
+            super.onPostExecute(person);
+            shakeBean = person;
+            bindData();
+        }
+    }
+
+    /**
+     * 是否关注 异步获取
+     */
+    class IsFollowedAsyncTask extends AsyncTask<String,Integer, Boolean> {
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+
+            boolean result = new HttpUtils().isFollow(userID,friendID);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result ) {
+            super.onPostExecute(result);
+
+            if (result){
+                Toast.makeText(ShakeActivity.this,"已关注了该用户",Toast.LENGTH_LONG).show();
+            }
+            else {
+                new FollowAsyncTask().execute(userID,friendID);
+            }
+
+        }
+    }
+
+    /**
+     * 关注  异步
+     */
+    class FollowAsyncTask extends AsyncTask<String,Integer,Boolean>{
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            boolean result = new HttpUtils().follow(userID,friendID);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            if (result) {
+                Toast.makeText(ShakeActivity.this,"关注成功",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(ShakeActivity.this,"关注失败",Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
 }

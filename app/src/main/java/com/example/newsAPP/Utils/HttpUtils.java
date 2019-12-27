@@ -338,11 +338,11 @@ public class HttpUtils {
      * @param user_id 用户id
      * @return 随机用户bean
      */
-    public UserBean getUser(String user_id) {
+    public UserBean random(String user_id) {
         OkHttp okHttp = new OkHttp();
         UserIdApi userIdApi = new UserIdApi();
         userIdApi.setUser(user_id);
         String strJson = okHttp.sendPost(userIdApi, DatabaseApi.random);
-        return DataParse.ramdom(strJson);
+        return DataParse.random(strJson);
     }
 }
