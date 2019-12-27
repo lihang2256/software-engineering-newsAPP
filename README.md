@@ -37,11 +37,15 @@ dependencies {
 
 Wink是一款可以看新闻，添加好友，发表动态的移动应用。用户可以在此查看各种新闻，并对与自己感兴趣的新闻发表评论。同时，用户还可以查看好友发表的动态，并对其追加评论。用户的动态只能由关注了自己的好友进行评论。这样，很多志趣相近的人便走到一起，并有聊不完的新鲜话题。
 
-## 3. 应用框架与整体架构
+## 3. 应用GUI展示
+
+<img src=".\image\channelmanagement.jpg" style="zoom:25%;" /><img src=".\image\mine.jpg" alt="mine" style="zoom:25%;" /><img src=".\image\news.jpg" alt="news" style="zoom:25%;" /><img src=".\image\newsdetail.jpg" alt="newsdetail" style="zoom:25%;" /><img src=".\image\search.jpg" alt="search" style="zoom:25%;" /><img src=".\image\trend.jpg" alt="trend" style="zoom:25%;" /><img src=".\image\trenddetail.jpg" alt="trenddetail" style="zoom:25%;" />
+
+## 4. 应用框架与整体架构
 
 本次应用开发使用MVC框架，有低耦合，可维护性高，层次清晰的优点。具体应用架构分为前后端两层。前端为两层嵌套的Fragment：外层为FragmentTabHost+Fragment；内层为TabLayout+ViewPager，层次分明，逻辑严谨。引用外部库在1中已经给出。后端采用Springboot框架，将mysql数据库部署在云端。后端从外部api调取新闻存在数据库中，前端用接口访问并将之显现 。
 
-## 4. 用例实现描述
+## 5. 用例实现描述
 
 ### 4.1 查看新闻/动态
 
@@ -87,11 +91,15 @@ Wink是一款可以看新闻，添加好友，发表动态的移动应用。用�
 
 你可以按照关键词、时间、类型（好友）搜索并查看对应的新闻（动态）。
 
-## 5. 测试
+## 6. 测试
 
 ### 5.1 Sonarqube
 
 本项目在中期应用sonarqube进行代码检测，并酌情修改。
+
+展示：
+
+![](.\image\sonarqube.png)
 
 ### 5.2 Junit
 
@@ -101,7 +109,11 @@ Wink是一款可以看新闻，添加好友，发表动态的移动应用。用�
 
 本项目引用LeakCanary进行内存泄漏监控，当有内存泄漏风险时，LeakCanary会给与提醒。
 
-## 6. 库与分工
+展示：
+
+<img src=".\image\leakcanary.jpg" alt="leakcanary" style="zoom: 25%;" />
+
+## 7. 库与分工
 
 我们的github库为：
 
