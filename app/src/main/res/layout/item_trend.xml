@@ -74,6 +74,7 @@
                 android:text="hhah"
                 android:textColor="@color/colorPrimary"
                 android:textSize="15sp"
+                android:maxLines="1"
                 android:visibility="visible">
             </TextView>
         </RelativeLayout>

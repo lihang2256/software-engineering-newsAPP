@@ -44,7 +44,6 @@ public class SearchListFragment extends BaseFragment implements DefineView  {
 
     private String tname;
     private String userID;
-    private View mView;
     private final String TAG = SearchListFragment.class.getSimpleName();
     private static final String FINDTNAME = "FINDTNAME";
     private static final String KEY = "TNAME";
@@ -60,10 +59,10 @@ public class SearchListFragment extends BaseFragment implements DefineView  {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_find_list, container, false);
-        first = (Button)mView.findViewById(R.id.btn_first);
-        second = (Button)mView.findViewById(R.id.btn_second);
-        search = (Button)mView.findViewById(R.id.btn_search);
+        View mView = inflater.inflate(R.layout.fragment_find_list, container, false);
+        first = (Button) mView.findViewById(R.id.btn_first);
+        second = (Button) mView.findViewById(R.id.btn_second);
+        search = (Button) mView.findViewById(R.id.btn_search);
         editText = (EditText) mView.findViewById(R.id.input_key_word);
         userID = SharedPreferenceUtils.getInstance().getString(getActivity(),"USERID",null);
         SharedPreferenceUtils.getInstance().setString(getActivity(),"SEARCHTYPE",null);
@@ -78,7 +77,8 @@ public class SearchListFragment extends BaseFragment implements DefineView  {
         //做出判断：
         // 如果是新闻搜索的tab，需要初始化时间选择器和类型选择器，
         // 如果是动态搜索的tab,需要初始化时间选择器和好友选择器
-        if (tname == "新闻搜索") {
+        assert tname != null;
+        if (tname.equals("新闻搜索")) {
             getTypeOptionData();
             initView();
             initValidata();
@@ -98,7 +98,7 @@ public class SearchListFragment extends BaseFragment implements DefineView  {
 
     @Override
     public void initView() {
-        if (tname == "新闻搜索") {
+        if (tname.equals("新闻搜索")) {
             first.setText("时间");
             second.setText("类型");
 
@@ -116,7 +116,7 @@ public class SearchListFragment extends BaseFragment implements DefineView  {
 
     @Override
     public void initListener() {
-        if (tname == "新闻搜索") {
+        if (tname.equals("新闻搜索")) {
             first.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -368,9 +368,11 @@ public class SearchListFragment extends BaseFragment implements DefineView  {
                 .build();
 
         //        pvOptions.setSelectOptions(1,1);
-        pv.setPicker(followbeans);//一级选择器*/
-        //  pvOptions.setPicker(options1Items, options2Items);//二级选择器
-        /*pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器*/
+        if (followbeans != null){
+            pv.setPicker(followbeans);//一级选择器*/
+            //  pvOptions.setPicker(options1Items, options2Items);//二级选择器
+            /*pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器*/
+        }
     }
 
     private void getFocusOptionData() {

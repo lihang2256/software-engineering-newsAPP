@@ -1,6 +1,7 @@
 package com.example.newsAPP.common;
 
 public class SearchTrendApi {
+
     /**
      * friend: XiaoMing
      * keyword : aaa

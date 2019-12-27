@@ -1,8 +1,14 @@
 package com.example.newsAPP.common;
 
 public class FollowApi {
+
+    /**
+     * user_id : 23
+     * friend_id : 63
+     */
+
     private String user_id;
-    private String frind_id;
+    private String friend_id;
 
     public String getUser_id() {
         return user_id;
@@ -12,11 +18,11 @@ public class FollowApi {
         this.user_id = user_id;
     }
 
-    public String getFrind_id() {
-        return frind_id;
+    public String getFriend_id() {
+        return friend_id;
     }
 
-    public void setFrind_id(String frind_id) {
-        this.frind_id = frind_id;
+    public void setFriend_id(String friend_id) {
+        this.friend_id = friend_id;
     }
 }

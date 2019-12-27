@@ -27,8 +27,6 @@ public class SearchFragment extends BaseFragment implements DefineView {
     private TabLayout mtableLayout;
     private ViewPager mFindViewpager;
     private View mView;
-    private FixedPagerAdapter fixedPagerAdapter;
-    private List<BaseFragment> fragments;
     private static  List<ProjectChannelBean> channelBeanList;
 
 
@@ -59,9 +57,9 @@ public class SearchFragment extends BaseFragment implements DefineView {
     }
     @Override
     public void initValidata() {
-        fixedPagerAdapter = new FixedPagerAdapter(getChildFragmentManager());
+        FixedPagerAdapter fixedPagerAdapter = new FixedPagerAdapter(getChildFragmentManager());
 
-        fragments = new ArrayList<BaseFragment>();
+        List<BaseFragment> fragments = new ArrayList<BaseFragment>();
         for (int i = 0;i<channelBeanList.size();i++){
             String str = "";
             ProjectChannelBean channelBean = channelBeanList.get(i);

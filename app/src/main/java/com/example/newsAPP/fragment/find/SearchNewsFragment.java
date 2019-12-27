@@ -31,6 +31,7 @@ import com.example.newsAPP.widget.LoadMoreFooterView;
 import java.util.ArrayList;
 
 public class SearchNewsFragment extends BaseFragment {
+
     private final String TAG = MineFragment.class.getSimpleName();
     private static final String KEY = "TNAME";
     private View mView;
@@ -38,9 +39,6 @@ public class SearchNewsFragment extends BaseFragment {
     private LoadMoreFooterView mLoadMoreFooterView;
     private NewsListAdapter mNewsListAdapter;
     private ArrayList<NewsBean.DataBean> mNewsBeanList = new ArrayList<>();
-
-
-
 
     @Nullable
     @Override
@@ -80,7 +78,8 @@ public class SearchNewsFragment extends BaseFragment {
         mIRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                if (mLoadMoreFooterView.canLoadMore() && mNewsListAdapter.getItemCount() > 0) {
+                if (mLoadMoreFooterView.canLoadMore()) {
+                    mNewsListAdapter.getItemCount();
                 }
             }
         });

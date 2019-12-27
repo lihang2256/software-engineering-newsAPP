@@ -1,6 +1,7 @@
 package com.example.newsAPP.common;
 
 public class CommentApi {
+
     /**
      * user_id : 26
      * trend_id : 2

@@ -44,7 +44,6 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
     private String userID;
     private String friendID;
     private String friendName;
-    private Context mContext;
     private String text;    //评论框内容
     private EditText editText;
     //以下是动态详情界面组件
@@ -54,13 +53,12 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
     private TextView news;
     private ListView listView;  //动态评论列表
     private ArrayList<TrendCommentBean.CommentListBean> beans;
-    private TCListAdapter adapter;
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trend_detail);
-        mContext = this;
+        Context mContext = this;
         userID = SharedPreferenceUtils.getInstance().getString(mContext,"USERID",null);
         Intent intent = getIntent();
         trendID = intent.getStringExtra("TRENDID");
@@ -149,7 +147,7 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
     @Override
     public void bindData() {
         if (beans != null) {
-            adapter = new TCListAdapter(this,beans);
+            TCListAdapter adapter = new TCListAdapter(this, beans);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override

@@ -30,8 +30,6 @@ public class TrendFragment extends BaseFragment implements DefineView {
     private TabLayout mTabLayout;
     private ViewPager mTrendViewpager;
     private View mView;
-    private FixedPagerAdapter fixedPagerAdapter;
-    private List<BaseFragment> fragments;
     private static  List<ProjectChannelBean> channelBeanList;
     private BaseFragment baseFragment;
 
@@ -60,8 +58,8 @@ public class TrendFragment extends BaseFragment implements DefineView {
 
     @Override
     public void initValidata() {
-        fragments = new ArrayList<>();
-        fixedPagerAdapter = new FixedPagerAdapter(getChildFragmentManager());
+        List<BaseFragment> fragments = new ArrayList<>();
+        FixedPagerAdapter fixedPagerAdapter = new FixedPagerAdapter(getChildFragmentManager());
         //根据预先设置好的目录初始化tabLayout
         for (int i = 0; i < channelBeanList.size(); i++){
             ProjectChannelBean channelBean = channelBeanList.get(i);

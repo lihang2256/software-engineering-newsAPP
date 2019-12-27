@@ -144,8 +144,7 @@ public class NewsListFragment extends BaseFragment {
 
         @Override
         protected ArrayList<NewsBean.DataBean> doInBackground(String... strings) {
-            ArrayList<NewsBean.DataBean> list = new HttpUtils().getNews(strings[0]);
-            return list;
+            return new HttpUtils().getNews(strings[0]);
         }
 
         @Override

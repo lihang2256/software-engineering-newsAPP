@@ -25,14 +25,10 @@ import com.example.newsAPP.common.DefineView;
 
 public class FansListActivity extends BaseActivity implements ContentsDeleteListener,OnClickListener, DefineView {
     private  ListView myLv;
-    private  Button myDeleteBtn;
     private  FansListAdapter myAdapter;
     private  List<FansBean.DataBean> myContentsList = new ArrayList<>();
     private  String userID ;
     private String fansID;
-
-
-    private String[] myContentsArray;
     private List<FansBean.DataBean> mySelectedList = new ArrayList<>();
 
     @Override
@@ -49,7 +45,7 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
     @Override
     public void initView() {
         myLv = (ListView) this.findViewById(R.id.my_lv2);
-        myDeleteBtn = (Button) this.findViewById(R.id.my_delete_btn2);
+        Button myDeleteBtn = (Button) this.findViewById(R.id.my_delete_btn2);
         myDeleteBtn.setOnClickListener(this);
         initToolbar();
     }
@@ -161,7 +157,6 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
      */
     @Override
     public void contentDelete(int position) {
-        // TODO Auto-generated method stub
         myContentsList.remove(position);
     }
 
@@ -170,7 +165,6 @@ public class FansListActivity extends BaseActivity implements ContentsDeleteList
      */
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         switch(v.getId()){
             case R.id.my_delete_btn2:
                 if (myContentsList != null) {

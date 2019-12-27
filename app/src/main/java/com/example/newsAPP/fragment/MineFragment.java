@@ -33,7 +33,6 @@ import com.example.newsAPP.activity.ShakeActivity;
 public class MineFragment extends BaseFragment{
     private final String TAG = MineFragment.class.getSimpleName();
     private String[] data;  //事先存好的菜单列表
-    private AboutAdapter adapter;
     private ListView mListView;
     private View mView;
     private String userID;
@@ -202,7 +201,7 @@ public class MineFragment extends BaseFragment{
 
     @Override
     public void bindData() {
-        adapter = new AboutAdapter();
+        AboutAdapter adapter = new AboutAdapter();
         mListView.setAdapter(adapter);
     }
 

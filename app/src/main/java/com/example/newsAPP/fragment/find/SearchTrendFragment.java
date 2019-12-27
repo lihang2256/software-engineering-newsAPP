@@ -33,7 +33,6 @@ import java.util.ArrayList;
 
 public class SearchTrendFragment extends BaseFragment {
 
-    private String tname;
     private View mView;
     private final String TAG = TrendListFragment.class.getSimpleName();
     private static final String KEY_TNAME = "TNAME";
@@ -80,7 +79,8 @@ public class SearchTrendFragment extends BaseFragment {
         mIRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                if (mLoadMoreFooterView.canLoadMore() && mTrendListAdapter.getItemCount() > 0) {
+                if (mLoadMoreFooterView.canLoadMore()) {
+                    mTrendListAdapter.getItemCount();
                 }
             }
         });

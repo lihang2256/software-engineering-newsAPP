@@ -37,11 +37,8 @@ public class NewsFragment extends BaseFragment implements DefineView {
     private FixedPagerAdapter fixedPagerAdapter;
     private List<BaseFragment> fragments;
     private List<ProjectChannelBean> myChannelList;
-    private List<ProjectChannelBean> moreChannelList;
     private ImageButton mChange_channel;
     private int tabPosition;    // 当前新闻频道的位置
-    private boolean isFirst;
-    private BaseFragment baseFragment;
 
 
     @Nullable
@@ -124,7 +121,8 @@ public class NewsFragment extends BaseFragment implements DefineView {
      * 如果不是第一次进入，则从sharedPrefered中获取设置好的频道
      */
     private void getDataFromSharedPreference() {
-        isFirst = (boolean)SharedPreferenceUtils.getInstance().getBoolean(getActivity(),"isFirst", true);
+        boolean isFirst = (boolean) SharedPreferenceUtils.getInstance().getBoolean(getActivity(), "isFirst", true);
+        List<ProjectChannelBean> moreChannelList;
         if (isFirst) {
             myChannelList = CategoryDataUtils.getChannelCategoryBeans();
             moreChannelList = CategoryDataUtils.getMoreCategoryBeans();
@@ -139,7 +137,7 @@ public class NewsFragment extends BaseFragment implements DefineView {
         }
         fragments.clear();
         for (int i = 0; i < myChannelList.size(); i++) {
-            baseFragment = NewsListFragment.newInstance(myChannelList.get(i).getTname());
+            BaseFragment baseFragment = NewsListFragment.newInstance(myChannelList.get(i).getTname());
             fragments.add(baseFragment);
         }
         if (myChannelList.size() <= 4) {
@@ -169,9 +167,7 @@ public class NewsFragment extends BaseFragment implements DefineView {
     }
 
     private List<ProjectChannelBean> setType(List<ProjectChannelBean> list) {
-        Iterator<ProjectChannelBean> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            ProjectChannelBean channelBean = iterator.next();
+        for (ProjectChannelBean channelBean : list) {
             channelBean.setTabType(APPConst.ITEM_EDIT);
         }
         return list;

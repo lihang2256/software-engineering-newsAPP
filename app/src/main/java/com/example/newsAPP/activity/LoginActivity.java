@@ -155,8 +155,7 @@ public class LoginActivity extends BaseActivity implements DefineView {
 
         @Override
         protected String doInBackground(String... strings) {
-            String result = new HttpUtils().login(strings[0],strings[1]);
-            return result;
+            return new HttpUtils().login(strings[0],strings[1]);
         }
 
         @Override
@@ -185,8 +184,7 @@ public class LoginActivity extends BaseActivity implements DefineView {
 
         @Override
         protected String doInBackground(String... strings) {
-            String result = new HttpUtils().signup(strings[0],strings[1]);
-            return result;
+            return new HttpUtils().signup(strings[0],strings[1]);
         }
 
         @Override

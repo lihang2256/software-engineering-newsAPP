@@ -128,10 +128,7 @@ public class DataParse {
         Gson gson = new Gson();
         JudgeFriendBean judgeFriendBean = gson.fromJson(json, JudgeFriendBean.class);
         if(judgeFriendBean.getStatus().equals("success")){
-            if(judgeFriendBean.getIs_friend()==1)
-                return true;
-            else
-                return false;
+            return judgeFriendBean.getIs_friend() == 1;
         }else{
             Log.e(TAG, "actionFailed: Request error");
         }

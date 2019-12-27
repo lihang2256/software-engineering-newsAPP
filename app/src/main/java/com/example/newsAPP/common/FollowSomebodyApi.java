@@ -1,6 +1,7 @@
 package com.example.newsAPP.common;
 
 public class FollowSomebodyApi {
+
     /**
      * user_id : 26
      * friend_id : 27

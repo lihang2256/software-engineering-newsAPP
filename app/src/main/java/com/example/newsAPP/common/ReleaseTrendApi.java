@@ -1,6 +1,7 @@
 package com.example.newsAPP.common;
 
 public class ReleaseTrendApi {
+
     /**
      * user_id : 26
      * content : 我真的不想再改了

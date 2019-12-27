@@ -229,7 +229,7 @@ public class HttpUtils {
      * @param user_id 用户id
      * @param comment 评论内容
      * @param trend_id 动态id
-     * @return
+     * @return String success
      */
     public String comment(String user_id,String comment, String trend_id){
         OkHttp okHttp = new OkHttp();

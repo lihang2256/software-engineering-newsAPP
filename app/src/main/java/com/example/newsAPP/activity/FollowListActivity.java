@@ -27,12 +27,10 @@ import com.example.newsAPP.common.DefineView;
 
 public class FollowListActivity extends BaseActivity implements ContentsDeleteListener,OnClickListener, DefineView {
     private  ListView myLv;
-    private Button myDeleteBtn;
     private FollowListAdapter myAdapter;
     private String userID;
     private String friendID;
     private List<FollowBean.DataBean> myContentsList = new ArrayList<>();
-    private String[] myContentsArray;
     private List<FollowBean.DataBean> mySelectedList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +46,7 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
     @Override
     public void initView() {
         myLv = (ListView) this.findViewById(R.id.my_lv1);
-        myDeleteBtn = (Button) this.findViewById(R.id.my_delete_btn1);
+        Button myDeleteBtn = (Button) this.findViewById(R.id.my_delete_btn1);
         myDeleteBtn.setOnClickListener(this);
         initToolbar();
     }
@@ -111,7 +109,7 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
 
     @Override
     public void bindData() {
-        myContentsArray = this.getResources().getStringArray(R.array.my_follow);
+        String[] myContentsArray = this.getResources().getStringArray(R.array.my_follow);
        if(myContentsList != null){
            myAdapter = new FollowListAdapter(this,myContentsList,this);
            myLv.setAdapter(myAdapter);
@@ -164,7 +162,6 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
      */
     @Override
     public void contentDelete(int position) {
-        // TODO Auto-generated method stub
         myContentsList.remove(position);
     }
 
@@ -173,7 +170,6 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
      */
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         switch(v.getId()){
             case R.id.my_delete_btn1:
                 if(myContentsList!=null) {

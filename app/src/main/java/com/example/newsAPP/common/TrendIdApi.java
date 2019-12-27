@@ -1,6 +1,7 @@
 package com.example.newsAPP.common;
 
 public class TrendIdApi {
+
     /**
      * trend_id : 1
      */

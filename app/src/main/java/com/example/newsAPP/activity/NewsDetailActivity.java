@@ -33,12 +33,10 @@ import java.util.ArrayList;
 public class NewsDetailActivity extends BaseActivity implements DefineView{
     private final String TAG = NewsDetailActivity.class.getSimpleName();
     private String newsID;
-    private Context mContext;
     private WebView mWebView;
     private String mUrl;
     private String userID;
     private ArrayList<CommentBean.DataBean> commentBeans;
-    private NTListAdapter adapter;
     private ListView listView;  //评论列表
     private EditText editText;
     private String text;    //评论内容
@@ -49,7 +47,7 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
-        mContext = this;
+        Context mContext = this;
         Intent intent = getIntent();
         mUrl = intent.getStringExtra("URL");
         userID = SharedPreferenceUtils.getInstance().getString(mContext,"USERID",null);
@@ -195,7 +193,7 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
     public void bindData() {
         if (commentBeans == null||commentBeans.size() <= 0){ }
         else {
-            adapter = new NTListAdapter(this,commentBeans);
+            NTListAdapter adapter = new NTListAdapter(this, commentBeans);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -260,9 +258,6 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
             else if (result.get(0).equals("False")&&result.get(1).equals("three")) {
                 Toast.makeText(NewsDetailActivity.this,"未收藏，不可取消收藏",Toast.LENGTH_SHORT).show();
             }
-            else{
-
-            }
         }
     }
 
@@ -278,8 +273,7 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
 
         @Override
         protected String doInBackground(String... strings) {
-            String result = new HttpUtils().collect(strings[0],strings[1],strings[2]);
-            return result;
+            return new HttpUtils().collect(strings[0],strings[1],strings[2]);
         }
 
         @Override
@@ -306,8 +300,7 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
 
         @Override
         protected ArrayList<CommentBean.DataBean> doInBackground(String... strings) {
-            ArrayList<CommentBean.DataBean> list = new HttpUtils().getNewsComment(strings[0]);
-            return list;
+            return new HttpUtils().getNewsComment(strings[0]);
         }
 
         @Override
@@ -381,8 +374,7 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
 
         @Override
         protected Boolean doInBackground(String... strings) {
-            boolean result = new HttpUtils().follow(strings[0],strings[1]);
-            return result;
+            return new HttpUtils().follow(strings[0],strings[1]);
         }
 
         @Override

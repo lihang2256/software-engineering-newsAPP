@@ -1,6 +1,7 @@
 package com.example.newsAPP.common;
 
 public class SignupApi {
+
     /**
      * id : a
      * password : 123

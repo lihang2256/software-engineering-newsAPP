@@ -1,6 +1,11 @@
 package com.example.newsAPP.common;
 
 public class GetnewsApi {
+
+    /**
+     * type : 头条
+     */
+
     private String type;
 
     public String getType() {

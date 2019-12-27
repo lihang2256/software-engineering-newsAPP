@@ -11,6 +11,8 @@ import com.example.newsAPP.R;
 import com.example.newsAPP.bean.CommentBean;
 import com.example.newsAPP.bean.TrendBean;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 /**
@@ -27,8 +29,9 @@ public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.View
         beans = trendBeans;
     }
 
+    @NotNull
     @Override
-    public TrendListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TrendListAdapter.ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         View view;
         view = View.inflate(mContext,R.layout.item_trend,null);
         return new ViewHolder(view);
@@ -80,12 +83,12 @@ public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.View
     }
 
     class ViewHolder extends IViewHolder{
-        public TextView item_comment_public_author;
-        public TextView item_comment_publish_time;
-        public TextView comment_show_content;
-        public TextView comment_news_about;
+        TextView item_comment_public_author;
+        TextView item_comment_publish_time;
+        TextView comment_show_content;
+        TextView comment_news_about;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             item_comment_public_author = (TextView) itemView.findViewById(R.id.item_comment_public_author);
             item_comment_publish_time = (TextView) itemView.findViewById(R.id.item_comment_publish_time);

@@ -46,8 +46,8 @@ public class DensityUtils {
     /**
      * 获得状态栏的高度
      * 注意：该方法只能在Activity类中使用，在测试模式下失败
-     * @param context
-     * @return
+     * @param context 上下文
+     * @return int
      */
     public static int getStatusBarHeight(Context context) {
         int statusBarHeight = -1;

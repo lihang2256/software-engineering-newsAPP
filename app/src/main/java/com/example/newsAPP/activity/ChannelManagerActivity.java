@@ -110,9 +110,7 @@ public class ChannelManagerActivity extends BaseActivity implements ChannelAdapt
 
     @Override
     protected void onPause() {
-        Iterator<ProjectChannelBean> iterator = mMyChannelList.iterator();
-        while (iterator.hasNext()){
-            ProjectChannelBean projectChannelBean = iterator.next();
+        for (ProjectChannelBean projectChannelBean : mMyChannelList) {
             // 将当前模式设置为不可编辑状态
             projectChannelBean.setEditStatus(0);
         }

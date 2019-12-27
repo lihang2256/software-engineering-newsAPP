@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import com.example.newsAPP.R;
 import com.example.newsAPP.bean.NewsBean;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * 新闻列表适配器
  */
@@ -31,9 +33,9 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
         mNewsBeanList = newsBeanList;
     }
 
-
+    @NotNull
     @Override
-    public NewsListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NewsListAdapter.ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         View view;
         view = View.inflate(mContext, R.layout.item_news, null);
         return new ViewHolder(view);
@@ -42,13 +44,12 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
 
     //
     @Override
-    public void onBindViewHolder(final NewsListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NotNull final NewsListAdapter.ViewHolder holder, int position) {
         NewsBean.DataBean bean = mNewsBeanList.get(position);
         String imageSrc = bean.getPicture();
         String title = bean.getTitle();
         String source = bean.getAuthor();
         String postTime = bean.getTime();
-        ViewHolder viewHolder = holder;
         //刨去默认新闻
         if (!title.equals("null")){
             // 设置图片
@@ -108,13 +109,13 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     }
 
     class ViewHolder extends IViewHolder {
-        public TextView item_news_tv_title;
-        public TextView item_news_tv_time;
-        public TextView item_news_tv_arrow;
-        public TextView item_news_tv_source;
-        public ImageView item_news_tv_img;
+        TextView item_news_tv_title;
+        TextView item_news_tv_time;
+        TextView item_news_tv_arrow;
+        TextView item_news_tv_source;
+        ImageView item_news_tv_img;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             item_news_tv_title = (TextView) itemView.findViewById(R.id.item_news_tv_title);
             item_news_tv_time = (TextView) itemView.findViewById(R.id.item_news_tv_time);
