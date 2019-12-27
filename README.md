@@ -99,7 +99,7 @@ Wink是一款可以看新闻，添加好友，发表动态的移动应用。用�
 
 展示：
 
-![](.\image\sonarqube.png)
+<img src=".\image\sonarqube.png"  />
 
 ### 5.2 Junit
 
