@@ -31,6 +31,8 @@ public class DatabaseApi {
     public static final String login = "login";
     //搜索新闻
     public static final String searchNews = "searchNews";
+    //搜索动态
+    public static final String searchTrend = "searchTrend";
     //获取新闻评论
     public static final String getNewsAllComment = "getNewsAllComment";
     //获取动态详情和动态评论

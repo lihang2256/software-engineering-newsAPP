@@ -15,6 +15,7 @@ import com.example.newsAPP.common.GetnewsApi;
 import com.example.newsAPP.common.LoginApi;
 import com.example.newsAPP.common.ReleaseTrendApi;
 import com.example.newsAPP.common.SearchNewsApi;
+import com.example.newsAPP.common.SearchTrendApi;
 import com.example.newsAPP.common.SendIdApi;
 import com.example.newsAPP.common.SignupApi;
 import com.example.newsAPP.common.TrendIdApi;
@@ -313,5 +314,21 @@ public class HttpUtils {
         searchNewsApi.setTime(time);
         String strJson = okHttp.sendPost(searchNewsApi, DatabaseApi.searchNews);
         return DataParse.NewsList(strJson);
+    }
+    /**
+     * 搜索动态
+     * @param friend 关注
+     * @param keyword 关键词
+     * @param time 时间
+     * @return 动态列表
+     */
+    public ArrayList<TrendBean.DataBean> searchTrend(String friend, String keyword, String time){
+        OkHttp okHttp = new OkHttp();
+        SearchTrendApi searchTrendApi = new SearchTrendApi();
+        searchTrendApi.setFriend(friend);
+        searchTrendApi.setKeyword(keyword);
+        searchTrendApi.setTime(time);
+        String strJson = okHttp.sendPost(searchTrendApi, DatabaseApi.searchTrend);
+        return DataParse.TrendList(strJson);
     }
 }

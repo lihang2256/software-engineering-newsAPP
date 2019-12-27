@@ -344,7 +344,7 @@ public class SearchListFragment extends BaseFragment implements DefineView  {
                 second.setText(tx);
 
                 //把好友选择器选择的值 传值给 SearchTrendFragment
-                String friend = SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHFRIEND",tx);
+                SharedPreferenceUtils.getInstance().setString(getActivity(),"SEARCHFRIEND",tx);
             }
         })
                 .setTitleText("好友选择")

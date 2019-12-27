@@ -66,7 +66,7 @@ public class SearchTrendFragment extends BaseFragment {
     @Override
     public void initValidata() {
     //调用execute()方法，向后端发出请求
-    //   new SearchListAsyncTask().execute();
+       new SearchListAsyncTask().execute();
     }
 
 
@@ -118,30 +118,30 @@ public class SearchTrendFragment extends BaseFragment {
      * 搜索 动态 接口
      * 异步方法，获取并渲染
      */
-//    class SearchListAsyncTask extends AsyncTask<String,Integer,ArrayList<TrendBean.DataBean>>{
-//        @Override
-//        protected void onPreExecute(){
-//            super.onPreExecute();
-//        }
-//
-//        @Override
-//        protected ArrayList<TrendBean.DataBean> doInBackground(String... strings) {
-//            ArrayList<TrendBean.DataBean> list = new HttpUtils().searchTrend(
-//                      //接收到FindListFragment向此fragment传的值，并向后端post
-//                    SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHFRIEND",null),
-//                    SharedPreferenceUtils.getInstance().getString(getActivity(),"TRENDINPUT",""),
-//                    SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHTIME",null)
-//            );
-//            return list;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(ArrayList<TrendBean.DataBean> list) {
-//            super.onPostExecute(list);
-//            mTrendBeanList = list;
-//            bindData();
-//        }
-//    }
+    class SearchListAsyncTask extends AsyncTask<String,Integer,ArrayList<TrendBean.DataBean>>{
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected ArrayList<TrendBean.DataBean> doInBackground(String... strings) {
+            ArrayList<TrendBean.DataBean> list = new HttpUtils().searchTrend(
+                      //接收到FindListFragment向此fragment传的值，并向后端post
+                    SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHFRIEND",null),
+                    SharedPreferenceUtils.getInstance().getString(getActivity(),"TRENDINPUT",""),
+                    SharedPreferenceUtils.getInstance().getString(getActivity(),"SEARCHTIME",null)
+            );
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<TrendBean.DataBean> list) {
+            super.onPostExecute(list);
+            mTrendBeanList = list;
+            bindData();
+        }
+    }
 
     public static TrendListFragment newInstance(String tname){
         Bundle bundle = new Bundle();

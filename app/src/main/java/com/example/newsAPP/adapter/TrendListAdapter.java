@@ -73,7 +73,10 @@ public class TrendListAdapter extends RecyclerView.Adapter<TrendListAdapter.View
 
     @Override
     public int getItemCount() {
-        return beans.size();
+        if(beans!=null) {
+            return beans.size();
+        }
+        return -1;
     }
 
     class ViewHolder extends IViewHolder{
