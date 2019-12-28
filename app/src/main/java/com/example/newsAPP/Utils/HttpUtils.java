@@ -14,6 +14,7 @@ import com.example.newsAPP.common.FollowSomebodyApi;
 import com.example.newsAPP.common.GetNewsCommentApi;
 import com.example.newsAPP.common.GetnewsApi;
 import com.example.newsAPP.common.LoginApi;
+import com.example.newsAPP.common.ModifyPasswordApi;
 import com.example.newsAPP.common.ReleaseTrendApi;
 import com.example.newsAPP.common.SearchNewsApi;
 import com.example.newsAPP.common.SearchTrendApi;
@@ -344,5 +345,20 @@ public class HttpUtils {
         userIdApi.setUser(user_id);
         String strJson = okHttp.sendPost(userIdApi, DatabaseApi.random);
         return DataParse.random(strJson);
+    }
+
+    /**
+     * 修改密码
+     * @param user_id 用户id
+     * @param newPassword 新密码
+     * @return String success
+     */
+    public String modifyPassword(String user_id, String newPassword){
+        OkHttp okHttp = new OkHttp();
+        ModifyPasswordApi modifyPasswordApi = new ModifyPasswordApi();
+        modifyPasswordApi.setUser(user_id);
+        modifyPasswordApi.setPassword(newPassword);
+        String strJson = okHttp.sendPost(modifyPasswordApi, DatabaseApi.random);
+        return DataParse.signup(strJson);   //解析相同，没有另写
     }
 }

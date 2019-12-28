@@ -36,12 +36,12 @@ public class FollowBean {
 
 //    public String getPickerViewText() {
 //
-//        //   List<String> mapList1 = name.stream().map(FollowBean.DataBean::getNick_name).collect(Collectors.toList());   java8语法，不适用
+//        //   List<String> mapList1 = name.stream().map(FollowBean.DataBean::getPassword).collect(Collectors.toList());   java8语法，不适用
 //
 //        List<FollowBean.DataBean> followbeans = new ArrayList<>();
 //        List<String> name = new ArrayList<>();
 //        for( int i = 0; i < followbeans.size(); i++ ) {
-//            name.add(followbeans.get(i).getNick_name());
+//            name.add(followbeans.get(i).getPassword());
 //        }
 //        return name.toString();
 //    }

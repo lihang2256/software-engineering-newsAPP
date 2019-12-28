@@ -79,43 +79,58 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
         switch (item.getItemId()){
             //评论
             case R.id.menu_1:
-                AlertDialog.Builder builder = new AlertDialog.Builder(NewsDetailActivity.this);
-                builder.setTitle("请输入评论（不超过100字）");
-                View view = LayoutInflater.from(NewsDetailActivity.this).inflate(R.layout.dialog, null);
-                builder.setView(view);
-                editText = (EditText)view.findViewById(R.id.comment_commit_content);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
+                if (userID == null){
+                    Toast.makeText(NewsDetailActivity.this,"请先登陆",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(NewsDetailActivity.this);
+                    builder.setTitle("请输入评论（不超过100字）");
+                    View view = LayoutInflater.from(NewsDetailActivity.this).inflate(R.layout.dialog, null);
+                    builder.setView(view);
+                    editText = (EditText)view.findViewById(R.id.comment_commit_content);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
                     {
-                        text = editText.getText().toString();
-                        if (text.equals("")){
-                            Toast.makeText(NewsDetailActivity.this,"不可以发表空评论",Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            new CommentAsyncTask().execute(userID,text, newsID);
-                        }
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            text = editText.getText().toString();
+                            if (text.equals("")){
+                                Toast.makeText(NewsDetailActivity.this,"不可以发表空评论",Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                new CommentAsyncTask().execute(userID,text, newsID);
+                            }
 
-                    }
-                });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
+                        }
+                    });
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
                     {
-                    }
-                });
-                builder.show();
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                        }
+                    });
+                    builder.show();
+                }
                 break;
             //收藏
             case R.id.menu_2:
                 //判断是否收藏
-                new IsCollectedAsyncTask().execute("query",userID,newsID,"two");
+                if (userID == null) {
+                    Toast.makeText(NewsDetailActivity.this,"请先登陆",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    new IsCollectedAsyncTask().execute("query",userID,newsID,"two");
+                }
                 break;
             //取消收藏
             case R.id.menu_3:
-                new IsCollectedAsyncTask().execute("query",userID,newsID,"three");
+                if (userID == null) {
+                    Toast.makeText(NewsDetailActivity.this,"请先登陆",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    new IsCollectedAsyncTask().execute("query", userID, newsID, "three");
+                }
                 break;
             //左上角返回上一菜单
             case android.R.id.home:
@@ -191,39 +206,39 @@ public class NewsDetailActivity extends BaseActivity implements DefineView{
      */
     @Override
     public void bindData() {
-        if (commentBeans == null||commentBeans.size() <= 0){ }
-        else {
+        if (commentBeans != null) {
             NTListAdapter adapter = new NTListAdapter(this, commentBeans);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    CommentBean.DataBean bean = commentBeans.get(position);
-                    authorID = bean.getUser_id();
-                    authorName = bean.getNick_name();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(NewsDetailActivity.this);
-                    builder.setTitle("关注");
-                    builder.setMessage(authorName);
-                    builder.setPositiveButton("添加关注", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-                            new IsFollowedAsyncTask().execute(userID,authorID);
-                        }
-                    });
-                    builder.setNegativeButton("取消添加", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-                        }
-                    });
-                    builder.show();
+                    if (userID != null) {
+                        CommentBean.DataBean bean = commentBeans.get(position);
+                        authorID = bean.getUser_id();
+                        authorName = bean.getNick_name();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(NewsDetailActivity.this);
+                        builder.setTitle("关注");
+                        builder.setMessage(authorName);
+                        builder.setPositiveButton("添加关注", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new IsFollowedAsyncTask().execute(userID, authorID);
+                            }
+                        });
+                        builder.setNegativeButton("取消添加", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        builder.show();
+                    }
+                    else {
+                        Toast.makeText(NewsDetailActivity.this,"请先登录",Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
+            }
         }
-    }
 
     /**
      * 是否收藏异步

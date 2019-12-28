@@ -102,31 +102,36 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
     @Override
     public void initListener() {
         //给动态作者名绑定关注异步
-        author.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(TrendDetailActivity.this);
-                builder.setTitle("关注");
-                builder.setMessage(a_name);
-                builder.setPositiveButton("添加关注", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
+        if (userID != null){
+            author.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TrendDetailActivity.this);
+                    builder.setTitle("关注");
+                    builder.setMessage(a_name);
+                    builder.setPositiveButton("添加关注", new DialogInterface.OnClickListener()
                     {
-                        new IsFollowedAsyncTask().execute(userID,authorID,"one");
-                    }
-                });
-                builder.setNegativeButton("取消添加", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            new IsFollowedAsyncTask().execute(userID,authorID,"one");
+                        }
+                    });
+                    builder.setNegativeButton("取消添加", new DialogInterface.OnClickListener()
                     {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
 
-                    }
-                });
-                builder.show();
-            }
-        });
+                        }
+                    });
+                    builder.show();
+                }
+            });
+        }
+        else {
+            Toast.makeText(TrendDetailActivity.this,"请先登陆",Toast.LENGTH_SHORT).show();
+        }
         //若有相关新闻，添加跳转链接
         if (news.getVisibility() == View.VISIBLE){
             news.setOnClickListener(new View.OnClickListener() {
@@ -152,30 +157,31 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    TrendCommentBean.CommentListBean bean = beans.get(position);
-                    friendID = bean.getUser_id();
-                    friendName = bean.getNick_name();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(TrendDetailActivity.this);
-                    builder.setTitle("关注");
-                    builder.setMessage(friendName);
-                    builder.setPositiveButton("添加关注", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-                            new IsFollowedAsyncTask().execute(userID,friendID,"one");
-                        }
-                    });
-                    builder.setNegativeButton("取消添加", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-                        }
-                    });
-                    builder.show();
+                    if (userID != null) {
+                        TrendCommentBean.CommentListBean bean = beans.get(position);
+                        friendID = bean.getUser_id();
+                        friendName = bean.getNick_name();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(TrendDetailActivity.this);
+                        builder.setTitle("关注");
+                        builder.setMessage(friendName);
+                        builder.setPositiveButton("添加关注", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new IsFollowedAsyncTask().execute(userID, friendID, "one");
+                            }
+                        });
+                        builder.setNegativeButton("取消添加", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        builder.show();
+                    }
+                    else {
+                        Toast.makeText(TrendDetailActivity.this,"请先登录",Toast.LENGTH_SHORT).show();
+                    }
                 }
-            });
+                });
         }
     }
 
@@ -207,32 +213,37 @@ public class TrendDetailActivity extends BaseActivity implements DefineView{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.trend_menu_1:
-                AlertDialog.Builder builder = new AlertDialog.Builder(TrendDetailActivity.this);
-                builder.setTitle("请输入评论（不超过100字）");
-                View view = LayoutInflater.from(TrendDetailActivity.this).inflate(R.layout.dialog, null);
-                builder.setView(view);
-                editText = (EditText)view.findViewById(R.id.comment_commit_content);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
+                if (userID != null){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TrendDetailActivity.this);
+                    builder.setTitle("请输入评论（不超过100字）");
+                    View view = LayoutInflater.from(TrendDetailActivity.this).inflate(R.layout.dialog, null);
+                    builder.setView(view);
+                    editText = (EditText)view.findViewById(R.id.comment_commit_content);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
                     {
-                        text = editText.getText().toString();
-                        if (text.equals("")){
-                            Toast.makeText(TrendDetailActivity.this,"不可以为空",Toast.LENGTH_SHORT).show();
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            text = editText.getText().toString();
+                            if (text.equals("")){
+                                Toast.makeText(TrendDetailActivity.this,"不可以为空",Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                new IsFollowedAsyncTask().execute(userID,authorID,"two");
+                            }
                         }
-                        else {
-                            new IsFollowedAsyncTask().execute(userID,authorID,"two");
-                        }
-                    }
-                });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    { }
-                });
-                builder.show();
+                    });
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        { }
+                    });
+                    builder.show();
+                }
+                else {
+                    Toast.makeText(TrendDetailActivity.this,"请先登录",Toast.LENGTH_SHORT).show();
+                }
                 break;
             case android.R.id.home:
                 finish();

@@ -26,6 +26,7 @@ import com.example.newsAPP.activity.AboutActivity;
 import com.example.newsAPP.activity.CollectionListActivity;
 import com.example.newsAPP.activity.FansListActivity;
 import com.example.newsAPP.activity.FollowListActivity;
+import com.example.newsAPP.activity.InformationActivity;
 import com.example.newsAPP.activity.LoginActivity;
 import com.example.newsAPP.activity.MainActivity;
 import com.example.newsAPP.activity.ShakeActivity;
@@ -99,7 +100,14 @@ public class MineFragment extends BaseFragment{
                         }
                         break;
                     case 1:
-                        //进入个人信息，目前没有实现
+                        //进入个人信息
+                        if (userID != null) {
+                            intent = new Intent(getActivity(), InformationActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(getActivity(),"请先登陆",Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case 2:
                         //进入关注

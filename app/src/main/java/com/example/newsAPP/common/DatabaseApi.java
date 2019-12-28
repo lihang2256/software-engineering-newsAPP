@@ -45,4 +45,8 @@ public class DatabaseApi {
     public static final String signup = "register";
     //摇一摇获取用户
     public static final String random = "random";
+    //修改昵称
+    public static final String modifyName = "modifyName";
+    //修改密码
+    public static final String modifyPassword = "modifyPassword";
 }

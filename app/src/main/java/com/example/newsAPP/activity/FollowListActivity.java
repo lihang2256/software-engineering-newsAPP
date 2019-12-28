@@ -37,7 +37,6 @@ public class FollowListActivity extends BaseActivity implements ContentsDeleteLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follow_list);
         userID = SharedPreferenceUtils.getInstance().getString(this,"USERID",null);
-
         initView();
         initValidata();
         initListener();
